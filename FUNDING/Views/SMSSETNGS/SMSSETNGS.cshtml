@@ -1,0 +1,473 @@
+﻿
+@{
+    ViewBag.Title = "SMSSETNGS";
+    Layout = "~/Views/Shared/Funding.cshtml";
+
+    ViewData["Title"] = "SMS Settings";
+}
+
+@section styles{
+    <style>
+        form label {
+            margin-bottom: .25rem;
+        }
+    </style>
+}
+
+@section scripts{
+
+    <script type="text/javascript">
+    $(document).ready(function () {
+        //getaccess();
+        bindSMTPDetails();
+        $("#btnSubmit").click(function () {
+            addSMTP();
+            //jQuery("#tbl-smtp tbody").empty();
+        })
+        $("#btnDelete").click(function () {
+            delSMTP();
+            //jQuery("#tbl-smtp tbody").empty();
+        });
+    });
+    var glob;
+    @*function getaccess() {
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("Editright", "AccessRights")',
+            data: JSON.stringify({ 'name': 'Board', 'id': '@Session["UserID"]' }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            success: function (value) {
+               // jQuery.each(data, function (key, value) {
+                    if (value.Aview == "Y") {
+                        document.getElementById("btnAdd").style.visibility = "Visible";
+                        delet = true;
+                        edit = true;
+                    }
+                    else {
+                        document.getElementById("btnAdd").style.visibility = "hidden";
+                        delet = false;
+                        edit = false;
+                    }
+                    if (value.AAdd == "Y") {
+                        document.getElementById("btnAdd").style.visibility = "visible";
+                    }
+                    else {
+                        document.getElementById('btnAdd').style.visibility = "hidden";
+                    }
+                    if (value.ADelete == "Y") {
+                        delet = true;
+                    }
+                    else {
+                        delet = false;
+                    }
+                    //if (value.AUpdate == "Y") {
+                    //    edit = true;
+                    //}
+                    //else {
+                    //    edit = false;
+                    //}
+                //})
+            }
+        });
+    }*@
+    function bindSMTPDetails() {
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetSMTPDetails", "SMSSETNGS")',
+            data: '{}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                jQuery("#tbl-smtp tbody").empty();
+                if (jQuery.fn.DataTable.isDataTable("#tbl-smtp")) {
+                    jQuery('#tbl-smtp').DataTable().clear().destroy();
+                }
+
+                if (data != 0) {
+                    var i = 1;
+                    jQuery.each(data, function (key, value) {
+                        var row = '<tr>' +
+
+                            '<td>' + i + '</td>' +
+                            '<td>' + value.From_Address + '</td>' +
+                            '<td>' + value.USER_Name + '</td>' +
+                            '<td>' + value.Mobile_Service + '</td>' +
+                            '<td class="px-2"><button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#modal-smtp" id="btn' + value.SNO + '" data-sid="' + value.SNO + '" data-pwd="' + value.Password + '"  value="Edit" onclick="showSMTPModal(this)"><i class="fas fa-pen" ></i ></button >&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-dark btn-sm" data-sid="' + value.SNO + '" id="btnDelete" data-pwd="' + value.Password + '" data-rec="0" onclick="delSMTP(this)"><i class="fas fa-trash" aria-hidden="true"></i></button></td>' +
+                            '</tr>';
+                        i++;
+                        jQuery("#tbl-smtp tbody").append(row);
+                    });
+                }
+                applyDatatable('tbl-smtp');
+
+
+            }
+        })
+    }
+
+    function delSMTP(e) {
+
+        var x = confirm("Are you sure you want to delete?");
+        if (x) {
+            jQuery('#hdnEmployee').val('D');
+            cid = jQuery(e).data('sid');
+            deleteSMTP(cid);
+            return true;
+        }
+        else
+            return false;
+
+    }
+
+    function addSMTP() {
+
+        var message = validateEmployee(),
+            //var message = '',
+            type = '',
+            opType = jQuery("#hdnEmployee").val();
+
+        if (message.length > 0 && opType != 'D') {
+            notifyMessage(message, 'danger');
+        }
+        else {
+            var params = JSON.stringify(getSMTPValues());
+            //  alert(params);
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddSMTP", "SMSSETNGS")',
+                data: params,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    hideModal('modal-smtp');
+                    if (opType == 'C' && data) {
+
+                            message = jQuery("#txtEmail").val() + ' Successfully Created';
+                            type = 'success';
+
+                    }
+                    else if (opType == 'U' && data) {
+                        message = jQuery("#txtEmail").val() + ' Successfully Updated';
+                        type = 'success';
+                    }
+
+                    notifyMessage(message, type, 5);
+                    bindSMTPDetails();
+                }
+            })
+        }
+    }
+
+
+    function deleteSMTP(cid) {
+        //var message = validateEmployee(),
+        //var message = '',
+        type = '',
+            opType = jQuery("#hdnEmployee").val();
+
+
+        var params = JSON.stringify(getSMTPID(cid));
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteSMTP", "SMSSETNGS")',
+            data: params,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                message = jQuery("#txtEmail").val() + ' Successfully Deleted';
+                type = 'success';
+                notifyMessage(message, type);
+                bindSMTPDetails();
+            }
+        })
+
+    }
+
+    </script>
+
+    <script type="text/javascript">
+
+        var cid;
+        var king = true;
+        function ValidateEmailss() {
+
+            var email = document.getElementById('txtEmail').value;
+            var reg = /([a-zA-Z0-9]+)([\_\.\-{1}])?([a-zA-Z0-9]+)\@@([a-zA-Z0-9]+)([\.])([a-zA-Z\.]+)/g;
+            if (reg.test(email)) {
+                lblError.innerHTML = "";
+                //   jQuery('#lblError').css('color', 'Green');
+                king = true;
+            }
+            else {
+                lblError.innerHTML = "Invalid email address.";
+                jQuery('#lblError').css('color', 'Red');
+                king = false;
+            }
+
+        }
+
+
+        function resetSMS() {
+            var txtEmail = document.getElementById('txtEmail');
+            var txtAdd = document.getElementById('txtAdd');
+            var txtUname = document.getElementById('txtUname');
+            txtPass = document.getElementById('txtPass');
+            txtEmail.value =
+                txtAdd.value =
+                txtUname.value =
+                txtPass.value = '';
+        }
+        function showSMTPModal(e) {
+
+            var txtEmail = document.getElementById('txtEmail'),
+                txtAdd = document.getElementById('txtAdd'),
+                txtUname = document.getElementById('txtUname'),
+                txtSID = document.getElementById('txtSID'),
+                txtPass = document.getElementById('txtPass');
+
+            var tblemployee = document.getElementById('tbl-smtp'),
+                rows = tblemployee.rows,
+                hdnEmployee = document.getElementById('hdnEmployee');
+
+            if (e.value.indexOf('Edit') > -1) {
+                jQuery("#btnSubmit").html("Update");
+                for (var i = 0, row = null; i < rows.length; i++) {
+                    row = rows[i];
+
+                    if (row.cells[4].innerHTML.indexOf(e.id) > -1) {
+                        txtSID.value = jQuery(e).data('sid');
+                        txtEmail.value = row.cells[1].innerHTML;
+                        txtAdd.value = row.cells[3].innerHTML;
+                        txtUname.value = row.cells[2].innerHTML;
+                        txtPass.value = jQuery(e).data('pwd');
+                        break;
+                    }
+                }
+
+                hdnEmployee.value = 'U';
+            }
+            else if (e.value.indexOf('Add') > -1) {
+                resetSMS();
+                jQuery("#btnSubmit").html("Save");
+                hdnEmployee.value = 'C';
+            }
+
+        }
+
+        function getSMTPValues() {
+            // jQuery.noConflict();
+            var txtEmail = document.getElementById('txtEmail'),
+                txtAdd = document.getElementById('txtAdd'),
+                txtUname = document.getElementById('txtUname'),
+                txtPass = document.getElementById('txtPass'),
+                txtSID = document.getElementById('txtSID'),
+                hdnEmployee = document.getElementById('hdnEmployee');
+            if (txtSID.value == '') {
+                txtSID.value = '0';
+            }
+            var table = jQuery('#tbl-smtp').DataTable(),
+                selectedRow = table.rows('.selected').data();
+
+            if (hdnEmployee.value == "C" && king == true) {
+                txtSID.value = '0';
+                jk = false;
+                var data = {
+                    from_address: txtEmail.value.trim(),
+                    smtp_mob: txtAdd.value.trim(),
+                    smtp_uname: txtUname.value.trim(),
+                    smtp_pwd: txtPass.value.trim(),
+                    sno: txtSID.value,
+                }
+
+                return data;
+            }
+            else if (hdnEmployee.value == "U" && king == true) {
+
+                var data = {
+                    from_address: txtEmail.value.trim(),
+                    smtp_mob: txtAdd.value.trim(),
+                    smtp_uname: txtUname.value.trim(),
+                    smtp_pwd: txtPass.value.trim(),
+                    sno: txtSID.value,
+                }
+
+                return data;
+            }
+
+
+            return data;
+        }
+
+
+        function getSMTPID(glob) {
+            // jQuery.noConflict();
+
+
+            var table = jQuery('#tbl-smtp').DataTable(),
+                selectedRow = table.rows('.selected').data();
+
+            if (hdnEmployee.value == "D") {
+
+                var data = {
+
+                    sno: glob,
+
+                }
+
+                return data;
+            }
+        }
+
+        function validateEmployee() {
+
+            var txtEmail = document.getElementById('txtEmail');
+            var txtAdd = document.getElementById('txtAdd');
+            var txtUname = document.getElementById('txtUname');
+            var txtPass = document.getElementById('txtPass');
+            result = '';
+            if (txtEmail.value.trim().length == 0) {
+                result += 'SMS Email is Required.<br/>';
+            }
+            if (txtPass.value.trim().length == 0) {
+                result += 'Password is Required .<br/>';
+            }
+            if (txtUname.value.trim().length == 0) {
+                result += 'Service ID is Required.<br/>';
+            }
+            if (txtAdd.value.trim().length == 0) {
+                result += 'Mobile Service ID is Required.<br/>';
+            }
+            return result;
+        }
+
+    </script>
+
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Setup", "Setup")">@ViewData["hom"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+
+        <h5 class="card-title" id="lblsm">@ViewData["smsset"]</h5>
+
+        <div class="form-group text-end">
+            <button type="button" id="btnAdd" value="Add" data-sid="0"
+                    class="btn btn-primary btn-rounded" onclick="showSMTPModal(this);" data-toggle="modal"
+                    data-target="#modal-smtp">
+                <i class="fas fa-plus"></i>
+                Create
+            </button>
+            <input type="hidden" id="hdnEmployee" />
+        </div>
+        <hr />
+        <div class="table-responsive pb-2">
+            <table id="tbl-smtp" class="table table-bordered display">
+                <thead>
+                    <tr>
+                        <th class="sno-th">Sno</th>
+                        <th>from address</th>
+                        <th class="sno-th">Sender id</th>
+                        <th class="setup_3_actions">Mobile Server</th>
+                        <th class="setup_2_actions">Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+<!-- [MODALS] -->
+<div class="modal fade" id="modal-smtp" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false"
+     aria-labelledby="believerCreateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-centered believerModal modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lblsm1">SMS Settings</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form class="col-12 p-0 mx-auto" action="AddSMTP" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdFrom" class="f-label_align label-130">
+                                From address<span class="text-danger">*</span>
+                            </label>
+                            <div class="d-flex flex-column w-100">
+                                <input type="text" class="form-control" id="txtEmail" maxlength="200"
+                                       placeholder="Enter Form Address" @*onkeyup="ValidateEmailss(this)"*@ />
+                                <input type="hidden" class="form-control  hidden" id="txtSID">
+                                <label id="lblError"></label>
+                            </div>
+                        </div>
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdPass" class="f-label_align label-130">
+                                @ViewData["pwd"]<span class="text-danger">*</span>
+                            </label>
+
+                            <input type="password" class="form-control" id="txtPass" maxlength="200"
+                                   placeholder="Enter Password">
+
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdUser" class="f-label_align label-130">
+                                Service Id<span class="text-danger">*</span>
+                            </label>
+                            <div class="d-flex flex-column w-100">
+                                <input type="text" class="form-control " id="txtUname" maxlength="200"
+                                       placeholder="Enter Service ID">
+                                <span id="lblError12"></span>
+                            </div>
+                        </div>
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdAddress" class="f-label_align label-130">
+                                Mobile Service Id<span class="text-danger">*</span>
+                            </label>
+
+                            <input type="number" class="form-control" id="txtAdd" maxlength="200"
+                                   placeholder="Enter Mobile Service ID" />
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">Save</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded"
+                            data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+

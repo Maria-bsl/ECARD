@@ -1,0 +1,64 @@
+﻿@model FUNDING.Models.CollectionModule.CashCollection
+
+@{
+    AjaxOptions registerContributionsAjaxOptions = new AjaxOptions();
+    registerContributionsAjaxOptions.HttpMethod = "POST";
+    //registerContributionsAjaxOptions.UpdateTargetId = "divContributions";
+    registerContributionsAjaxOptions.OnBegin = "OnBeginRequestCreate";
+    registerContributionsAjaxOptions.OnSuccess = "OnSuccessRequestCreate";
+    //registerContributionsAjaxOptions.OnComplete = "OnCompleteRequestCreate";
+    registerContributionsAjaxOptions.OnFailure = "OnFailureRequestCreate";
+    //registerContributionsAjaxOptions.Confirm = "Do you want to add user?";
+}
+
+@using (Ajax.BeginForm(actionName: "CreateCashCollections", controllerName: "Contributions", routeValues: null,
+    ajaxOptions: registerContributionsAjaxOptions, htmlAttributes: new { id = "ajaxHelperCreateForm", @class= "position-relative", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="row">
+        <div class="form-group col-sm-6 col-lg-4 col-xl-3">
+            @Html.LabelFor(model => model.Contribution_id, ViewData["ContributorNameLabel"] as string, htmlAttributes: new { @class = "mb-1" })
+            <div class="col-12">
+                @Html.TextBoxFor(model => model.Contribution_id, new { @class = "form-control flexdatalist" })
+                @Html.ValidationMessageFor(model => model.Contribution_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group col-sm-6 col-lg-4 col-xl-3">
+            @Html.LabelFor(model => model.Contribution_amount, ViewData["CashCollectionLabel"] as string, htmlAttributes: new { @class = "mb-1" })
+            <div class="col-12">
+                @Html.TextBoxFor(model => model.Contribution_amount, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Contribution_amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        
+        <div class="form-group col-sm-6 col-lg-4 col-xl-3">
+            @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "mb-1" })
+            <div class="col-12">
+                @Html.TextBoxFor(model => model.Remarks, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="text-end">
+        <button id="submitCreateCustomers" type="submit" class="btn btn-outline-info btn-rounded">Save</button>
+        <button id="closeCreateForm" type="reset" class="btn btn-outline-danger btn-rounded">Close</button>
+    </div>
+
+    <div class="position-absolute w-100 h-100 modal_pre-loader create-form_pre-loader">
+        <div style="display: flex;" class='justify-content-center align-items-center h-100'>
+            <div class='ripple-pre-loader'>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <hr />
+}

@@ -1,0 +1,351 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/Dashboard.cshtml";
+    
+}
+
+@section styles{
+<link rel="stylesheet" type="text/css" href="../css/Dash.css" />
+}
+
+@section scripts{
+    <script src="../assets/numeral.js/numeral.min.js"></script>
+    <script src="../assets/chart-js/chart.2.8.0.js"></script>
+    <script src="../js_dist/dashboard_charts.js"></script>
+
+    <script type="text/javascript">
+    var Sp_Names = '', Sp_Amt = '', inscon = '', dtt1 = '', dttins = "", dttins1 = "", male = '', female = '', off = '', teame='', tote='', con = '', offl = '', conl = '', offr = "", conc = "", offr1 = "", conc1 = "";
+    jQuery(document).ready(function () {
+        var d = new Date();
+        var day = ('0' + d.getDate()).slice(-2);
+        var month = ('0' + (d.getMonth() + 1)).slice(-2);
+        var first = ('0' + (d.getMonth(), 1));
+        var year = d.getFullYear();
+        var m = first + '/' + month + '/' + year;
+        var n = day + '/' + month + '/' + year;
+        //jQuery("#fdt, #start").val(m); //06.12.2021
+        //jQuery("#txtbalat, #txtdisat, #tdt, #end").val(n); //06.12.2021
+        getdt(n);
+        balat(n);
+        disbalat(n);
+        tExp(n);
+    });
+    function getdt(val) {
+        Sp_Names = ""; Sp_Amt = "", inscon = '', dtt1 = '';
+        jQuery.ajax({
+            async: false,
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("GetaYeData", "Fun_D")',
+            data: JSON.stringify({ fd: $("#fdt").val(), td: $("#tdt").val() }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data != null) {
+                    jQuery.each(data, function (key, value) {
+                        Sp_Names += value.Sp_Name + ',';
+                        Sp_Amt += value.Amount_Spend + ',';
+                    });
+                    inscon = Sp_Names.substr(0, Sp_Names.length - 1);
+                    dtt1 = Sp_Amt.substr(0, Sp_Amt.length - 1);
+                    chartUpdate_single_dataset(sponsership_pie_chart_data, inscon.split(','), dtt1.split(','), sponsorPieChart);
+                }
+            }
+        });
+    }
+    function balat(val) {
+         male = "";
+         female = "";
+        jQuery.ajax({
+            async: false,
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("GetBalAt", "Fun_D")',
+            data: JSON.stringify({ balat: $("#txtbalat").val()}),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data != null) {
+                    male =   data.total - data.minus;
+                    female = data.minus;
+                    chartUpdate_single_dataset(balance_pie_chart_data, ["Balance", "Disbursed"], [male, female], balancePieChart);
+                }
+            }
+        });
+    }
+    function disbalat(val) {
+        off = "", offl = "", offr = "";
+        con = "", conl = "", conc = "";
+        jQuery.ajax({
+            async: false,
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("GetDisBalAt1", "Fun_D")',
+            data: JSON.stringify({ dibalat: $("#txtdisat").val()}),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data != null) {
+                    offl = data.spon;
+                    conl = data.team;
+                    minus = data.expen;
+                    var multiArray = minus.split(",");
+                    console.log(multiArray);
+                    var multiArray2d = new Array();
+                    for (var i = 0; i < multiArray.length; i++) {
+                        multiArray2d[i] = multiArray[i].split("~");
+                    }
+                    console.log(multiArray2d);
+                    stackedChart_multiDatasets(conl.split(','), offl.split(','), multiArray2d);
+                }
+            }
+        });
+    }
+    function tExp(val) {
+        teame = '';
+        tote = '';
+        jQuery.ajax({
+            async: false,
+            cache: false,
+            type: 'POST',
+            url: '@Url.Action("GetTeamExp", "Fun_D")',
+            data: JSON.stringify({ fd: $("#start").val(), td: $("#end").val() }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data != null) {
+                    teame = data.team;
+                    tote = data.expen;
+                    barChart_multiDatasets(teame.split(','), tote.split(','));
+                }
+            }
+        });
+    }
+    function parseNum(arr) {
+
+        arr.forEach(function (value, index) {
+            if (Array.isArray(value)) {
+                parseNum(value);
+            } else if (!isNaN(parseFloat(value))) {
+                arr[index] = (+value);
+            }
+        });
+
+    }
+    //jQuery(document).ready(function () {
+    //    /* Dynamic data starts here */
+    //    var Teams = ["Simba SC", "Yanga SC", "Azam FC", 'Mbeya Kwanza'];
+    //    var sponsor = ["Azam TV", "TBC FM", "Vodacom", "GMS"];
+
+    //    var stacked_sponsorshipValue = [
+    //        [120.00, 1100.55, 1600,],
+    //        [130, 410, 111,],
+    //        [310, 103, 303,],
+    //        [102, 113, 143,],
+    //    ];
+
+    //    var sponsorshipValue = [12000, 1100, 3300, 4400, 550];
+    //    var teamTotalExpenses = [12000, 11400, 12600, 16177];
+
+
+    //    //var teamIndividualExpenses = [
+    //    //    [120, 1100, 1600, 2000], //Simba SC
+    //    //    [130, 410, 111,], // Yanga SC
+    //    //    [310, 103, 303,], // Azam FC
+    //    //    [102, 113, 143,], // Mbeya Kwanza
+    //    //];
+
+    //    //var teamIndividualExpensesLabels = [
+    //    //    ["Salary", "Allowance", "Bonus", "Camping"], //Simba SC
+    //    //    ["Salary", "Allowance", "Bonus"], // Yanga SC
+    //    //    ["Salary", "Allowance", "Bonus"], // Azam FC
+    //    //    ["Salary", "Allowance", "Bonus"], // Mbeya Kwanza
+    //    //];
+
+    //    // Sponsorship Chart
+    //    //stackedChart_multiDatasets(Teams, sponsor, stacked_sponsorshipValue);
+
+    //    // Balance / Disbursement Chart
+
+
+    //    // Fund Disbursement Chart
+
+
+    //    // Fund Expenses Chart
+    //    //barChart_multiDatasets(Teams, teamTotalExpenses);
+    //   // chartModalProcessing(teamIndividualExpenses, teamIndividualExpensesLabels);
+
+
+    //    // tooltips
+    //    jQuery(function () {
+    //        jQuery('[data-toggle="tooltip"]').tooltip();
+    //    })
+    //});
+
+    </script>
+
+}
+<div class="row">
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="chart-header d-flex justify-content-between align-items-baseline">
+                    <h4>Sponsorship</h4>
+                    <button type="button" class="btn btn-dark btn-tooltip" data-toggle="tooltip"
+                            data-placement="left"
+                            title="Summary on overall/Total amoung from sponser in Year {2021}">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="form-group d-sm-flex date-range-from-group">
+                    <!-- <label class="col-auto col-form-label pl-0">Sponsorship Range</label> -->
+                    <label class="col-auto col-form-label pl-0">Date Range</label>
+
+                    <div class="input-daterange input-group custom-date-range" id="sponsorship_yearpicker"
+                         data-date-format="dd/mm/yyyy" data-date-autoclose="true" data-provide="datepicker"
+                         data-date-container="#sponsorship_yearpicker">
+                        <!-- <span class="input-group-addon border-left">From</span> -->
+                        <input type="text" class="form-control" name="start" id="fdt" autocomplete="off" placeholder="Start Date" 
+                                  value="@DateTime.Now.ToShortDateString()"
+                               onchange="getdt(this)">
+                        <span class="input-group-addon">To</span>
+                        <input type="text" class="form-control" id="tdt" name="end" autocomplete="off" placeholder="End Date"
+                               value="@DateTime.Now.ToShortDateString()"
+                               onchange="getdt(this)">
+                    </div>
+                </div>
+                <hr>
+                <div class="chart-wrapper">
+                    <canvas id="sponsorship_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card card-gutter-sm">
+            <div class="card-body">
+                <div class="chart-header d-flex justify-content-between align-items-baseline">
+                    <h4>Balance</h4>
+                    <button type="button" class="btn btn-dark btn-tooltip" data-toggle="tooltip"
+                            data-placement="left" title="Balance">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="form-group d-sm-flex row-custom">
+                    <label class="col-auto col-form-label pl-0">Balance as at</label>
+                    <div class="position-relative" id="balance_datepicker">
+                        <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="txtbalat"
+                               autocomplete="off" data-date-format="dd/mm/yyyy" data-date-container="#balance_datepicker"
+                               value="@DateTime.Now.ToShortDateString()"
+                               data-provide="datepicker" data-date-autoclose="true" onchange="balat(this)">
+                    </div>
+                </div>
+                <hr>
+
+                <div class="chart-wrapper">
+                    <canvas id="balance_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="chart-header d-sm-flex justify-content-between align-items-baseline">
+                    <h4>Disbursement</h4>
+                    <button type="button" class="btn btn-dark btn-tooltip" data-toggle="tooltip"
+                            data-placement="left" title="Balance">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="form-group d-flex row-custom">
+                    <label class="col-auto col-form-label pl-0">Disbursement as at</label>
+                    <div class="position-relative" id="disbudatepicker">
+                        <input type="text" class="form-control" placeholder="dd/mm/yyyy" id="txtdisat"
+                               data-date-format="dd/mm/yyyy" data-date-container="#disbudatepicker"
+                               value="@DateTime.Now.ToShortDateString()"
+                               data-provide="datepicker" data-date-autoclose="true" autocomplete="off" onchange="disbalat(this)">
+                    </div>
+                </div>
+                <hr>
+
+                <div class="chart-wrapper">
+                    <canvas id="disbursement_stacked_bar_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-6">
+        <div class="card">
+            <div class="card-body">
+                <div class="chart-header d-flex justify-content-between align-items-baseline">
+                    <h4>Team Expenses</h4>
+                    <button type="button" class="btn btn-dark btn-tooltip" data-toggle="tooltip"
+                            data-placement="left" title="Teams expenses">
+                        <i class="fa fa-info" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="form-group d-sm-flex date-range-from-group ">
+                    <!-- <label class="col-auto col-form-label pl-0">Teams Expenses Range</label> -->
+                    <label class="col-auto col-form-label pl-0">Date Range</label>
+                    <div class="input-daterange input-group custom-date-range" id="teamExpenses_yearpicker"
+                         data-date-format="dd/mm/yyyy" 
+                         value="@DateTime.Now.ToShortDateString()"
+                         data-date-autoclose="true" data-provide="datepicker"
+                         data-date-container="#teamExpenses_yearpicker">
+                        <input type="text" class="form-control" id="start" autocomplete="off" placeholder="Start Date" onchange="tExp(this)">
+                        <span class="input-group-addon">To</span>
+                        <input type="text" class="form-control" id="end" autocomplete="off" placeholder="End Date" onchange="tExp(this)">
+                    </div>
+                </div>
+                <hr>
+
+                <div class="chart-wrapper">
+                    <canvas id="expenses_bar_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div id="teamExpenses_modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="chart-header d-flex justify-content-between align-items-baseline w-100">
+                    <h4><span id="teamName">{Team}</span> Expenses</h4>
+                </div>
+                <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group d-sm-flex col-sm-10 col-md-11 col-lg-8 col-xl-7 px-0">
+                    <label class="col-auto col-form-label pl-0">Team Name</label>
+                    <select class="form-control" name="teamSelect" id="teamSelect">
+                        <option value="0">Simba SC</option>
+                        <option value="1">Yanga SC</option>
+                        <option value="2">Azam FC</option>
+                        <option value="3">Mbeya Kwanza</option>
+                    </select>
+                </div>
+
+                <hr>
+
+                <div class="chart-wrapper">
+                    <canvas id="team_expenses_pie_chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

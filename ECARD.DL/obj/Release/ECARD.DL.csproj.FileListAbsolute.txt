@@ -1,0 +1,12 @@
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\ECARD.DL.dll.config
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\ECARD.DL.dll
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\ECARD.DL.pdb
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\EntityFramework.dll
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\EntityFramework.SqlServer.dll
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\EntityFramework.xml
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\bin\Release\EntityFramework.SqlServer.xml
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\obj\Release\ECARD.DL.csproj.AssemblyReference.cache
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\obj\Release\ECARD.DL.csproj.CoreCompileInputs.cache
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\obj\Release\ECARD.DL.csproj.CopyComplete
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\obj\Release\ECARD.DL.dll
+E:\PROJECTS\E-Card-main_28.06.2022_Version\ECARD.DL\obj\Release\ECARD.DL.pdb

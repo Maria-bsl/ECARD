@@ -1,0 +1,51 @@
+﻿@model FUNDING.Models.CardGenerationModule.DataLayer.CardEventDetailsViewModel
+
+<div class="heading-text pb-4 pt-2">
+    <h3 class="">Fill Text</h3>
+</div>
+<div class="form-group mb-3">
+    @Html.TextBoxFor(model => model.EventHost, new { @class = "form-control", data_content = "event-inviter" })
+
+    @Html.TextBoxFor(model => model.EventHostStyles.FontFamily, new { })
+    @Html.TextBoxFor(model => model.EventHostStyles.FontSize, new { })
+    @Html.TextBoxFor(model => model.EventHostStyles.TextColor, new { })
+    @Html.CheckBoxFor(model => model.EventHostStyles.BoldTextStyle, new { })
+    @Html.CheckBoxFor(model => model.EventHostStyles.ItalicTextStyle, new { })
+    @Html.CheckBoxFor(model => model.EventHostStyles.UnderlineTextStyle, new { })
+    @Html.TextBoxFor(model => model.EventHostStyles.TextAlignStyle, new { })
+    @Html.TextBoxFor(model => model.EventHostStyles.LeftPosition, new { })
+    @Html.TextBoxFor(model => model.EventHostStyles.TopPosition, new { })
+</div>
+<div class="form-group mb-3">
+    <textarea id="event-text" class="form-control" type="text" name="event-text" rows="2"
+              placeholder="Enter event text" data-content="event-details">Please enter details here</textarea>
+</div>
+<div class="form-group mb-3">
+    @Html.TextBoxFor(model => model.EventName, new { @class = "form-control", data_content = "event-name" })
+</div>
+
+<div class="form-group mb-3">
+    @Html.DropDownListFor(model => model.EventDate, ViewBag.DateFormats as SelectList, null, new { @class = "form-select", data_content = "event-date" })
+</div>
+<div class="form-group mb-3">
+    @Html.DropDownListFor(model => model.EventDate, ViewBag.TimeFormats as SelectList, null, new { @class = "form-select", data_content = "event-start-time" })
+
+    @*<select id="event-start-time" class="form-select" name="event-start-time"
+                data-content="event-start-time">
+            <option value="1">07:00 P.M.</option>
+            <option value="2">19:00</option>
+        </select>*@
+</div>
+<div class="form-group mb-3">
+    @Html.TextAreaFor(model => model.Venue, new { rows = "2", @class = "form-control", data_content = "event-venue" })
+
+    @*<textarea id="venue" class="form-control" name="venue" rows="2" placeholder="Enter venue"
+        data-content="event-venue"></textarea>*@
+</div>
+<div class="form-group mb-3">
+
+    @Html.TextAreaFor(model => model.Reservation, new { rows = "2", @class = "form-control", data_content = "event-reservation" })
+
+    @*<textarea id="reservation" class="form-control" name="reservation" rows="2"
+        placeholder="Enter reservation details" data-content="event-reservation"></textarea>*@
+</div>

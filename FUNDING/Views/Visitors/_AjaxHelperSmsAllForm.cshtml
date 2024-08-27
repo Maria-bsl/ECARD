@@ -1,0 +1,22 @@
+﻿@model FUNDING.BL.BusinessEntities.Masters.Visitors
+
+@{ AjaxOptions SmsAllVisitorDetailsAjaxOptions = new AjaxOptions();
+    SmsAllVisitorDetailsAjaxOptions.HttpMethod = "POST";
+    //SmsAllVisitorDetailsAjaxOptions.UpdateTargetId = "divVisitorDetails";
+    SmsAllVisitorDetailsAjaxOptions.OnBegin = "OnBeginRequestSmsAll";
+    SmsAllVisitorDetailsAjaxOptions.OnSuccess = "OnSuccessRequestSmsAll";
+    //SmsAllVisitorDetailsAjaxOptions.OnComplete = "OnCompleteRequestSmsAll";
+    SmsAllVisitorDetailsAjaxOptions.OnFailure = "OnFailureRequestSmsAll";
+    //SmsAllVisitorDetailsAjaxOptions.Confirm = "Do you want to SmsAll invitee?";
+}
+
+@using (Ajax.BeginForm(actionName: "AjaxHelperSmsAllForm", controllerName: "Visitors", routeValues: null,
+    ajaxOptions: SmsAllVisitorDetailsAjaxOptions, htmlAttributes: new { id = "ajaxHelperSmsAllForm", @class = "d-none", autocomplete = "off" }))
+{
+@Html.AntiForgeryToken()
+
+                <div class="form-actions no-color d-none">
+                    @Html.HiddenFor(model => model.event_det_sno)
+                    <input id="SmsAllBtn" type="submit" value="SmsAll" class="btn btn-primary d-none" />
+                </div>
+     }

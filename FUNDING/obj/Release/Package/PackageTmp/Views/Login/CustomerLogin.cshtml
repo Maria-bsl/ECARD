@@ -1,0 +1,339 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    @*<script src="/js/jquery.min.js"></script>*@
+    <link rel="stylesheet" href="~/assets/bootstrap-4.5.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/assets/fontawesome-free-5.15.3-web/css/all.min.css">
+    <link rel="stylesheet" href="~/css/login-style.min.css">
+    <link rel="stylesheet" href="~/css/custom.css">
+    <script src="~/assets/scripts/jQuery.min.js"></script>
+    <title>Login Page | e-Nvit</title>
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+
+    <style>
+
+        div.footer {
+            height: 100px;
+        }
+
+        div.footer p {
+            font-size: 0.75rem;
+        }
+
+        .co-operate--wrapper {
+            width: 60px;
+            height: 60px;
+        }
+
+        .co-operate-logo--wrapper {
+            background: url('../../images/Biz-Logic Round Logo.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: inherit;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container-fluid px-0">
+        <div class="row mx-0">
+            <div class="main-area col-12 px-0">
+                <div class="login-box">
+                    <div class="card border-grey border-lighten-3 m-0 ">
+                        <div class="card-header border-0 bg-white pb-1">
+                            <div class="card-title text-center">
+                                <div class="p-1">
+                                    <img class="img-thumbnail mt-4" src="~/images/logo_placeholder.png" alt="branding logo" />
+                                </div>
+                            </div>
+                            <h1 class="card-subtitle line-on-side h5 text-muted text-center text-uppercase">
+                                <span>e-Nvit</span>
+                            </h1>
+                        </div>
+
+                        <h6 class="text-center">Login to the Portal</h6>
+
+                        <div class="card-content">
+                            <div class="card-body pt-1">
+
+                                <fieldset class="form-group position-relative has-icon-left mb-0">
+                                    <input type="text" name="mobileNumber"
+                                           class="form-control form-control-lg input-lg no-box-shadow credentials" id="txtuname" placeholder="Your mobile number" required="" pb-role="mobile number">
+                                    <div class="form-control-position">
+                                        <i class="fas fa-mobile-alt"></i>
+                                    </div>
+                                </fieldset>
+                                @*<fieldset class="form-group position-relative has-icon-left mb-0">
+                                        <select name="eventName"
+                                               class="form-control form-control-lg input-lg no-box-shadow credentials rounded-0" id="eventName" required="" pb-role="event list">
+                                            <option value="">Select Event</option>
+                                            <option value="1">Happy Anneversary to Mary and John for having another baby boy</option>
+                                        </select>
+                                        <div class="form-control-position">
+                                            <i class="far fa-calendar-alt"></i>
+                                        </div>
+                                    </fieldset>*@
+                                <fieldset class="form-group position-relative has-icon-left">
+                                    <input type="password" name="password"
+                                           class="form-control form-control-lg input-lg no-box-shadow credentials" id="txtpwd" placeholder="Enter Password" required="" pb-role="password">
+                                    <div class="form-control-position">
+                                        <i class="fas fa-key"></i>
+                                    </div>
+                                    <div id="password-eye" class="form-control-position position-right d-flex">
+                                        <i class="fas fa-eye"></i>
+                                    </div>
+                                </fieldset>
+
+                                <button type="submit" class="btn tff_btn btn-lg btn-block" id="btnSubmit"
+                                        pb-role="submit">
+                                    Login
+                                </button>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <p class="text-center m-0">
+                                <a href="@Url.Action("CustomerForgot", "Forgot")">Forgot Password?</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer px-2">
+                    <p class="mb-0">
+                        Designed &amp; Developed by
+                        <a class="links" href="http://bizlogicsolutions.com/" target="_blank">Biz-Logic Solutions Ltd.</a>
+                    </p>
+                    <div class="co-operate--wrapper">
+                        <div class="co-operate-logo--wrapper"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="eventModal" class="modal fade" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="eventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Event of Choice</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <form id="eventForm" action="@Url.Action("EventOfChoiceAjax", "Login")" method="post">
+                    @*@Html.AntiForgeryToken()*@
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="eventDropdownList">Events</label>
+                            <select id="eventDropdownList" name="eventOfChoice" required class="form-control"></select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="submitEvent" type="submit" class="btn tff_btn btn-sm">Submit</button>
+                        <button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">Close</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/assets/popperjs-1.16.1/popper.min.js"></script>
+    <script src="~/assets/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script src="~/Script/bootstrap-notify.min.js"></script>
+    <script src="~/js/validations.js"></script>
+    <script src="~/js/main.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            var password_eye = $('#password-eye i');
+            var password_input = $('#txtpwd');
+
+            $(password_eye).click(function (e) {
+                e.preventDefault();
+
+                if ($(password_input).attr('type') !== 'text') {
+                    // change eye icon
+                    $(password_eye).removeClass('fa-eye');
+                    $(password_eye).addClass('fa-eye-slash');
+                    // show passowrd text
+                    $(password_input).attr('type', 'text');
+                } else {
+                    // change eye icon
+                    $(password_eye).removeClass('fa-eye-slash');
+                    $(password_eye).addClass('fa-eye');
+                    // show passowrd text
+                    $(password_input).attr('type', 'password');
+                }
+            });
+
+        });
+
+    </script>
+    <script>
+          $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                addoff();
+            });
+
+            refreshPageOnModalClose();
+
+            var $eventForm = $('#eventForm');
+
+            $eventForm.on('submit', function (e) {
+                e.preventDefault();
+                $form = $(this);
+
+                $.post(
+                    '@Url.Action("EventOfChoiceAjax", "Login")',
+                    $form.serialize(),
+                    function (data, status) {
+
+                        if (data.loginStatus == 1) {
+                            window.location.href = '@Url.Action("Dashboard", "CustomerActivity")';
+                        }
+                        else {
+                           var message = data.response;
+                            notifyMessage(message, 'danger');
+                        }
+                    }
+                );
+
+            });
+        });
+
+        var $eventDropdownList = $("#eventDropdownList");
+
+        function addoff() {
+
+            var message = validateEmployeeoff(),
+                type = '';
+            if (message.length > 0) {
+                notifyMessage(message, 'danger');
+            }
+            else {
+                var params = JSON.stringify(getSMTPValues());
+                //$.noConflict();
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("CustomerLoginAjax", "Login")',
+                    data: params,
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+
+                        if (data != null) {
+                            if (data.flogin == "false") {
+                                window.location.href = '@Url.Action("Updatepwd", "Updatepwd")?type =' + data.check + '&Instid =' + data.InstID + '&Usersno =' + data.Usno;
+                            }
+
+                            else if (data.status == 1) {
+
+
+                                populateEventSelections(data, $eventDropdownList);
+
+                                $('#eventModal').modal('show');
+                            }
+
+                            else {
+                                message = data.message;
+                                notifyMessage(message, 'danger');
+                            }
+                        }
+                    }
+                })
+            }
+        }
+
+
+    function getSMTPValues() {
+
+        var txtu = document.getElementById('txtuname');
+        var txtpwd = document.getElementById('txtpwd');
+
+        var data = {
+            mobileNumber: txtu.value,
+            password: txtpwd.value,
+
+        }
+
+        return data;
+    }
+
+    function validateEmployeeoff() {
+
+        var txtu = document.getElementById('txtuname');
+        var txtpwd = document.getElementById('txtpwd');
+        result = '';
+
+        if (txtu.value.length == 0) {
+            result += 'Mobile Number is Required.<br/>';
+        }
+
+        if (!checkValidMobileNumber(txtu.value)) {
+            result += 'Please enter valid mobile number.<br/>';
+        }
+
+        if (txtpwd.value.length == 0) {
+            result += 'Password is Required.<br/>';
+        }
+
+        return result;
+    }
+
+        function checkValidMobileNumber(mobileNumber) {
+            var mobileNumberRegex = mobileNumber.match("^[0-9]{10}$");
+            return (mobileNumberRegex != null) ? true : false;
+        }
+
+
+        function refreshPageOnModalClose() {
+            $('#eventModal').on('hidden.bs.modal', function () {
+
+                clearEventSelectionsOptions($eventDropdownList);
+
+                location.reload();
+            });
+        }
+
+        function populateEventSelections(data, $eventDropdownList) {
+
+            clearEventSelectionsOptions($eventDropdownList);
+
+            var userEventDetails = data.eventDetails;
+
+            $eventDropdownList.append("<option value=''>Select event</option>");
+
+            $.each(userEventDetails, function (index, value) {
+                $eventDropdownList.append("<option value='" + value.event_det_sno + "'>" + value.event_name+"</option>");
+            });
+
+        }
+
+        function clearEventSelectionsOptions($eventDropdownList) {
+            $eventDropdownList.empty();
+        }
+
+
+
+    </script>
+</body>
+
+</html>
+
+
+

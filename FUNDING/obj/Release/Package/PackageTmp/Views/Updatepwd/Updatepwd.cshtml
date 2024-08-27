@@ -1,0 +1,270 @@
+﻿@{
+    ViewBag.Title = "Update Password";
+    @* Layout = "~/Views/Shared/DashBoard.cshtml"; *@
+    Layout = "~/Views/Shared/Funding.cshtml";
+
+    ViewData["Title"] = "Update Password";
+    ViewData["Home"] = "Home";
+}
+
+@section styles{
+    <link rel="stylesheet" href="/css/main.min.css">
+
+    <style>
+        .menu-toggle,
+        #main-menu-navigation {
+            display: none !important;
+        }
+
+        .navbar-brand {
+            pointer-events: none !important;
+        }
+
+        .header-navbar .navbar-header .navbar-brand {
+            left: 8px;
+        }
+
+        body.vertical-layout.vertical-menu.menu-collapsed .navbar .navbar-header {
+            z-index: 10;
+        }
+
+        body.vertical-layout.vertical-menu.menu-collapsed .navbar .navbar-brand .brand-text {
+            -webkit-animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            -moz-animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            -o-animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+            animation: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) 0s normal forwards 1 fadein;
+        }
+
+        form .form-group {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+}
+
+@section scripts{
+    <script type="text/javascript">
+
+    $(document).ready(function () {
+       // bindqDetails();
+
+        $("#btnSubmit").click(function () {
+            addReGION();
+        })
+
+        $("#btnDelete").click(function () {
+            delRegion();
+        });
+    });
+
+    var pwd;
+    function bindqDetails() {
+        $.ajax({
+            type: 'GET',
+            url: '@Url.Action("GetqDetails", "Updatepwd")',
+            data: '{}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+
+                $("#ddlq").append($("<option></option>").val(0).html('Select'));
+
+                if (data != null) {
+
+                    $.each(data, function (key, text) {
+
+                        $("#ddlq").append($("<option></option>").val(text.SNO).html(text.Question_Name));
+
+                    });
+
+                }
+            }
+        })
+    }
+    function addReGION() {
+        var message = validateEmployeere();
+        if (message.length > 0) {
+            notifyMessage(message, 'danger');
+        }
+        else {
+            //alert(data);
+            var params = JSON.stringify(getRegionValues());
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Addpwd", "Updatepwd")',
+                data: params,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+
+                    if (data != null) {
+                        if (data == true) {
+                            message = ' Current password and New password should not be same.';
+                            type = 'danger';
+
+                        } else {
+                            message = ' Updated Successfully.';
+                            type = 'success';
+                            resetRegion();
+                            window.location.href = '@Url.Action("Login", "Login")';
+                        }
+
+                    }
+                    else {
+                        message = ' Not Updated  Successfully.';
+                        type = 'danger';
+                    }
+
+                    notifyMessage(message, type);
+
+                }
+            })
+        }
+    }
+
+    var error, pw;
+    function resetRegion() {
+        var txtpwd = document.getElementById('txtpwd');
+        var txtcpwd = document.getElementById("txtcpwd");
+        var ddlq = document.getElementById("ddlq");
+        var txtans = document.getElementById("txtaws");
+
+        txtpwd.value = '',
+            txtcpwd.value = '';
+       // txtans.value = '';
+        //ddlq.selectedIndex = 0;
+    }
+    function checkconfirmpwd() {
+        var txtpwd = document.getElementById('txtpwd');
+        var txtcpwd = document.getElementById("txtcpwd");
+        if (txtpwd.value != txtcpwd.value && txtcpwd.value != '') {
+            pw = false;
+            lblError.innerHTML = "Passwords does not match.";
+            error = "Passwords does not match.";
+            jQuery('#lblError').css('color', 'Red');
+        }
+        else {
+            lblError.innerHTML = "";
+            //jQuery('#lblError').css('color', 'Green');
+            pw = true;
+        }
+    }
+    function getRegionValues() {
+        // jQuery.noConflict();
+        var txtpwd = document.getElementById('txtpwd');
+        //var txtcpwd = document.getElementById("txtcpwd");
+        //var ddlq = document.getElementById("ddlq");
+        //var txtans = document.getElementById("txtaws");
+        //var ddlvalue = ddlq.options[ddlq.selectedIndex].value;
+        //alert(ddlvalue);
+        //var ddltext = ddlq.options[ddlq.selectedIndex].text;
+
+        var a = [];
+        var b = location.search && location.search.substr(1).replace(/\+/gi, " ").split("&");
+        for (var i in b) {
+            var s = b[i].split("=");
+            a[i] = b[unescape(s[0])] = unescape(s[1]);
+        }
+        if (pwd == true && pw == true) {
+            var data = {
+                pwd: txtpwd.value,
+              //  qustSno: ddlvalue,
+               // qust: ddltext,
+                //ansr: txtans.value,
+                type: a[0].replace(" ", ""),
+                Instid: a[1].replace(" ", ""),
+                Usersno: a[2].replace(" ", ""),
+            }
+            return data;
+        } else {
+            type = 'danger';
+            message = error;
+            notifyMessage(message, type);
+        }
+    }
+
+
+    function validateEmployeere() {
+
+        var txtpwd = document.getElementById('txtpwd');
+        var txtcpwd = document.getElementById("txtcpwd");
+
+        result = '';
+
+        if (txtpwd.value.trim().length == 0) {
+            result += 'Password is Required.<br/>';
+        }
+        if (txtcpwd.value.trim().length == 0) {
+            result += 'confirm Password is Required.<br/>';
+        }
+        //if (ddlq.value == 0) {
+        //    result += 'Question is Required.<br/>';
+        //}
+        //if (txtans.value.trim().length == 0) {
+        //    result += 'Answer is Required.<br/>';
+
+        //}
+        //else {
+        //    var d = alpha(txtans.value.trim());
+        //    if (d != false) {
+        //        result += d;
+        //    }
+        //}
+        return result;
+    }
+
+
+    </script>
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Setup", "Setup")">@ViewData["Home"]</a></li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+        <form class="col-12 p-0 mx-auto" action="AddRegion" method="post">
+            <div class="row">
+
+                <div class="form-group d-sm-flex align-items-baseline col-sm-11 col-md-9 col-lg-7">
+                    <label for="gender" class="f-label_align">New Password<span class="red">*</span></label>
+                    <input type="password" class="form-control" id="txtpwd" placeholder="New password"
+                           onchange="checkconfirmpwd(this)" onfocusout="validatePassword1(this);" />
+                    <input type="hidden" class="form-control  hidden" id="txtSID">
+                </div>
+                <div class="form-group d-sm-flex col-sm-11 col-md-9 col-lg-7">
+                    <label for="gender" class="f-label_align pt-0-75rem">Confirm Password<span class="red">*</span></label>
+                    <div class="w-100">
+                        <input type="password" class="form-control" id="txtcpwd" onchange="checkconfirmpwd(this)"
+                               onfocusout="validatePassword1(this);" placeholder="Confirm password" />
+                        <label class="mb-0" id="lblError"></label>
+                    </div>
+
+                </div>
+
+                @*<div class="form-group d-sm-flex align-items-baseline col-sm-11 col-md-9 col-lg-7">
+                        <label for="gender" class="f-label_align"> Question<span class="red">*</span> </label>
+                        <select id="ddlq" class="form-control" name="ddlq"></select>
+                    </div>
+                    <div class="form-group d-sm-flex align-items-baseline col-sm-11 col-md-9 col-lg-7">
+                        <label for="gender" class="f-label_align"> Answer<span class="red">*</span> </label>
+                        <input type="text" class="form-control" id="txtaws" placeholder="Answers" />
+                    </div>*@
+                <div class="form-group text-end col-sm-11 col-md-9 col-lg-7">
+                    <button type="button" class="btn btn-outline-info btn-rounded me-1" id="btnSubmit">Save</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

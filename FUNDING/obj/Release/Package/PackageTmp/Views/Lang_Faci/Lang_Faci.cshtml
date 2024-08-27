@@ -1,0 +1,1779 @@
+﻿@{
+    ViewBag.Title = "Lang_Faci";
+    Layout = "~/Views/Shared/Funding.cshtml";
+
+    ViewData["Home"] = "Home";
+}
+
+@section styles{
+    <style>
+        .form-control:disabled, .form-control[readonly] {
+            opacity: 0.95;
+        }
+    </style>
+}
+
+@section scripts{
+    <script type="text/javascript">
+    var delet, edit;
+    jQuery(document).ready(function () {
+        getaccess();
+
+
+        disable();
+        jQuery("#btnButSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getButValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('txtcrt').value;
+                        if (test == 0) {
+                            message = 'Table buttons inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table buttons updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tblBut").hide();
+                        notifyMessage(message, type);
+                        jQuery('.modal-backdrop').hide();
+                    }
+                })
+            }
+            else {
+                return false;
+            }
+        });
+        jQuery("#btnCommSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getCommaValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('txtrDate').value;
+                        if (test == 0) {
+                            message = 'Table comments inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table comments updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tblComm").hide();
+                        notifyMessage(message, type);
+                        jQuery('.modal-backdrop').hide();
+                    }
+                });
+            }
+            else
+            { return false;}
+        });
+        jQuery("#btnGrdSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getGrdValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('txtrst').value;
+                        if (test == 0) {
+                            message = 'Table grid inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table grid updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tblGrd").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+
+        jQuery("#btnusersSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getusersValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('rusers').value;
+                        if (test == 0) {
+                            message = 'User inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'User updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivusers").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+
+        jQuery("#btnemaiSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getemaiValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('remai').value;
+                        if (test == 0) {
+                            message = 'Table Email inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table Email updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivemai").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+        jQuery("#btnsmtpSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getsmtpValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('rsmtp').value;
+                        if (test == 0) {
+                            message = 'Table SMTP inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table SMTP updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivsmtp").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+
+        jQuery("#btnlayoutSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getlayoutValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('txtrchgpwd').value;
+                        if (test == 0) {
+                            message = 'Table Layout inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table Layout updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivlayout").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+
+        jQuery("#btnaccessSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getaccessValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('raccess').value;
+                        if (test == 0) {
+                            message = 'Table Access Rights inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table Access Rights updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivaccess").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+        jQuery("#btnmenuSubmit").click(function () {
+            var x = confirm("Are you sure you want to Save?");
+            if (x) {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Adddesg", "Lang_Faci")',
+                    data: JSON.stringify(getmenuValues()),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    async: false,
+                    success: function (data) {
+                        var test = jQuery('rdash').value;
+                        if (test == 0) {
+                            message = 'Table Menu inserted successfully.';
+                            type = 'success';
+                        }
+                        else {
+                            message = 'Table Menu updated successfully.';
+                            type = 'success';
+                        }
+                        $('#ddltype').val('A').trigger('change');
+                        jQuery("#tbldivmenu").hide();
+                        notifyMessage(message, type);
+                    }
+                });
+            }
+            else { return false; }
+        });
+
+
+
+        //19.10.2021
+        jQuery(".canci").click(function () {
+            disable();
+            $('#ddltype').val('A').trigger('change');
+        });
+    });
+    var glob;
+    function getaccess() {
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("Editright", "AccessRights")',
+            data: JSON.stringify({'name': 'Language' }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            async: false,
+            success: function (data) {
+                if (data.AAdd == "Y") {
+                    jQuery(".subm").show();
+                }
+                else {
+                    jQuery(".subm").hide();
+                }
+
+            }
+        });
+    }
+    </script>
+    <script type="text/javascript">
+        var modal, loading;
+        function ShowProgress() {
+            modal = document.createElement("DIV");
+            modal.className = "modal";
+            document.body.appendChild(modal);
+            loading = document.getElementsByClassName("loading")[0];
+            loading.style.display = "block";
+            var top = Math.max(window.innerHeight / 2 - loading.offsetHeight / 2, 0);
+            var left = Math.max(window.innerWidth / 2 - loading.offsetWidth / 2, 0);
+            loading.style.top = top + "px";
+            loading.style.left = left + "px";
+    };
+    function disable() {
+
+        document.getElementById("tblGrd").style.display = "none";
+        document.getElementById("tblBut").style.display = "none";
+        document.getElementById("tblComm").style.display = "none";
+        document.getElementById("tbldivusers").style.display = "none";
+        document.getElementById("tbldivemai").style.display = "none";
+        document.getElementById("tbldivsmtp").style.display = "none";
+        document.getElementById("tbldivlayout").style.display = "none";
+        document.getElementById("tbldivaccess").style.display = "none";
+        document.getElementById("tbldivmenu").style.display = "none";
+
+    }
+    function showDiv(select) {
+
+        if (select.value == 7) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivusers").show();
+            jQuery("#btnusersSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getusersValues();
+        }
+        else if (select.value == 9) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivemai").show();
+            jQuery("#btnemaiSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getemaiValues();
+        }
+        else if (select.value == 10) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivsmtp").show();
+            jQuery("#btnsmtpSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getsmtpValues();
+        }
+        else if (select.value == 20) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivlayout").show();
+            jQuery("#btnlayoutSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getlayoutValues();
+        }
+        else if (select.value == 21) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivaccess").show();
+            jQuery("#btnaccessSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getaccessValues();
+        }
+        else if (select.value == 22) {
+            hdnget.value = select.value;
+            disable();
+            jQuery("#tbldivmenu").show();
+            jQuery("#btnmenuSubmit").show();
+            ShowProgress();
+            setTimeout(function () {
+                document.body.removeChild(modal);
+                loading.style.display = "none";
+            }, 100);
+            getmenuValues();
+        }
+        else if (select.value == 35) {
+                hdnget.value = select.value;
+                disable();
+                jQuery("#tblBut").show();
+                jQuery("#btnButSubmit").show();
+                ShowProgress();
+                setTimeout(function () {
+                    document.body.removeChild(modal);
+                    loading.style.display = "none";
+                }, 100);
+                getButValues();
+            }
+        else if (select.value == 36) {
+                hdnget.value = select.value;
+                disable();
+                jQuery("#tblGrd").show();
+                jQuery("#btnGrdSubmit").show();
+                ShowProgress();
+                setTimeout(function () {
+                    document.body.removeChild(modal);
+                    loading.style.display = "none";
+                }, 100);
+                getGrdValues();
+            }
+        else if (select.value == 37) {
+                hdnget.value = select.value;
+                disable();
+                jQuery("#tblComm").show();
+                jQuery("#btnCommSubmit").show();
+                ShowProgress();
+                setTimeout(function () {
+                    document.body.removeChild(modal);
+                    loading.style.display = "none";
+                }, 100);
+                getCommaValues();
+            }
+        else {
+                return false;
+            }
+    }
+        function getButValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Button' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Create" ? (jQuery('#txtscrt1').val(value.Loc_Swa),
+                                jQuery('#rcrt').val(value.Loc_Sno)) : "";
+                           value.Col_name == "Save" ? (jQuery('#txtssv1').val(value.Loc_Swa),
+                               jQuery('#rsv').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Close" ? (jQuery('#txtsclo1').val(value.Loc_Swa),
+                                jQuery('#rclo').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Return" ? (jQuery('#txtsret1').val(value.Loc_Swa),
+                                jQuery('#rret').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Submit" ? (jQuery('#txtssubmit1').val(value.Loc_Swa),
+                                jQuery('#rsubmit').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Update" ? (jQuery('#txtsupd1').val(value.Loc_Swa),
+                                jQuery('#rupd').val(value.Loc_Sno)) : "";
+
+
+                            value.Col_name == "Add New Row" ? (jQuery('#txtsaddnew1').val(value.Loc_Swa),
+                                jQuery('#raddnew').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Delete" ? (jQuery('#txtsdelete1').val(value.Loc_Swa),
+                                jQuery('#rdelete').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Approve" ? (jQuery('#txtsapp1').val(value.Loc_Swa),
+                                jQuery('#rapp').val(value.Loc_Sno)) : "";
+
+                            value.Col_name == "Home" ? (jQuery('#txtshome').val(value.Loc_Swa),
+                                jQuery('#rhome').val(value.Loc_Sno)) : "";
+                            value.Col_name == "PDF" ? (jQuery('#txtspdf').val(value.Loc_Swa),
+                                jQuery('#rpdf').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Excel" ? (jQuery('#txtsexcel').val(value.Loc_Swa),
+                                jQuery('#rexcel').val(value.Loc_Sno)) : "";
+                            //value.Col_name == "AddNewRow" ? (jQuery('#txtsaddnew').val(value.Loc_Swa),
+                            //    jQuery('#raddnew').val(value.Loc_Sno)) : "";
+                            //value.Col_name == "Submit" ? (jQuery('#txtssubm').val(value.Loc_Swa),
+                            //    jQuery('#rsubm').val(value.Loc_Sno)) : "";
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+            $("#tblbutton tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+            });
+                var data = {
+                    details: orderArr,
+                    table: "Button",
+                }
+                return data;
+        }
+    function getCommaValues() {
+        var cur = "Comment";
+        var orderArr = [];
+        orderArr.length = 0;
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("Editlangs", "Lang_Faci")',
+            data: JSON.stringify({ 'tbname': cur }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data != 0) {
+                    jQuery.each(data, function (key, value) {
+                        value.Col_name == "Comment" ? ( jQuery('#txtsCmnt1').val(value.Loc_Swa),
+                            jQuery('#rcmnt').val(value.Loc_Sno)) : "";
+                        value.Col_name == "Date" ? (jQuery('#txtsDate1').val(value.Loc_Swa),
+                            jQuery('#rdate').val(value.Loc_Sno)) : "";
+                        value.Col_name == "Comment By" ? (jQuery('#txtsCmby1').val(value.Loc_Swa),
+                            jQuery('#rcmby').val(value.Loc_Sno)) : "";
+                    });
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+        $("#tblcomment tbody tr").each(function () {
+            orderArr.push({
+                Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+
+            });
+        });
+
+        var data = {
+            details: orderArr,
+            table: "Comment",
+        }
+        return data;
+    }
+        function getGrdValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Grid' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Status" ? ( jQuery('#txtsst1').val(value.Loc_Swa),
+                                jQuery('#rssno').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Sno" ?(jQuery('#txtsst12').val(value.Loc_Swa),
+                                jQuery('#rssno1').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Actions" ? (jQuery('#txtsact1').val(value.Loc_Swa),
+                                jQuery('#rsact').val(value.Loc_Sno)) : "";
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+            $("#tblgrid tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+            });
+                var data = {
+                    details: orderArr,
+                    table: "Grid",
+                }
+                return data;
+    }
+
+    function getusersValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Users' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Users" ? (jQuery('#txtsusers').val(value.Loc_Swa),
+                                jQuery('#rusers').val(value.Loc_Sno)) : "";
+                            value.Col_name == "User ID" ? (jQuery('#txtsempid').val(value.Loc_Swa),
+                                jQuery('#rempid').val(value.Loc_Sno)) : "";
+                            value.Col_name == "First Name" ? (jQuery('#txtsfname').val(value.Loc_Swa),
+                                jQuery('#rfname').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Middle Name" ? (jQuery('#txtsmname').val(value.Loc_Swa),
+                                jQuery('#rmname').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Last Name" ? (jQuery('#txtslname').val(value.Loc_Swa),
+                                jQuery('#rlname').val(value.Loc_Sno)) : "";
+                            value.Col_name == "User Name" ? (jQuery('#txtsuname').val(value.Loc_Swa),
+                                jQuery('#runame').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Role" ? (jQuery('#txtsrole').val(value.Loc_Swa),
+                                jQuery('#rrole').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Mobile Number" ? (jQuery('#txtsmobno').val(value.Loc_Swa),
+                                jQuery('#rmobno').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Email" ? (jQuery('#txtsemail').val(value.Loc_Swa),
+                                jQuery('#remail').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Full Name" ? (jQuery('#txtsfullname').val(value.Loc_Swa),
+                                jQuery('#rfullname').val(value.Loc_Sno)) : "";
+                            //value.Col_name == "User Id" ? (jQuery('#txtsuserid').val(value.Loc_Swa),
+                            //    jQuery('#ruserid').val(value.Loc_Sno)) : "";
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tblusers tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "Users",
+                }
+                return data;
+    }
+
+    function getemaiValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Email' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Email" ? (jQuery('#txtsemai').val(value.Loc_Swa),
+                                jQuery('#remai').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Flow Id" ? (jQuery('#txtsfloid').val(value.Loc_Swa),
+                                jQuery('#rfloid').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Subject English" ? (jQuery('#txtssubeng').val(value.Loc_Swa),
+                                jQuery('#rsubeng').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Subject Swahili" ? (jQuery('#txtssubswa').val(value.Loc_Swa),
+                                jQuery('#rsubswa').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Email Text" ? (jQuery('#txtsemaitxt').val(value.Loc_Swa),
+                                jQuery('#remaitxt').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Email Text Local" ? (jQuery('#txtsemaitxtloc').val(value.Loc_Swa),
+                                jQuery('#remaitxtloc').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Email Subject" ? (jQuery('#txtsemaisub').val(value.Loc_Swa),
+                                jQuery('#remaisub').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Email Subject Local" ? (jQuery('#txtsemaisubloc').val(value.Loc_Swa),
+                                jQuery('#remaisubloc').val(value.Loc_Sno)) : "";
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tblemai tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "Email",
+                }
+                return data;
+    }
+    function getsmtpValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'SMTP' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "SMTP" ? (jQuery('#txtssmtp').val(value.Loc_Swa),
+                                jQuery('#rsmtp').val(value.Loc_Sno)) : "";
+                            value.Col_name == "From Email Id" ? (jQuery('#txtsfrmemid').val(value.Loc_Swa),
+                                jQuery('#rfrmemid').val(value.Loc_Sno)) : "";
+                            value.Col_name == "SMTP Address" ? (jQuery('#txtssmtpaddress').val(value.Loc_Swa),
+                                jQuery('#rsmtpaddress').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Port Number" ? (jQuery('#txtsportnum').val(value.Loc_Swa),
+                                jQuery('#rportnum').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Password" ? (jQuery('#txtspassword').val(value.Loc_Swa),
+                                jQuery('#rpassword').val(value.Loc_Sno)) : "";
+                            value.Col_name == "SSL Enable" ? (jQuery('#txtssslen').val(value.Loc_Swa),
+                                jQuery('#rsslen').val(value.Loc_Sno)) : "";
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tblsmtp tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "SMTP",
+                }
+                return data;
+    }
+
+    function getlayoutValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Layout' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Change Password" ? (jQuery('#txtschgpwd').val(value.Loc_Swa),
+                                jQuery('#rchgpwd').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Logout" ? (jQuery('#txtslogout').val(value.Loc_Swa),
+                                jQuery('#rlogout').val(value.Loc_Sno)) : "";
+
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tbllayout tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "Layout",
+                }
+                return data;
+    }
+    function getaccessValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Access Rights' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Access Rights" ? (jQuery('#txtsaccess').val(value.Loc_Swa),
+                                jQuery('#raccess').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Code" ? (jQuery('#txtscod').val(value.Loc_Swa),
+                                jQuery('#rcod').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Description" ? (jQuery('#txtsdesc').val(value.Loc_Swa),
+                                jQuery('#rdesc').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Module" ? (jQuery('#txtsmod').val(value.Loc_Swa),
+                                jQuery('#rmod').val(value.Loc_Sno)) : "";
+
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tblaccess tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "Access Rights",
+                }
+                return data;
+    }
+    function getmenuValues() {
+            var orderArr = [];
+            orderArr.length = 0;
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("Editlangs", "Lang_Faci")',
+                data: JSON.stringify({ 'tbname': 'Menu' }),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    if (data != 0) {
+                        jQuery.each(data, function (key, value) {
+                            value.Col_name == "Dashboard" ? (jQuery('#txtsdash').val(value.Loc_Swa),
+                                jQuery('#rdash').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Setup" ? (jQuery('#txtssetup').val(value.Loc_Swa),
+                                jQuery('#rsetup').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Transaction" ? (jQuery('#txtstransaction').val(value.Loc_Swa),
+                                jQuery('#rtransaction').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Language" ? (jQuery('#txtslang').val(value.Loc_Swa),
+                                jQuery('#rlang').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Audit Trail" ? (jQuery('#txtsadtrail').val(value.Loc_Swa),
+                                jQuery('#radtrail').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Reports" ? (jQuery('#txtsreport').val(value.Loc_Swa),
+                                jQuery('#rreport').val(value.Loc_Sno)) : "";
+                            value.Col_name == "Select Page" ? (jQuery('#txtsselpg').val(value.Loc_Swa),
+                                jQuery('#rselpg').val(value.Loc_Sno)) : "";
+
+
+                        });
+                    }
+                    else {
+                        return false;
+                    }
+                }
+            });
+        $("#tblmenu tbody tr").each(function () {
+                orderArr.push({
+                    Loc_Eng: $(this).find("td").eq(1).find(":text").val(),
+                    Loc_Swa: $(this).find("td").eq(2).find(":text").val(),
+                    Loc_Sno: $(this).find("td").eq(3).find(":text").val(),
+                });
+        });
+                var data = {
+                    details: orderArr,
+                    table: "Menu",
+                }
+                return data;
+    }
+
+
+
+    //consolidate report
+
+    //19.10.2021
+    </script>
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["lang"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Setup", "Setup")">@ViewData["Home"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["lang"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+        <h5 class="card-title">@ViewData["lang"]</h5>
+        <form class="col-12 p-0" action="#" method="post" name="form1">
+            <div class="row">
+                <div class="form-group d-sm-flex align-items-baseline col-md-9 col-lg-7">
+                    <label for="gender" class="col-form-label col-sm-auto ps-0 pe-3">@ViewData["lang"]</label>
+                    <select id="ddltype" class="form-control" name="ddltype" onchange="showDiv(this)">
+                        <option value="A">Select</option>
+                        <option value="7">Users</option>
+                        <option value="9">Email</option>
+                        <option value="10">SMTP</option>
+                        <option value="20">Layout</option>
+                        <option value="21">Access Rights</option>
+                        <option value="22">Menu</option>
+                        <option value="35">Button</option>
+                        <option value="36">Grid</option>
+                        <option value="37">Comments</option>
+                    </select>
+                    <input type="hidden" id="hdnget" />
+                </div>
+            </div>
+
+
+            <div class="row mx-0" id="tbldivlayout">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tbllayout"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Change Password"
+                                           id="txtrchgpwd" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtschgpwd" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rchgpwd" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Logout"
+                                           id="txtrlogout" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtslogout" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rlogout" /> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnlayoutSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tbldivaccess">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblaccess"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Access Rights"
+                                           id="txtraccess" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsaccess" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="raccess" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Code"
+                                           id="txtrcod" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtscod" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rcod" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Description"
+                                           id="txtrdesc" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsdesc" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rdesc" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Module"
+                                           id="txtrmod" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsmod" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rmod" /> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnselpgSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tbldivmenu">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblmenu"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Dashboard"
+                                           id="txtrdash" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsdash" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rdash" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Setup"
+                                           id="txtrsetup" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssetup" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsetup" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Transaction"
+                                           id="txtrtrans" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtstransaction" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rtransaction" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Language"
+                                           id="txtrlang" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtslang" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rlang" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Audit Trail"
+                                           id="txtradtrail" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsadtrail" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="radtrail" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Reports"
+                                           id="txtrreport" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsreport" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rreport" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Select Page"
+                                           id="txtrselpg" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsselpg" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rselpg" /> </td>
+                            </tr>
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnmenuSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tbldivemai">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblemai"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email"
+                                           id="txtremai" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemai" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remai" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Flow Id"
+                                           id="txtrfloid" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsfloid" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rfloid" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Subject English"
+                                           id="txtrsubeng" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssubeng" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsubeng" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Subject Swahili"
+                                           id="txtrsubswa" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssubswa" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsubswa" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email Text"
+                                           id="txtremaitxt" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemaitxt" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remaitxt" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email Text Local"
+                                           id="txtremaitxtloc" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemaitxtloc" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remaitxtloc" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email Subject"
+                                           id="txtremaisub" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemaisub" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remaisub" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email Subject Local"
+                                           id="txtremaisubloc" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemaisubloc" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remaisubloc" /> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnemaiSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tbldivsmtp">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblsmtp"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="SMTP"
+                                           id="txtrsmtp" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssmtp" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsmtp" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="From Email Id"
+                                           id="txtrfrmemid" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsfrmemid" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rfrmemid" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="SMTP Address"
+                                           id="txtrsmtpaddress" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssmtpaddress" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsmtpaddress" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Port Number"
+                                           id="txtrportnum" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsportnum" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rportnum" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Password"
+                                           id="txtrpassword" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtspassword" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rpassword" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="SSL Enable"
+                                           id="txtrsslen" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssslen" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsslen" /> </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnsmtpSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tbldivusers">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblusers"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Users"
+                                           id="txtrusers" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsusers" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rusers" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="User ID"
+                                           id="txtrempid" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsempid" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rempid" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="First Name"
+                                           id="txtrfname" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsfname" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rfname" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Middle Name"
+                                           id="txtrmname" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsmname" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rmname" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Last Name"
+                                           id="txtrlname" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtslname" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rlname" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="User Name"
+                                           id="txtruname" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsuname" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="runame" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Role"
+                                           id="txtrrole" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsrole" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rrole" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Mobile Number"
+                                           id="txtrmobno" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsmobno" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rmobno" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Email"
+                                           id="txtremail" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsemail" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="remail" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Label</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Full Name"
+                                           id="txtrfullname" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsfullname" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rfullname" /> </td>
+                            </tr>
+                            @*<tr>
+                                    <td>Label</td>
+                                    <td>
+                                        <input type="text" readonly="readonly" class="form-control" value="User Id"
+                                               id="txtruserid" />
+                                    </td>
+                                    <td><input type="text" class="form-control" id="txtsuserid" /> </td>
+                                    <td class="d-none"><input type="text" class="form-control" id="ruserid" /> </td>
+                                </tr>*@
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnusersSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tblComm">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblcomment"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Date"
+                                           id="txtrDate" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsDate1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rdate"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Comment"
+                                           id="txtrCmnt" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsCmnt1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rcmnt"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Comment By"
+                                           id="txtrCmby" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsCmby1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rcmby"
+                                           value="0" />
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnCommSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tblBut">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblbutton"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_actions">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Button</td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Create"
+                                           id="txtcrt" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtscrt1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rcrt" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Save"
+                                           id="txtsv" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssv1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rsv" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Close"
+                                           id="txtclo" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsclo1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rclo" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Approve"
+                                           id="txtapp" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsapp1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rapp" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Update"
+                                           id="txtupd" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsupd1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rupd" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Return"
+                                           id="txtret" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsret1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rret" value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Add New Row"
+                                           id="txtaddnew" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsaddnew1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="raddnew"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Delete"
+                                           id="txtdelete" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsdelete1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rdelete"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Submit"
+                                           id="txtsubmit" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtssubmit1" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rsubmit"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Home"
+                                           id="txthome" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtshome" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rhome"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="PDF"
+                                           id="txtpdf" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtspdf" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rpdf"
+                                           value="0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Button </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Excel"
+                                           id="txtexcel" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsexcel" /> </td>
+                                <td class="d-none">
+                                    <input type="text" class="form-control d-none" id="rexcel"
+                                           value="0" />
+                                </td>
+                            </tr>
+
+
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm" id="btnButSubmit">Submit</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div class="row mx-0" id="tblGrd">
+                <hr />
+                <div class="table-responsive">
+                    <table id="tblgrid"
+                           class="table table-bordered zero-configuration dataTable rounded display">
+                        <thead>
+                            <tr>
+                                <th class="th_sno">
+                                    <label><b>Controls:</b></label>
+                                </th>
+                                <th>
+                                    <label><b>English:</b></label>
+                                </th>
+                                @*<th>
+                                        <label><b>Dynamic English:</b></label>
+                                    </th>*@
+                                <th>
+                                    <label><b>Swahili:</b></label>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr>
+                                <td>Grid Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Status"
+                                           id="txtrst" />
+                                </td>
+                                <td><input type="text" class="form-control" id="txtsst1" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rssno" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Grid Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Sno"
+                                           id="txtrst11" />
+                                </td>
+                                @*<td><input type="text" class="form-control" value="Sno" id="txtrst12" /> </td>*@
+                                <td><input type="text" class="form-control" id="txtsst12" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rssno1" /> </td>
+                            </tr>
+                            <tr>
+                                <td>Grid Label </td>
+                                <td>
+                                    <input type="text" readonly="readonly" class="form-control" value="Actions"
+                                           id="txtract" />
+                                </td>
+                                @*<td><input type="text" class="form-control" value="Actions" id="txtract1" /> </td>*@
+                                <td><input type="text" class="form-control" id="txtsact1" /> </td>
+                                <td class="d-none"><input type="text" class="form-control" id="rsact" /> </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer w-100 pt-0 border-top-0">
+                    <button type="button" class="btn btn-outline-info btn-rounded subm"
+                            id="btnGrdSubmit">
+                        Submit
+                    </button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded canci" id="btnCancel">Cancel</button>
+                </div>
+            </div>
+            <div id="loader" class="loading"
+                 style="position: fixed; top:0; display:none; left:0; width:100%; height: 100%;   background: url('/images/Loading.gif');background-repeat: no-repeat;  background-attachment: fixed;  background-position: center; ">
+            </div>
+        </form>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,99 @@
+﻿@model FUNDING.Models.BudgetingModule.Budget
+
+@{
+    AjaxOptions updateBudgetAjaxOptions = new AjaxOptions();
+    updateBudgetAjaxOptions.HttpMethod = "POST";
+    //updateBudgetAjaxOptions.UpdateTargetId = "divCustomers";
+    updateBudgetAjaxOptions.OnBegin = "OnBeginRequestUpdate";
+    updateBudgetAjaxOptions.OnSuccess = "OnSuccessRequestUpdate";
+    //updateBudgetAjaxOptions.OnComplete = "OnCompleteRequestUpdate";
+    updateBudgetAjaxOptions.OnFailure = "OnFailureRequestUpdate";
+    //updateBudgetAjaxOptions.Confirm = "Do you want to update contribution details?";
+}
+
+@using (Ajax.BeginForm(actionName: "UpdateBudgetRecord", controllerName: "Budgeting", routeValues: null,
+    ajaxOptions: updateBudgetAjaxOptions, htmlAttributes: new { id = "ajaxHelperUpdateForm", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Modal -->
+    <div class="modal fade" id="ajaxHelperUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div id="divCustomers" class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Update Budget Record</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model=>model.Record_Id)
+                        @Html.Hidden("Item_clone")
+
+                        <div class="row">
+                            <div class="form-group col-lg-12">
+                                @Html.LabelFor(model => model.Item, htmlAttributes: new { @class = "col-form-label" })
+                                <div class="col-12">
+                                    @Html.TextAreaFor(model => model.Item, new { @class = "form-control mw-100" })
+                                    @Html.ValidationMessageFor(model => model.Item, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-lg-4_custom">
+                                @Html.LabelFor(model => model.Quantity_Formatted, htmlAttributes: new { @class = "col-form-label" })
+                                <div class="col-12">
+                                    @Html.TextBoxFor(model => model.Quantity_Formatted, new { @class = "form-control mw-100" })
+                                    @Html.ValidationMessageFor(model => model.Quantity_Formatted, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group col-lg-4 col-lg-4_custom">
+                                @Html.LabelFor(model => model.Unit_Price_Formatted, htmlAttributes: new { @class = "col-form-label" })
+                                <div class="col-12">
+                                    @Html.TextBoxFor(model => model.Unit_Price_Formatted, new { @class = "form-control mw-100" })
+                                    @Html.ValidationMessageFor(model => model.Unit_Price_Formatted, "", new { @class = "text-danger" })
+                                    <span id="error-msg" class="d-none text-danger"></span>
+                                </div>
+                            </div>
+
+                            @{ Html.EnableClientValidation(false);}
+                            <div class="form-group col-lg-4 col-lg-4_custom">
+                                @Html.LabelFor(model => model.Total_Price_Formatted, htmlAttributes: new { @class = "col-form-label" })
+                                <div class="col-12">
+                                    @Html.TextBoxFor(model => model.Total_Price_Formatted, new { @class = "form-control mw-100", @readonly = "readonly" })
+                                    @Html.ValidationMessageFor(model => model.Total_Price_Formatted, "", new { @class = "text-danger"})
+                                    <span id="error-msg" class="d-none text-danger"></span>
+                                </div>
+                            </div>
+                            @{ Html.EnableClientValidation(true);}
+
+
+                            <div class="form-group col-lg-12">
+                                @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "col-form-label" })
+                                <div class="col-12">
+                                    @Html.TextAreaFor(model => model.Remarks, new { @class = "form-control mw-100" })
+                                    @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitupdateBudget" type="submit" class="btn btn-outline-info btn-rounded">Update</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Close</button>
+                </div>
+                <div class="position-absolute w-100 h-100 modal_pre-loader" style="display: none;">
+                    <div style="display: flex;" sy class='justify-content-center align-items-center h-100'>
+                        <div class='ripple-pre-loader'>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
