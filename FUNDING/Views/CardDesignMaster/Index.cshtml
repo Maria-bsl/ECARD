@@ -20,7 +20,8 @@
         }
 
         .card-main-template {
-            background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");
+            @*background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");*@
+            background-image: url('@ViewBag.DefaultCardTemplate');
         }
 
         .card-item[data-content="event-invitee"] span,

@@ -1,9 +1,4 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: FUNDING.Controllers.CardDesignMasterController
-// Assembly: FUNDING, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 5DE1C1E8-8D80-43BD-915D-F2502219BD58
-// Assembly location: D:\ECardtest - 22082024\bin\FUNDING.dll
-
+﻿
 using ECARD.DL.EDMX;
 using FUNDING.BL.BusinessEntities.Masters;
 using FUNDING.Models.AppHelpers;
@@ -59,7 +54,7 @@ namespace FUNDING.Controllers
       if (this.Session["admin1"] == null)
         return (ActionResult) this.RedirectToAction("Login", "Login");
       var defaultCardTemplate = DirectoryHelpers.GetDefaultCardTemplate();
-      ViewBag.DefaultCardTemplate = defaultCardTemplate;
+      ViewBag.DefaultCardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(defaultCardTemplate);
       ViewBag.DefaultQRCode = DirectoryHelpers.GetDefaultQRCode();
       ViewBag.DefaultFont = DirectoryHelpers.GetDefaultFont();
 
@@ -140,7 +135,7 @@ namespace FUNDING.Controllers
 
     private List<SelectListItem> GetAllActiveEvents()
     {
-      List<SelectListItem> allActiveEvents = new List<SelectListItem>();
+      var allActiveEvents = new List<SelectListItem>();
       foreach (event_details eventDetails in this._dbContext.event_details.ToList<event_details>())
       {
         if (Convert.ToDateTime((object) eventDetails.event_date).Date >= DateTime.Now.Date)
@@ -157,7 +152,7 @@ namespace FUNDING.Controllers
     [Route("carddesignmaster/AllInvitee/{event_id}")]
     public ActionResult AllInvitee(long event_id)
     {
-      List<SelectListItem> selectListItemList = new List<SelectListItem>();
+      var selectListItemList = new List<SelectListItem>();
       var visitor_details = this._dbContext.visitor_details.Where(ev => ev.event_det_sno == event_id).Select(vd => new
       {
         visitor_id = vd.visitor_det_sno,
@@ -294,8 +289,8 @@ namespace FUNDING.Controllers
           }
         });
       }
-
-      ViewBag.DefaultCardTemplate = cardMeasurement.template;
+           // HostingEnvironment.MapPath();
+      ViewBag.DefaultCardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(cardMeasurement.template);
 
       QrCodeDraggableElement draggableElement16 = new QrCodeDraggableElement();
       ElementPosition elementPosition1 = new ElementPosition();
@@ -1565,7 +1560,7 @@ namespace FUNDING.Controllers
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
                     from: from,
                     messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
-                    contentSid: "HX4144fe950291d54cc2bc511fdab1b5d6",
+                    contentSid: "HXec038b9bb126da9dc0e2a0fd0e86ff7d",
                     contentVariables: contentVariables
                 );
 
@@ -1904,7 +1899,7 @@ namespace FUNDING.Controllers
 
     private List<CardTemplates> GetAllCardTemplatesVirtualPath()
     {
-      List<CardTemplates> templatesVirtualPath = new List<CardTemplates>();
+      var templatesVirtualPath = new List<CardTemplates>();
       string virtualDirectory = DirectoryHelpers.CardTemplatesVirtualDirectory;
       foreach (string file in Directory.GetFiles(HostingEnvironment.MapPath(virtualDirectory)))
       {

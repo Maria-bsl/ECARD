@@ -64,13 +64,14 @@ namespace FUNDING.BL.BusinessEntities.Masters
                                 sno = sc.sms_inv_sno,
                                 sms_text = sc.sms_text,
                                 event_sno = sc.event_det_sno,
+                                event_name = sc.event_details.event_name,
                                 posted_by = sc.posted_by,
-                                posted_date = new DateTime?(DateTime.Now)
+                                posted_date = sc.posted_date
 
                             }).ToList();
 
                 
-                return list != null && list.Count > 0 ? list : null;
+                return (list != null && list.Count > 0) ? list : null;
             }
         }
 

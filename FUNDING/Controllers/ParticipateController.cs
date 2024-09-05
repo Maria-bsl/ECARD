@@ -49,7 +49,7 @@ namespace FUNDING.Controllers
 
             ViewBag.statusList = selectListItemList1;
 
-      List<SelectListItem> selectListItemList2 = new List<SelectListItem>();
+      var selectListItemList2 = new List<SelectListItem>();
       selectListItemList2.Add(new SelectListItem()
       {
         Text = "Starting/ Naanza",

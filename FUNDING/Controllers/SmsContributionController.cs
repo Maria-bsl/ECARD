@@ -94,17 +94,17 @@ namespace FUNDING.Controllers
     [HttpPost]
     public ActionResult AddSMSContribution(long Event_Id, string Message, long sno)
     {
-      sms_contribution smsContribution = this._dbContext.sms_contribution.Where<sms_contribution>((Expression<Func<sms_contribution, bool>>) (j => j.event_det_sno == (long?) Event_Id)).FirstOrDefault<sms_contribution>();
+      var smsContribution = this._dbContext.sms_contribution.Where(j => j.event_det_sno == (long?) Event_Id).FirstOrDefault();
       this.cy.sms_text = Message;
       this.cy.event_sno = new long?(Event_Id);
       this.cy.sms_csno = sno;
       this.cy.posted_by = this.Session["UserID"].ToString();
-      if (sno == 0L)
+      if (sno == 0)
       {
         if (smsContribution == null)
-          return (ActionResult) this.Json((object) this.cy.AddSMSContributions(this.cy), JsonRequestBehavior.AllowGet);
+          return Json(cy.AddSMSContributions(cy), JsonRequestBehavior.AllowGet);
       }
-      else if (sno > 0L && smsContribution != null)
+      else if (sno > 0 && smsContribution != null)
       {
         this.cy.UpdateSMSContribution(this.cy);
         return (ActionResult) this.Json((object) sno, JsonRequestBehavior.AllowGet);
@@ -117,14 +117,13 @@ namespace FUNDING.Controllers
     {
       try
       {
-        List<SMS_CONTRIBUTION> smsContribution = this.cy.GetSMSContribution();
+        var smsContribution = cy.GetSMSContribution();
         return smsContribution != null ? (ActionResult) this.Json((object) smsContribution, JsonRequestBehavior.AllowGet) : (ActionResult) this.Json((object) 0, JsonRequestBehavior.AllowGet);
       }
       catch (Exception ex)
       {
-        ex.ToString();
+         return this.Json(ex.ToString(), JsonRequestBehavior.AllowGet);
       }
-      return (ActionResult) null;
     }
 
     public ActionResult DeleteSMSContribution(int Sno)

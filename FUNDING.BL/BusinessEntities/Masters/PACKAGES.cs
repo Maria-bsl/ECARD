@@ -75,10 +75,10 @@ namespace FUNDING.BL.BusinessEntities.Masters
                     pack_price = sc.pack_price,
                     effective_date = sc.effective_date,
                     posted_by = sc.posted_by,
-                    posted_date = new DateTime?(DateTime.Now)
+                    posted_date = sc.posted_date
                 }).ToList();
                  // Unable to render the statement
-                return list != null && list.Count > 0 ? list : null;
+                return (list != null && list.Count > 0 ) ? list : null;
             }
         }
 

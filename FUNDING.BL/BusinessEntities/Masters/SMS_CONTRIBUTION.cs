@@ -64,6 +64,7 @@ namespace FUNDING.BL.BusinessEntities.Masters
                                     sms_csno = c.sms_con_sno,
                                     sms_text = c.sms_text,
                                     posted_date = (DateTime)c.posted_date,
+                                    event_name = c.event_details.event_name,
                                     posted_by = c.posted_by,
                                     event_sno = c.event_det_sno
                                 }).ToList();

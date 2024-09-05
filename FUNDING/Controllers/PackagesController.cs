@@ -89,14 +89,14 @@ namespace FUNDING.Controllers
     {
       try
       {
-        List<PACKAGES> packageDetails = this.cy.GetPackageDetails();
-        return packageDetails != null ? (ActionResult) this.Json((object) packageDetails, JsonRequestBehavior.AllowGet) : (ActionResult) this.Json((object) 0, JsonRequestBehavior.AllowGet);
+        var packageDetails = this.cy.GetPackageDetails();
+        return packageDetails != null ? Json( packageDetails, JsonRequestBehavior.AllowGet) : Json( 0, JsonRequestBehavior.AllowGet);
       }
       catch (Exception ex)
       {
-        ex.ToString();
+         return Json(ex.ToString(), JsonRequestBehavior.AllowGet) ;
       }
-      return (ActionResult) null;
+      
     }
 
     public ActionResult DeletePackageDetail(int Sno)

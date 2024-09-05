@@ -92,14 +92,14 @@ namespace FUNDING.Controllers
     {
       try
       {
-        List<SMS_INVITATION> smsEvent = this.cy.GetSMSEvent();
+        var smsEvent = this.cy.GetSMSEvent();
         return smsEvent != null ? (ActionResult) this.Json((object) smsEvent, JsonRequestBehavior.AllowGet) : (ActionResult) this.Json((object) 0, JsonRequestBehavior.AllowGet);
       }
       catch (Exception ex)
       {
-        ex.ToString();
+        return this.Json(ex.ToString(), JsonRequestBehavior.AllowGet);
       }
-      return (ActionResult) null;
+      
     }
 
     public ActionResult DeleteSMSEvent(int Sno)
