@@ -1,0 +1,833 @@
+﻿@{
+
+    <!DOCTYPE html>
+    <html class="loading" lang="en" data-textdirection="ltr">
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui" />
+        <title>Champions League Fund Management | @ViewBag.Title</title>
+        <link rel="apple-touch-icon" href="/favicon.ico" />
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="stylesheet" href="../assets/fontawesome-free-5.15.3-web/css/all.min.css">
+        <link rel="stylesheet" href="../assets/bootstrap-datepicker/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" href="~/assets/bootstrap-4.5.3-dist/css/bootstrap.min.css">
+
+        <link rel="stylesheet" type="text/css" href="~/app-assets/css/vendors.min.css" />
+        <!-- END VENDOR CSS-->
+        <!-- BEGIN ROBUST CSS-->
+        <link rel="stylesheet" type="text/css" href="~/app-assets/css/app.min.css" />
+        <!-- END ROBUST CSS-->
+        <!-- BEGIN Page Level CSS-->
+        <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/menu/menu-types/vertical-menu.min.css" />
+        <link rel="stylesheet" type="text/css" href="~/app-assets/css/core/colors/palette-gradient.min.css" />
+
+        <!-- END Page Level CSS-->
+        <!-- BEGIN Custom CSS-->
+        <!-- <link rel="stylesheet" type="text/css" href="assets/css/style.css"> -->
+        <!-- END Custom CSS-->
+
+
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="Description" content="Enter your description here" />
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
+        <link rel="stylesheet" href="~/assets/fontawesome-free-5.15.3-web/css/all.min.css">
+        <link rel="stylesheet" href="~/assets/dataTable/css/dataTables.bootstrap4.min.css">
+        <script src="~/assets/jquery-3.5.1/jquery.min.js"></script>
+        @* <link rel="stylesheet" href="~/assets/simple-scrollbar-master/simple-scrollbar.css"> *@
+        <script src="~/js/jspdf.debug.js"></script>
+        <script src="https://unpkg.com/jspdf-autotable@2.3.2"></script>
+        <link rel="stylesheet" href="~/assets/semantic.ui/semantic-ui-multiselect-min.css">
+        <link rel="stylesheet" href="~/assets/semantic.ui/semantic-ui-dropdown.min.css">
+        <link rel="stylesheet" href="~/assets/semantic.ui/semantic-ui-transition.min.css">
+        @*<link rel="stylesheet" href="~/assets/s/gijgo.min.css">*@
+        <link rel="stylesheet" href="~/assets/sweetalert2/sweetalert2.min.css">
+        <link rel="stylesheet" href="/select2/css/select2.min.css">
+        @RenderSection("styles", required: false)
+
+        @* Custom CSS *@
+        <link rel="stylesheet" href="~/css/custom.css">
+        <link href="~/css/Dash.css" rel="stylesheet" />
+        @* <link rel="stylesheet" href="~/css/main.min.css"> *@
+
+        <script>
+            history.pushState(null, null, location.href);
+            history.back();
+            history.forward();
+            window.onpopstate = function () { history.go(1); };
+
+
+            document.addEventListener("DOMContentLoaded", function () {
+                var preloader = document.querySelector("#preloader");
+                var body = document.querySelector("body");
+
+                if (preloader.style != 'none') {
+                    body.style.overflowY = 'hidden';
+                }
+
+                window.addEventListener('load', function () {
+                    body.style.overflowY = 'auto';
+                    preloader.style.display = 'none';
+                });
+            });
+        </script>
+    </head>
+
+    <body class="vertical-layout vertical-menu 2-columns menu-expanded fixed-navbar" data-open="click"
+        data-menu="vertical-menu" data-col="2-columns">
+
+        <div id="preloader">
+            <div class="loading-ripple">
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+
+        <!-- fixed-top-->
+        <nav class="
+                                                                                                    header-navbar
+                                                                                                    navbar-expand-md navbar navbar-with-menu
+                                                                                                    fixed-top
+                                                                                                    navbar-semi-dark navbar-shadow
+                                                                                                  ">
+            <div class="navbar-wrapper">
+                <div class="navbar-header">
+                    <ul class="nav navbar-nav flex-row">
+                        @* <li class="nav-item mobile-menu d-md-none mr-auto"> *@
+                        <li class="nav-item mobile-menu d-md-none">
+                            <a class="nav-link nav-menu-main menu-toggle hidden-xs text-dark" href="#">
+                                <i class="ft-menu font-large-1"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item flex-fill">
+                            <a class="navbar-brand py-0 position-relative d-flex align-items-center"
+                                href="@Url.Action("Setup", "Setup")">
+                                <img class="brand-logo" alt="TFF logo" src="/images/TFF_logo.png" />
+                                <h3 class="brand-text d-md-none">Champions League Fund Management</h3>
+                            </a>
+                        </li>
+                        <li class="nav-item d-md-none">
+                            <a class="nav-link open-navbar-container text-dark" data-toggle="collapse"
+                                data-target="#navbar-mobile"><i class="fa fa-ellipsis-v"></i></a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="navbar-container content pl-0">
+                    <div class="collapse navbar-collapse" id="navbar-mobile">
+                        <ul class="nav navbar-nav float-left">
+                            <li class="nav-item d-none d-md-block">
+                                <a class="nav-link nav-menu-main menu-toggle hidden-xs text-dark" href="#">
+                                    <i class="ft-menu"></i>
+                                </a>
+                            </li>
+                        </ul>
+                        <h3 class="brand-text mb-0 mr-auto d-none d-md-inline">Champions League Fund Management</h3>
+                        <ul class="nav navbar-nav float-right navbar-nav-right">
+                            <li class="dropdown dropdown-language d-flex nav-item">
+                                <a class="nav-link language-link" href="#" title="English" data-pwd="BNK"
+                                    onclick="Getlangeg()">
+                                    <i class="flag-icon flag-icon-gb"></i>
+                                </a>
+                                <a class="nav-link language-link" href="#" title="Kiswahili" data-pwd="BNK"
+                                    onclick="Getlangsw()">
+                                    <i class="flag-icon flag-icon-tz"></i>
+                                </a>
+                            </li>
+                            <li class="dropdown dropdown-notification nav-item d-none">
+                                <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                                    <i class="ficon ft-bell"></i><span class="
+                                                                                                                  badge
+                                                                                                                  badge-pill
+                                                                                                                  badge-default
+                                                                                                                  badge-danger
+                                                                                                                  badge-default
+                                                                                                                  badge-up
+                                                                                                                ">5</span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0">
+                                            <span class="grey darken-2">Notifications</span>
+                                        </h6>
+                                        <span class="
+                                                                                                                    notification-tag
+                                                                                                                    badge badge-default badge-danger
+                                                                                                                    float-right
+                                                                                                                    m-0
+                                                                                                                  ">5
+                                            New</span>
+                                    </li>
+                                    <li class="scrollable-container media-list w-100">
+                                        <a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left align-self-center">
+                                                    <i class="ft-plus-square icon-bg-circle bg-cyan"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">You have new order!</h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        Lorem ipsum dolor sit amet, consectetuer elit.
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">
+                                                            30 minutes
+                                                            ago
+                                                        </time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left align-self-center">
+                                                    <i
+                                                        class="
+                                                                                                                          ft-download-cloud
+                                                                                                                          icon-bg-circle
+                                                                                                                          bg-red bg-darken-1
+                                                                                                                        "></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading red darken-1">
+                                                        99% Server load
+                                                    </h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        Aliquam tincidunt mauris eu risus.
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">
+                                                            Five hour
+                                                            ago
+                                                        </time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left align-self-center">
+                                                    <i
+                                                        class="
+                                                                                                                          ft-alert-triangle
+                                                                                                                          icon-bg-circle
+                                                                                                                          bg-yellow bg-darken-3
+                                                                                                                        "></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading yellow darken-3">
+                                                        Warning notifixation
+                                                    </h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        Vestibulum auctor dapibus neque.
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">Today</time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left align-self-center">
+                                                    <i class="ft-check-circle icon-bg-circle bg-cyan"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Complete the task</h6>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">
+                                                            Last
+                                                            week
+                                                        </time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left align-self-center">
+                                                    <i class="ft-file icon-bg-circle bg-teal"></i>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Generate monthly report</h6>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">
+                                                            Last
+                                                            month
+                                                        </time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-menu-footer">
+                                        <a class="dropdown-item text-muted text-center" href="javascript:void(0)">
+                                            Read all
+                                            notifications
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-notification nav-item d-none">
+                                <a class="nav-link nav-link-label" href="#" data-toggle="dropdown">
+                                    <i class="ficon ft-mail"></i><span class="
+                                                                                                                  badge
+                                                                                                                  badge-pill
+                                                                                                                  badge-default
+                                                                                                                  badge-info
+                                                                                                                  badge-default
+                                                                                                                  badge-up
+                                                                                                                ">
+                                        5
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
+                                    <li class="dropdown-menu-header">
+                                        <h6 class="dropdown-header m-0">
+                                            <span class="grey darken-2">Messages</span>
+                                        </h6>
+                                        <span class="
+                                                                                                                    notification-tag
+                                                                                                                    badge badge-default badge-warning
+                                                                                                                    float-right
+                                                                                                                    m-0
+                                                                                                                  ">4
+                                            New</span>
+                                    </li>
+                                    <li class="scrollable-container media-list w-100">
+                                        <a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <span class="
+                                                                                                                          avatar avatar-sm avatar-online
+                                                                                                                          rounded-circle
+                                                                                                                        ">
+                                                        <img src="/images/user_icon.png" alt="avatar" /><i></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Margaret Govan</h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        I like your portfolio, let's start.
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">Today</time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <span class="avatar avatar-sm avatar-busy rounded-circle">
+                                                        <img src="/images/user_icon.png" alt="avatar" /><i></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Bret Lezama</h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        I have seen your work, there is
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">Tuesday</time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <span class="
+                                                                                                                          avatar avatar-sm avatar-online
+                                                                                                                          rounded-circle
+                                                                                                                        ">
+                                                        <img src="/images/user_icon.png" alt="avatar" /><i></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Carie Berra</h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        Can we have call in this week ?
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">Friday</time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a><a href="javascript:void(0)">
+                                            <div class="media">
+                                                <div class="media-left">
+                                                    <span class="avatar avatar-sm avatar-away rounded-circle">
+                                                        <img src="/images/user_icon.png" alt="avatar" /><i></i>
+                                                    </span>
+                                                </div>
+                                                <div class="media-body">
+                                                    <h6 class="media-heading">Eric Alsobrook</h6>
+                                                    <p class="notification-text font-small-3 text-muted">
+                                                        We have project party this saturday.
+                                                    </p>
+                                                    <small>
+                                                        <time class="media-meta text-muted"
+                                                            datetime="2015-06-11T18:29:20+08:00">
+                                                            last
+                                                            month
+                                                        </time>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-menu-footer">
+                                        <a class="dropdown-item text-muted text-center" href="javascript:void(0)">
+                                            Read all
+                                            messages
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown dropdown-user nav-item">
+                                <a class="dropdown-toggle nav-link dropdown-user-link d-none-after" href="#"
+                                    data-toggle="dropdown">
+                                    <span class="avatar avatar-online">
+                                        <img src="/images/user_icon.png" alt="avatar" />
+                                        <i></i>
+                                    </span>
+                                    <span class="user-name"> @Session["User_name"]</span>
+                                    <span class="account-icon">
+                                        <i class="icon-arrow-down"></i>
+                                    </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item" href="#">
+                                        <i class="ft-user"></i> Edit
+                                        Profile
+                                    </a>
+                                    <a class="dropdown-item" href="@Url.Action("Changepwd", "Changepwd")">
+                                        <i class="ft-mail"></i> Change
+                                        Password
+                                    </a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="@Url.Action("Logout", "Login")">
+                                        <i class="ft-power"></i>
+                                        Logout
+                                    </a>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+        <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+            <div class="main-menu-content">
+                <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                    <li class="nav-item">
+                        @if (@Session["teamid"].ToString() == "0")
+                        {
+                        <li class="nav-item">
+                            <a class="menu-item" href="../Fun_D/Fun_D">
+                                <i class="icon-speedometer"></i>
+                                <span class="menu-title">@ViewData["dashbd"]</span>
+                            </a>
+                        </li>
+                        }
+                        else
+                        {
+                        <li class="nav-item">
+                            <a class="menu-item" href="../Team_D/Team_D">
+                                <i class="icon-speedometer"></i>
+                                <span class="menu-title">@ViewData["dashbd"]</span>
+                            </a>
+                        </li>
+                        }
+                    </li>
+                    <li class="nav-item setup">
+                        <a class="menu-item">
+                            <i class="icon-settings"></i>
+                            <span class="menu-title">Setup</span>
+                            <span class="menu-drop-angle">
+                                <i class="ft-chevron-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="menu-content">
+                            <li class="cou">
+                                <a class="menu-item" href="../Country/Country">Country</a>
+                            </li>
+                            <li class="reg">
+                                <a class="menu-item" href="../REGION_MASTER/REGION_MASTER">Region</a>
+                            </li>
+                            <li class="dis">
+                                <a class="menu-item" href="../DISTRICT/DISTRICT">District</a>
+                            </li>
+                            <li class="ward"><a class="menu-item" href="../Ward/Ward">Ward</a></li>
+                            <li class="sec">
+                                <a class="menu-item" href="../SecurityQuestion/SecurityQuestion">Security Question</a>
+                            </li>
+                            <li class="user">
+                                <a class="menu-item" href="../EMPLOYDET/EMPLOYDET">Users</a>
+                            </li>
+                            <li class="curr">
+                                <a class="menu-item" href="../CURRENCY/CURRENCY">Currency</a>
+                            </li>
+                            @*<li class="desg">
+                                <a class="menu-item" href="../Designation/Designation">Designation</a>
+                            </li>*@
+                            <li class="email"><a class="menu-item" href="../Email/Email">Email</a></li>
+
+                            <li class="smtp"><a class="menu-item" href="../SMTP/SMTP">Smtp</a></li>
+
+                            @*added on 24.11.2021*@
+                            <li class="smsst"><a href="../SMSSETNGS/SMSSETNGS">SMS Settings</a></li>
+                            <li class="smste"><a href="../SMS/SMS">SMS Text</a></li>
+                            @*added on 24.11.2021*@
+                            @*added on 22.09.2021*@
+                            <li class="excat">
+                                <a class="menu-item" href="../ExpenseCategory/ExpenseCategory">Expense Categories</a>
+                            </li>
+
+                            @*added on 14.10.2021*@
+                            <li class="seamst">
+                                <a class="menu-item" href="../season_master/seasonmaster">Season</a>
+                            </li>
+                            @*<li><a class="menu-item" href="../Roles/Roles">Roles</a></li>*@
+                            @*<li class="change"><a class="menu-item" href="../Changepwd/Changepwd">Change
+        Password</a></li>*@
+                        </ul>
+                    </li>
+                    <li class="nav-item trans">
+                        <a class="menu-item">
+                            <i class="ft-refresh-ccw"></i>
+                            <span class="menu-title">Transaction</span>
+                            <span class="menu-drop-angle">
+                                <i class="ft-chevron-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="menu-content">
+                            <li class="Spn">
+                                <a class="menu-item" href="../Sponser/Sponser">Sponsor</a>
+                            </li>
+                            <li class="Bod"><a class="menu-item" href="../Board/Board">Board</a></li>
+                            <li class="Team">
+                                <a class="menu-item" href="../TeamDetails/TeamDetails">Teams</a>
+                            </li>
+                            <li class="Tba"><a class="menu-item" href="../TeamBudget/TeamBudget">Budgeting</a></li>
+                            <li class="stbd">
+                                <a class="menu-item" href="../Sponser_Transfer_B/Sponser_Transfer_B">
+                                    Disbursement to Board
+                                </a>
+                            </li>
+                            <li class="bttd">
+                                <a class="menu-item" href="../BTransfer/BTransferNew">Disbursement to Team</a>
+                            </li>
+                            <li class="exp">
+                                <a class="menu-item" href="../ExpensesMaster/ExpensesMaster">Expenses</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item lang">
+                        <a class="menu-item" href="../Lang_Faci/Lang_Faci">
+                            <i class="icon-globe"></i>
+                            <span class="menu-title">Language</span>
+                        </a>
+                    </li>
+                    <li class="nav-item acight">
+                        <a class="menu-item" href="../AccessRights/AccessRights">
+                            <i class="icon-key"></i>
+                            <span class="menu-title">Access Rights</span>
+                        </a>
+                    </li>
+                    <li class="nav-item audit">
+                        <a class="menu-item" href="../Bank_Audit/Bank_Audit">
+                            <i class="ft-crosshair"></i>
+                            <span class="menu-title">Audit trail</span>
+                        </a>
+                    </li>
+                    <li class="nav-item trans">
+                        <a class="menu-item">
+                            <i class="icon-check"></i>
+                            <span class="menu-title">Approve</span>
+                            <span class="menu-drop-angle">
+                                <i class="ft-chevron-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="menu-content">
+                            <li class="Spn">
+                                <a class="menu-item" href="../SponserApp/SponserApp">Sponsor</a>
+                            </li>
+                            <li class="Bod">
+                                <a class="menu-item" href="../BoardApp/BoardApp">Board</a>
+                            </li>
+                            <li class="Tba"><a class="menu-item" href="../TeamBudgetApprove/TeamBudgetApprove">Budgeting</a>
+                            </li>
+                            <li class="Team">
+                                <a class="menu-item" href="../TeamDetails_Approve/TeamDetails_Approve">Teams</a>
+                            </li>
+                            <li class="stbd">
+                                <a class="menu-item" href="../Sponser_Transfer_B_Approve/Sponser_Transfer_B_Approve">
+                                    Disbursement to Board
+                                </a>
+                            </li>
+                            <li class="bttd">
+                                <a class="menu-item" href="../BTransferApp/BTransferApp">Disbursement to Team</a>
+                            </li>
+                            <li class="exp">
+                                <a class="menu-item" href="../ExpensesMasterApp/ExpensesMasterApp">Expenses</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item trans">
+                        <a class="menu-item">
+                            <i class="icon-action-undo"></i>
+                            <span class="menu-title">Return</span>
+                            <span class="menu-drop-angle">
+                                <i class="ft-chevron-right"></i>
+                            </span>
+                        </a>
+                        <ul class="menu-content">
+                            <li class="Spn">
+                                <a class="menu-item" href="../SponserRet/SponserRet">Sponsor</a>
+                            </li>
+                            <li class="Bod">
+                                <a class="menu-item" href="../BoardRet/BoardRet">Board</a>
+                            </li>
+                            <li class="Tba">
+                                <a class="menu-item" href="../TeamBudgetRet/TeamBudgetRet">Budgeting</a>
+                            </li>
+                            <li class="Team">
+                                <a class="menu-item" href="../TeamDetails_Return/TeamDetails_Return">Teams</a>
+                            </li>
+                            <li class="stbd">
+                                <a class="menu-item" href="../Sponser_Trans_B_Return/Sponser_Trans_B_Return">
+                                    Disbursement to Board
+                                </a>
+                            </li>
+                            <li class="bttd">
+                                <a class="menu-item" href="../BTransferRet/BTransferRet">Disbursement to Team</a>
+                            </li>
+                            <li class="exp">
+                                <a class="menu-item" href="../ExpensesMasterRet/ExpensesMasterRet">Expenses</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item Repo">
+                        <a class="menu-item">
+                            <i class="icon-chart"></i>
+                            <span class="menu-title">Reports</span>
+                            <span class="menu-drop-angle">
+                                <i class="ft-chevron-right"></i>
+                            </span>
+                        </a>
+
+                        <ul class="menu-content">
+                            <li class="spnd">
+                                <a class="menu-item" href="../RepSponser/RepSponser">Sponsor Details</a>
+                            </li>
+                            <li class="bodd">
+                                <a class="menu-item" href="../RepBoard/RepBoard">Board Details</a>
+                            </li>
+                            <li class="Teamrep">
+                                <a class="menu-item" href="../RepTeam/RepTeam">Team Details</a>
+                            </li>
+                            <li class="stbdrep">
+                                <a class="menu-item" href="../RepStoB/RepStoB">Disbursement to Board Details</a>
+                            </li>
+                            <li class="bttdrep">
+                                <a class="menu-item" href="../RepBtoT/RepBtoT">Disbursement to Team Details</a>
+                            </li>
+                            <li class="te">
+                                <a class="menu-item" href="../TeamExpenses/TeamExpenses">Team Expenses</a>
+                            </li>
+                            <li class="bba">
+                                <a class="menu-item" href="../RepBoardBal/RepBoardBal">Board Balance Amount</a>
+                            </li>
+                            <li class="twb">
+                                <a class="menu-item" href="../RepTeamWisebal/RepTeamWisebal">Team Wise Balance</a>
+                            </li>
+                            <li class="disexp">
+                                <a class="menu-item" href="../DisvsExp/DisvsExp">Disbursement Expenses</a>
+                            </li>
+                            <li class="conamt">
+                                <a class="menu-item" href="../Conslidate/Conslidate">Consolidated Amount</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="app-content content">
+            <div class="content-wrapper">
+                @RenderBody()
+            </div>
+        </div>
+        <!-- ////////////////////////////////////////////////////////////////////////////-->
+
+        <footer class="footer footer-static footer-light navbar-border">
+            <div class="biz-logic-b-wrapper">
+                <div class="biz-logic-b-logo"></div>
+            </div>
+            <p class="text-bold-800 grey darken-2 mb-0 font-small-2">
+                Designed &amp; Developed by <a class="links" href="http://bizlogicsolutions.com/" target="_blank">
+                    Biz-Logic
+                    Solutions Ltd.
+                </a>
+            </p>
+        </footer>
+
+        <!-- BEGIN VENDOR JS-->
+        <script src="../assets/popperjs-1.16.1/popper.min.js"></script>
+        <script src="../assets/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+        <script src="../assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+
+        <script src="../assets/numeral.js/numeral.min.js"></script>
+        <script src="../assets/chart-js/chart.2.8.0.js"></script>
+        <script src="../js_dist/dashboard-charts.js"></script>
+        @*<script src="../js_dist/dashboard-charts.js"></script>*@
+        <!-- BEGIN VENDOR JS-->
+        @* <script src="~/assets/jquery-3.5.1/jquery.min.js"></script> *@
+        <script src="~/app-assets/vendors/js/vendors.min.js"></script>
+        <!-- BEGIN VENDOR JS-->
+        <!-- BEGIN PAGE VENDOR JS-->
+        <!-- END PAGE VENDOR JS-->
+        <!-- BEGIN ROBUST JS-->
+        <script src="~/app-assets/js/core/app-menu.min.js"></script>
+        <script src="~/app-assets/js/core/app.min.js"></script>
+        <script src="~/app-assets/js/scripts/customizer.min.js"></script>
+        <!-- END ROBUST JS-->
+        <!-- END PAGE LEVEL JS-->
+        <!-- BEGIN PAGE LEVEL JS-->
+        <script src="~/app-assets/js/scripts/ui/scrollable.min.js"></script>
+
+        <script src="~/assets/dataTable/js/jquery.dataTables.min.js"></script>
+        <script src="~/assets/dataTable/js/dataTables.bootstrap4.min.js"></script>
+        <script src="~/js/jquery.table2excel.min.js"></script>
+        <script src="~/Script/fnFilterClear.js" type="text/javascript"></script>
+        <script src="~/Script/bootstrap-notify.min.js" type="text/javascript"></script>
+        <script src="~/Script/fnFilterClear.js" type="text/javascript"></script>
+        <script src="~/js/popper.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        @*<script src="~/assets/datepicker/gijgo.min.js"></script>*@
+        <script src="~/assets/semantic.ui/semantic-ui-transition.min.js"></script>
+        <script src="~/assets/semantic.ui/semantic-ui-dropdown.min.js"></script>
+        @*<script src="~/assets/semantic.ui/semantic.min.js"></script>*@
+        @*<script src="~/js/script.js"></script>*@
+        <script src="~/js/validations.js"></script>
+        @*Bank side Js*@
+        <script src="~/js/Country.js"></script>
+        <script src="~/js/Region.js"></script>
+        <script src="~/js/Districts.js"></script>
+        <script src="~/js/Ward.js"></script>
+        <script src="~/js/SecurityQuestion.js"></script>
+        <script src="~/js/Currency.js"></script>
+        <script src="~/js/Designation.js"></script>
+        @*<script src="~/js/Email.js"></script>*@
+        <script src="~/js/Employdet.js"></script>
+        @*<script src="~/js/Module.js"></script>*@
+        <script src="~/js/Role.js"></script>
+        <script src="~/js/SMTP.js"></script>
+        <script src="~/js/Sponser.js"></script>
+        <script src="~/js/Board.js"></script>
+        <script src="~/js/BTransfer.js"></script>
+        <script src="~/js/ExpenseMaster1.js?ver=09122021"></script>
+        <script src="~/js/Team.js"></script>
+        <script src="~/js/Sponser_Transfer.js"></script>
+        <script src="~/js/TeamBudget.js"></script>
+        <script src="~/js/ExpenseCategory.js"></script> @*//22.09.2021 by raghu *@
+        <script src="/select2/js/select2.min.js"></script>
+        <script src="~/assets/sweetalert2/sweetalert2.all.min.js"></script>
+
+        <script src="~/js/main.js"></script>
+
+
+        @* <script>
+            // var main_area = document.querySelector('#main-area');
+            // SimpleScrollbar.initEl(main_area);
+            var main_menu = document.querySelector('#main-menu');
+            SimpleScrollbar.initEl(main_menu);
+            </script> *@
+        <script type="text/javascript">
+
+            //var ids = ["acight", "audit", "Bod", "bba", "bodd", "bttd", "cou", "curr", "desg", "dis", "email", "excat", "exp", "lang",
+            //    "reg", "sec", "smtp", "Spn", "spnd", "stbd", "Tba", "Team", "te", "twb", "user", "ward", "bttdrep" ];
+
+          ////  var ids = ["acight", "audit", "Bod", "bba", "bodd", "Tba", "cou", "curr", "desg", "stbd", "stbdrep", "bttd", "bttdrep", "dis", "email", "excat", "exp", "lang", "reg", "seamst", "sec", "smtp", "Spn", "spnd", "Teamrep", "te", "twb", "Team", "user", "ward"];
+            var ids = ["acight", "audit", "Bod", "bba", "bodd", "Tba", "conamt", "cou", "curr", "desg", "disexp", "stbd", "stbdrep", "bttd", "bttdrep", "dis", "email", "excat", "exp", "lang", "reg", "seamst", "sec", "smsst", "smste", "smtp", "Spn", "spnd", "Teamrep", "te", "twb", "Team", "user", "ward"];
+
+
+            var array1 = @Html.Raw(Json.Encode(@ViewBag.menulist));
+
+            if (array1) {
+                for (var y = 0; y < array1.length; y++) {
+                    if (array1[y] == 0) {
+                        jQuery('.' + ids[y]).hide();
+                    }
+                    else {
+                        jQuery('.' + ids[y]).show();
+                    }
+                }
+            }
+            var array2 = @Html.Raw(Json.Encode(@ViewBag.menuheader));
+
+            if (array2) {
+                for (var z = 0; z < array2.length; z++) {
+                    if (array2[z] == 0) {
+                        jQuery('.' + men[z]).hide();
+                    }
+                    else {
+                        jQuery('.' + men[z]).show();
+                    }
+                }
+            }
+            function Getlangeg() {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Update", "Lang_Faci")',
+                    data: JSON.stringify({ 'name': "English" }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data != null) {
+
+                            location.reload();
+                        }
+                    }
+                });
+
+            }
+            function Getlangsw() {
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("Update", "Lang_Faci")',
+                    data: JSON.stringify({ 'name': "Swahili" }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data != null) {
+                            location.reload();
+                        }
+                    }
+                });
+
+            }
+
+        </script>
+        @RenderSection("scripts", required: false)
+
+    </body>
+
+    </html>
+}

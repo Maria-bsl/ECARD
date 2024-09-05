@@ -1,0 +1,574 @@
+﻿@model FUNDING.Models.Packages
+@{
+    ViewBag.Title = "Package";
+    Layout = "~/Views/Shared/Funding.cshtml";
+
+    ViewData["Title"] = "Package Details";
+    ViewData["Home"] = "Home";
+    ViewData["Bct"] = "Add Package";
+
+    //Table header labels
+
+    ViewData["Bclo"] = "Close";
+
+    ViewData["Bsav"] = "Save";
+    ViewData["Sno"] = "Sno";
+
+    ViewData["Actions"] = "Actions";
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Setup", "Setup")">@ViewData["hom"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+
+        <h5 class="card-title" id="lblem">@ViewData["smstxt"]</h5>
+        <div class="form-group text-end">
+            <button type="button" id="btnAdd" value="Add" data-sid="0" class="btn btn-outline-primary btn-rounded"
+                    onclick="showSMTPModal(this);" data-toggle="modal" data-target="#modal-smtp">
+                <i class="fas fa-plus"></i>
+                @ViewData["Bct"]
+            </button>
+            <input type="hidden" id="hdnEmployee" />
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="tbl-smtp" class="table table-bordered rounded email-table display">
+                <thead>
+                    <tr>
+                        <th class="sno-th">@ViewData["Bsno"]</th>
+                        <th class="">Package Name </th>
+                        <th class="">Package Description</th>
+                        <th class="">Package Price</th>
+                        <th class="">Status</th>
+                        <th class="sd">Effective Date</th>
+                        <th class="setup_2_actions" data-sort-ignore="true">Actions</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+<div class="modal fade" id="modal-smtp" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog believerModal modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lblem1">Package Details</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form class="col-12 p-0 mx-auto" action="" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+
+                            @Html.LabelFor(model => model.pack_name, "Package Name", htmlAttributes: new { @class = "d-block mb-1" })
+                            @Html.TextBox("package_name", null, new { @class = "form-control mw-100" })
+                            <span class="text-danger field-validation-error">
+                                <span id="intl-input-error"></span>
+                            </span>
+                        </div>
+                        <div class="form-group col-md-12 col-lg-8 mb-3">
+                            @Html.LabelFor(model => model.pack_description, "Package Description", htmlAttributes: new { @class = "d-block mb-1" })
+                            @Html.TextAreaFor(model => model.pack_description, new { type = "text", @class = "form-control mw-100", @placeholder = "Package Description", @rows = "5", @title = "Package Description" })
+                            @*@Html.ValidationMessageFor(model => model.pack_description, "", new { @class = "text-danger" })*@
+                            <input type="hidden" class="form-control  hidden" id="txtSID">
+                        </div>
+                        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+
+                            @Html.LabelFor(model => model.pack_price, "Package Price", htmlAttributes: new { @class = "d-block mb-1" })
+                            @Html.TextBox("package_price", null, new { @class = "form-control mw-100" })
+                            <span class="text-danger field-validation-error">
+                                <span id="intl-input-error"></span>
+                            </span>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+                            <label for="txtstatus" class="f-label_align label-145">
+                                Select Status<span class="text-danger">*</span>
+                            </label>
+                            <select id="txtselect" class="form-control input-sm">
+                                <option value="0">Select</option>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+                            @Html.LabelFor(model => model.effective_date, "Effective Date", htmlAttributes: new { @class = "d-block mb-1" })
+                            <div class="col-sm-8 col-lg-9 col-xl-10">
+                                <input type="text" id="effective_date" name="EffectiveDate" class="form-control">
+                                @* @Html.ValidationMessageFor(model => model.effective_date, "", new { @class = "text-danger" })readonly="readonly" data-val="true" data-val-required="The Effective Date field is required."*@
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">Save</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+
+
+@section styles{
+    <link href="~/Scripts/intl-tel-input/css/isValidNumber.css" rel="stylesheet" />
+    <link href="~/Scripts/intl-tel-input/css/intlTelInput.min.css" rel="stylesheet" />
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/datepicker/gijgo.min.css">
+
+    <style>
+        form label {
+            margin-bottom: .25rem;
+        }
+        .sd {
+            width: 60px !important;
+        }
+        .email-table td:nth-last-of-type(2),
+        .email-table td:nth-last-of-type(3) {
+            white-space: normal;
+            min-width: 75vw;
+        }
+
+        @@media(min-width:48em) {
+
+            .email-table td:nth-last-of-type(2),
+            .email-table td:nth-last-of-type(3) {
+                white-space: normal;
+                min-width: 500px;
+            }
+        }
+
+
+        .select2-dropdown {
+            z-index: 1078 !important;
+        }
+
+        .select2.select2-container.select2-container--default,
+        .iti.iti--allow-dropdown.iti--separate-dial-code {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow,
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 38px;
+        }
+
+        .button-text.on-submit {
+            visibility: hidden !important;
+        }
+
+        .typing-loader {
+            width: 6px;
+            height: 6px;
+            -webkit-animation: line 1s linear infinite alternate;
+            -moz-animation: line 1s linear infinite alternate;
+            animation: line 1s linear infinite alternate;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        @@-webkit-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@-moz-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+    </style>
+
+}
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function () {
+           
+            bindPackage();
+            $("#btnSubmit").click(function () {
+                addPackage();
+            })
+            $("#btnDelete").click(function () {
+                delPackage();
+            });
+
+            
+            $('#effective_date').datepicker({
+                format: 'dd/mm/yyyy',
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                modal: true,
+                header: true,
+                footer: true,
+            });
+        });
+
+
+    var glob;
+    function binddata(val) {
+        var name = '';
+        if (val == 1) {
+            name = "On Registration";
+        }
+        else if (val == 2) {
+            name = "On Approve";
+        }
+        else if (val == 3) {
+            name = "On Return";
+        }
+        else if (val == 5) {
+            name = "OTP Activation";
+        }
+    }
+
+    function bindPackage() {
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetPackageDetails", "Packages")',
+            data: '{}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                jQuery("#tbl-smtp tbody").empty();
+                if (jQuery.fn.DataTable.isDataTable("#tbl-smtp")) {
+                    jQuery('#tbl-smtp').DataTable().clear().destroy();
+                }
+                if (data != 0) {
+                    var count = 1;
+                    jQuery.each(data, function (key, value) {
+
+                        var row = '<tr>' +
+                            '<td>' + count + '</td>' +
+                            '<td>' + value.pack_name + '</td>' +
+                            '<td>' + value.pack_description + '</td>' +
+                            '<td>' + value.pack_price + '</td>' +
+                            '<td>' + value.pack_status + '</td>' +
+                            '<td>' + moment(value.effective_date).format('DD/ MM / YYYY') + '</td>' +
+                            '<td class="px-2"><button class="btn btn-outline-secondary btn-sm" data-toggle="modal" id = "btn' + value.sno + '"  data-sid="' + value.sno + '" value = "Edit" data-target="#modal-smtp" onclick = "showSMTPModal(this)" ><i class="fas fa-pen"></i></button >&nbsp;&nbsp;<button id = "btn' + value.sno + '"  data-sid="' + value.sno + '" value = "Delete" onclick="showSMTPModal(this)" class="btn btn-outline-dark btn-sm distloc"><i class="fas fa-trash" aria-hidden="true"></i></button ></td > ' +
+                            '</tr>';
+                        count++;
+                        jQuery("#tbl-smtp tbody").append(row);
+                    });
+                }
+                applyDatatable('tbl-smtp');
+            }
+        })
+    }
+
+    function addPackage() {
+    var message = validateEmployee(),
+        type = '',
+        opType = jQuery("#hdnEmployee").val();
+        if (message.length > 0 && opType != 'D') {
+            notifyMessage(message, 'danger');
+        }
+    else {
+        var params = JSON.stringify(getPackageValues());
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddPackageDetail", "Packages")',
+            data: params,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $('#modal-smtp').hide();
+
+                var ddlflow = document.getElementById('package_name');
+                var text = ddlflow.value;
+                if (opType == 'C' && data) {
+                    @* if (data == true) {
+                        message = text + ' Already Exist.';
+                        type = 'danger';
+                    }
+                    else {*@
+                        message = text + ' Package Successfully Created';
+                        type = 'success';
+                    //}
+                }
+                else if (opType == 'U' && data) {
+                    message = text + ' Package Successfully Updated';
+                    type = 'success';
+                }
+                    $('.modal-backdrop').hide();
+                    @*$('.modal-smtp').innerHTML("style='display:block'");*@
+
+                notifyMessage(message, type);
+                bindPackage();
+            }
+        })
+    }
+    }
+
+    function deletebranch(cid, st) {
+        type = '',
+            opType = jQuery("#hdnEmployee").val();
+
+        var ddlflow = document.getElementById('txtselect');
+        var params = JSON.stringify(getSMTPID(cid));
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeletePackageDetail", "Packages")',
+            data: JSON.stringify({ 'sno': txtSID.value }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+
+                if (opType == 'D') {
+                    if (data == 0) {
+
+                        message = st + ' is in use Cannot be Deleted.';
+                        type = 'danger';
+
+                    } else {
+                        message = st + ' Package Successfully Deleted';
+                        type = 'success';
+                    }
+                }
+                notifyMessage(message, type);
+                bindPackage();
+            }
+        })
+
+        }
+
+    var cid;
+    var check;
+    var jk = false;
+    function valid(e) {
+        jk = true;
+    }
+    
+
+    function resetSMTPsms() {
+        var txtpname = document.getElementById('package_name');
+        var txtpdesc = document.getElementById('pack_description');
+        var txtpdate = document.getElementById('effective_date');
+        var txtpprice = document.getElementById('package_price');
+        var ddlflow = document.getElementById('txtselect');
+        ddlflow.selectedIndex = 0;
+        txtpname.value = '';
+        txtpdesc.value = '';
+        txtpprice.value = '';
+        txtpdate.value = '';
+        }
+
+    function showSMTPModal(e) {
+        var txtpname = document.getElementById('package_name');
+        var txtpdesc = document.getElementById('pack_description');
+        var txtpprice = document.getElementById('package_price');
+        var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtSID = document.getElementById('txtSID');
+        var tblemployee = document.getElementById('tbl-smtp'),
+            rows = tblemployee.rows,
+            hdnEmployee = document.getElementById('hdnEmployee');
+        if (e.value.indexOf('Edit') > -1) {
+            jQuery("#btnSubmit").html("Update");
+            for (var i = 0, row = null; i < rows.length; i++) {
+                row = rows[i];
+
+                if (row.cells[6].innerHTML.indexOf(e.id) > -1) {
+                    txtSID.value = jQuery(e).data('sid');
+                    ddlflow.value = row.cells[4].innerHTML;
+                    txtpname.value = row.cells[1].innerHTML;
+                    txtpdesc.value = row.cells[2].innerHTML;
+                    txtpprice.value = row.cells[3].innerHTML;
+                    txtedate.value = row.cells[5].innerHTML;
+
+                    break;
+                }
+            }
+            hdnEmployee.value = 'U';
+        }
+        else if (e.value.indexOf('Add') > -1) {
+            resetSMTPsms();
+            jQuery("#btnSubmit").html("Save");
+            hdnEmployee.value = 'C';
+        }
+        else if (e.value.indexOf('Delete') > -1) {
+            for (var i = 0, row = null; i < rows.length; i++) {
+                row = rows[i];
+                if (row.cells[6].innerHTML.indexOf(e.id) > -1) {
+                    txtSID.value = jQuery(e).data('sid');
+                    hdnEmployee.value = 'D';
+                    var result = confirm("Are you sure you want to delete?");
+                    if (result) {
+                        var st = row.cells[1].innerHTML;
+                        deletebranch(txtSID.value, st);
+                    }
+                }
+            }
+        }
+    }
+
+    function getPackageValues() {
+        var txtpname = document.getElementById('package_name');
+        var txtpdesc = document.getElementById('pack_description');
+        var txtpprice = document.getElementById('package_price');
+        var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtSID = document.getElementById('txtSID'),
+
+            hdnEmployee = document.getElementById('hdnEmployee');
+        if (txtSID.value == '') {
+            txtSID.value = '0';
+        }
+
+        var table = jQuery('#tbl-smtp').DataTable(),
+            selectedRow = table.rows('.selected').data();
+        if (hdnEmployee.value == "C") {
+            txtSID.value = '0';
+            jk = false;
+            var data = {
+                package_name: txtpname.value.trim(),
+                package_description: txtpdesc.value.trim(),
+                package_price: txtpprice.value.trim(),
+                package_status: ddlflow.value,
+                effective_date: txtedate.value,
+                sno: txtSID.value,
+            }
+            return data;
+        }
+        else if (hdnEmployee.value == "U") {
+
+            var data = {
+                package_name: txtpname.value.trim(),
+                package_description: txtpdesc.value.trim(),
+                package_price: txtpprice.value.trim(),
+                package_status: ddlflow.value,
+                effective_date: txtedate.value,
+                sno: txtSID.value,
+            }
+            return data;
+        }
+    }
+    function getSMTPID(glob) {
+        var table = jQuery('#tbl-smtp').DataTable(),
+            selectedRow = table.rows('.selected').data();
+        if (hdnEmployee.value == "D") {
+            var data = {
+                sno: glob,
+            }
+            return data;
+        }
+    }
+    function validateEmployee() {
+
+        var ddlflow = document.getElementById('txtselect');
+        var txtpname = document.getElementById('package_name');
+        var txtpdesc = document.getElementById('pack_description');
+        var txtpprice = document.getElementById('package_price');
+      var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtsub = document.getElementById('txtsub');
+
+        result = '';
+        if (ddlflow.value == 0) {
+            result += 'Status is Required .<br/>';
+        }
+        if (txtpname.value.trim().length == 0) {
+            result += 'Package name is Required.<br/>';
+        }
+        if (txtpdesc.value.trim().length == 0) {
+            result += 'Package description is Required.<br/>';
+        }
+        if (txtpprice.value.trim().length == 0) {
+            result += 'Package price is Required.<br/>';
+        }
+        if (txtedate.value.trim().length == 0) {
+            result += 'Package Effective Date is Required.<br/>';
+        }
+        return result;
+    }
+    </script>
+
+
+    <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/moment.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/datepicker/gijgo.min.js"></script>
+    <script src="~/Scripts/intl-tel-input/js/intlTelInput-jquery.min.js"></script>
+    <script src="~/Scripts/intl-tel-input/js/intlTelInput.js"></script>
+    <script src="~/Scripts/SweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="~/select2/js/select2.min.js"></script>
+
+
+}
+
+
+

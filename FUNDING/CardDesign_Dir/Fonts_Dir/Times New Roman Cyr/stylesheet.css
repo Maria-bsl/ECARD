@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Times New Roman Cyr';
+    src: url('TimesNRCyrMT.eot');
+    src: url('TimesNRCyrMT.eot?#iefix') format('embedded-opentype'),
+        url('TimesNRCyrMT.woff2') format('woff2'),
+        url('TimesNRCyrMT.woff') format('woff'),
+        url('TimesNRCyrMT.ttf') format('truetype'),
+        url('TimesNRCyrMT.svg#TimesNRCyrMT') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

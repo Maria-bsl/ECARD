@@ -1,0 +1,964 @@
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.dll.config
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.pdb
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csc.exe
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csc.exe.config
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csc.rsp
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csi.exe
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csi.exe.config
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\csi.rsp
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.AppContext.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Console.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.IO.Compression.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Claims.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.ValueTuple.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\vbc.exe
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\vbc.exe.config
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\vbc.rsp
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe
+D:\mounika\Funding2\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Antlr3.Runtime.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\EntityFramework.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\EntityFramework.SqlServer.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.BL.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\itextsharp.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Newtonsoft.Json.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Helpers.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Mvc.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Optimization.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Razor.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\WebGrease.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.DL.dll
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.BL.pdb
+D:\mounika\Funding2\FUNDING\FUNDING\bin\EntityFramework.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\EntityFramework.SqlServer.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\itextsharp.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Helpers.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Mvc.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Optimization.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.Razor.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Newtonsoft.Json.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Antlr3.Runtime.pdb
+D:\mounika\Funding2\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\mounika\Funding2\FUNDING\FUNDING\bin\FUNDING.DL.pdb
+D:\mounika\Funding2\FUNDING\FUNDING\obj\Release\FUNDING.csprojAssemblyReference.cache
+D:\mounika\Funding2\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+D:\mounika\Funding2\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+D:\mounika\Funding2\FUNDING\FUNDING\obj\Release\FUNDING.dll
+D:\mounika\Funding2\FUNDING\FUNDING\obj\Release\FUNDING.pdb
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.dll.config
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.pdb
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csc.exe
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csc.exe.config
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csc.rsp
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csi.exe
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csi.exe.config
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\csi.rsp
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.AppContext.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Console.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.IO.Compression.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Claims.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.ValueTuple.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\vbc.exe
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\vbc.exe.config
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\vbc.rsp
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Antlr3.Runtime.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\EntityFramework.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\EntityFramework.SqlServer.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.BL.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\itextsharp.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Newtonsoft.Json.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Helpers.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Mvc.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Optimization.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Razor.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\WebGrease.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.DL.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.BL.pdb
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\EntityFramework.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\EntityFramework.SqlServer.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\itextsharp.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Helpers.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Mvc.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Optimization.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.Razor.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Newtonsoft.Json.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Antlr3.Runtime.pdb
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Ashwin Mvc\FUNDING\FUNDING\bin\FUNDING.DL.pdb
+D:\Ashwin Mvc\FUNDING\FUNDING\obj\Release\FUNDING.csprojAssemblyReference.cache
+D:\Ashwin Mvc\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+D:\Ashwin Mvc\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+D:\Ashwin Mvc\FUNDING\FUNDING\obj\Release\FUNDING.dll
+D:\Ashwin Mvc\FUNDING\FUNDING\obj\Release\FUNDING.pdb
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.dll.config
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.pdb
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csc.exe
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csc.exe.config
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csc.rsp
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csi.exe
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csi.exe.config
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\csi.rsp
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.AppContext.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Console.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.IO.Compression.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Claims.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.ValueTuple.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\vbc.exe
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\vbc.exe.config
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\vbc.rsp
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Antlr3.Runtime.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\EntityFramework.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\EntityFramework.SqlServer.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.BL.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\itextsharp.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Newtonsoft.Json.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Helpers.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Mvc.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Optimization.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Razor.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\WebGrease.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.DL.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.BL.pdb
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\EntityFramework.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\EntityFramework.SqlServer.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\itextsharp.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Helpers.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Mvc.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Optimization.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.Razor.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Newtonsoft.Json.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Antlr3.Runtime.pdb
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\mounika\Fundingashwin\FUNDING\FUNDING\bin\FUNDING.DL.pdb
+D:\mounika\Fundingashwin\FUNDING\FUNDING\obj\Release\FUNDING.csprojAssemblyReference.cache
+D:\mounika\Fundingashwin\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+D:\mounika\Fundingashwin\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+D:\mounika\Fundingashwin\FUNDING\FUNDING\obj\Release\FUNDING.dll
+D:\mounika\Fundingashwin\FUNDING\FUNDING\obj\Release\FUNDING.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.dll.config
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Antlr3.Runtime.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\EntityFramework.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\EntityFramework.SqlServer.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.BL.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\itextsharp.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Newtonsoft.Json.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Helpers.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Mvc.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Optimization.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Razor.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\WebGrease.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.DL.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.BL.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\EntityFramework.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\EntityFramework.SqlServer.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\itextsharp.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Helpers.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Mvc.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Optimization.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.Razor.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Newtonsoft.Json.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Antlr3.Runtime.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\FUNDING.DL.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\obj\Release\FUNDING.csprojAssemblyReference.cache
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\obj\Release\FUNDING.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\obj\Release\FUNDING.pdb
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csc.exe
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csc.exe.config
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csc.rsp
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csi.exe
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csi.exe.config
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\csi.rsp
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.AppContext.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Console.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.IO.Compression.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Claims.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.ValueTuple.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\vbc.exe
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\vbc.exe.config
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\vbc.rsp
+D:\Raghu Ram\Funding_working\Funding\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.dll.config
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.pdb
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Antlr3.Runtime.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\EntityFramework.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\EntityFramework.SqlServer.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.BL.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\itextsharp.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Newtonsoft.Json.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Helpers.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Mvc.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Optimization.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Razor.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\WebGrease.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.DL.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.BL.pdb
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\EntityFramework.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\EntityFramework.SqlServer.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\itextsharp.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Helpers.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Mvc.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Optimization.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.Razor.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.Deployment.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\System.Web.WebPages.Razor.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Newtonsoft.Json.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Antlr3.Runtime.pdb
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\FUNDING.DL.pdb
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\obj\Release\FUNDING.csprojAssemblyReference.cache
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\obj\Release\FUNDING.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\obj\Release\FUNDING.pdb
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csc.exe
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csc.exe.config
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csc.rsp
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csi.exe
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csi.exe.config
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\csi.rsp
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.AppContext.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Console.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.IO.Compression.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.IO.Pipes.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Claims.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.ValueTuple.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\vbc.exe
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\vbc.exe.config
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\vbc.rsp
+D:\Raghu Ram\FUNDING\FUNDING\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+C:\PROJECTS\ECARD\FUNDING\bin\FUNDING.dll.config
+C:\PROJECTS\ECARD\FUNDING\bin\FUNDING.dll
+C:\PROJECTS\ECARD\FUNDING\bin\FUNDING.pdb
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csc.exe
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csc.exe.config
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csc.rsp
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csi.exe
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csi.exe.config
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\csi.rsp
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.AppContext.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Console.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.IO.Compression.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.IO.Pipes.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Claims.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.ValueTuple.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Xml.XPath.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\vbc.exe
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\vbc.exe.config
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\vbc.rsp
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\VBCSCompiler.exe
+C:\PROJECTS\ECARD\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+C:\PROJECTS\ECARD\FUNDING\bin\Antlr3.Runtime.dll
+C:\PROJECTS\ECARD\FUNDING\bin\EntityFramework.dll
+C:\PROJECTS\ECARD\FUNDING\bin\EntityFramework.SqlServer.dll
+C:\PROJECTS\ECARD\FUNDING\bin\FUNDING.BL.dll
+C:\PROJECTS\ECARD\FUNDING\bin\itextsharp.dll
+C:\PROJECTS\ECARD\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\PROJECTS\ECARD\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+C:\PROJECTS\ECARD\FUNDING\bin\Newtonsoft.Json.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Net.Http.Formatting.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Helpers.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Http.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Http.WebHost.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Mvc.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Optimization.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Razor.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.Deployment.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.dll
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.Razor.dll
+C:\PROJECTS\ECARD\FUNDING\bin\WebGrease.dll
+C:\PROJECTS\ECARD\FUNDING\bin\FUNDING.BL.pdb
+C:\PROJECTS\ECARD\FUNDING\bin\EntityFramework.xml
+C:\PROJECTS\ECARD\FUNDING\bin\EntityFramework.SqlServer.xml
+C:\PROJECTS\ECARD\FUNDING\bin\itextsharp.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Net.Http.Formatting.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Http.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Http.WebHost.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Helpers.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Mvc.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Optimization.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.Razor.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.Deployment.xml
+C:\PROJECTS\ECARD\FUNDING\bin\System.Web.WebPages.Razor.xml
+C:\PROJECTS\ECARD\FUNDING\bin\Newtonsoft.Json.xml
+C:\PROJECTS\ECARD\FUNDING\bin\Antlr3.Runtime.pdb
+C:\PROJECTS\ECARD\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\PROJECTS\ECARD\FUNDING\obj\Release\FUNDING.csproj.AssemblyReference.cache
+C:\PROJECTS\ECARD\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+C:\PROJECTS\ECARD\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+C:\PROJECTS\ECARD\FUNDING\obj\Release\FUNDING.dll
+C:\PROJECTS\ECARD\FUNDING\obj\Release\FUNDING.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\FUNDING.dll.config
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\FUNDING.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\FUNDING.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csc.exe
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csc.exe.config
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csc.rsp
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csi.exe
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csi.exe.config
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\csi.rsp
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.AppContext.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Console.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.IO.Compression.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.IO.Pipes.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Claims.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.ValueTuple.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Xml.XPath.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\vbc.exe
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\vbc.exe.config
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\vbc.rsp
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\VBCSCompiler.exe
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Antlr3.Runtime.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\CoreHtmlToImage.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\FUNDING.BL.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\HtmlRenderer.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\HtmlRenderer.WinForms.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Newtonsoft.Json.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\QRCoder.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Drawing.Common.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Net.Http.Formatting.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Helpers.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Http.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Http.WebHost.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Mvc.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Optimization.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Razor.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.Deployment.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.Razor.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\WebGrease.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\zxing.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\zxing.presentation.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\FUNDING.BL.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\HtmlRenderer.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\HtmlRenderer.WinForms.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Drawing.Common.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Net.Http.Formatting.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Http.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Http.WebHost.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Helpers.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Mvc.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Optimization.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.Razor.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.Deployment.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\System.Web.WebPages.Razor.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Newtonsoft.Json.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Antlr3.Runtime.pdb
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\zxing.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\zxing.presentation.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\obj\Release\FUNDING.csproj.AssemblyReference.cache
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\obj\Release\FUNDING.dll
+C:\PROJECTS\ECARD_Full_Project-29.Jan.2022\FUNDING\obj\Release\FUNDING.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\FUNDING.dll.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\FUNDING.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\FUNDING.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csc.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csc.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csc.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csi.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csi.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\csi.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.AppContext.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Console.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.IO.Compression.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.IO.Pipes.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Claims.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.ValueTuple.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Xml.XPath.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\vbc.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\vbc.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\vbc.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\VBCSCompiler.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Antlr3.Runtime.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\BouncyCastle.Crypto.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\CoreHtmlToImage.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\DocumentFormat.OpenXml.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\ExcelDataReader.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\FUNDING.BL.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\GemBox.Document.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\GemBox.Pdf.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HiQPdf.Free.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HtmlRenderer.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HtmlRenderer.WinForms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.barcodes.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.commons.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.forms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.io.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.kernel.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.layout.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.pdfa.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.sign.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.styledxmlparser.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.svg.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.DependencyInjection.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Logging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Options.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Newtonsoft.Json.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Pkcs11Interop.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\QRCoder.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\SpreadsheetLight.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Buffers.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Diagnostics.DiagnosticSource.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Drawing.Common.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.IO.Packaging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Memory.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Net.Http.Formatting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Numerics.Vectors.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Threading.Tasks.Extensions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.ValueTuple.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Helpers.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Http.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Http.WebHost.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Mvc.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Optimization.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Razor.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.Deployment.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.Razor.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\WebGrease.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\zxing.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\zxing.presentation.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\FUNDING.BL.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\DocumentFormat.OpenXml.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\ExcelDataReader.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\ExcelDataReader.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\GemBox.Document.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\GemBox.Pdf.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HiQPdf.Free.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HtmlRenderer.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HtmlRenderer.WinForms.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.barcodes.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.commons.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.forms.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.io.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.kernel.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.layout.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.pdfa.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.sign.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.styledxmlparser.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\itext.svg.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.DependencyInjection.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Logging.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Options.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.Extensions.Primitives.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Pkcs11Interop.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\SpreadsheetLight.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Buffers.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Diagnostics.DiagnosticSource.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Drawing.Common.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.IO.Packaging.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Memory.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Net.Http.Formatting.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Numerics.Vectors.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Text.Encoding.CodePages.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Threading.Tasks.Extensions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.ValueTuple.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Http.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Http.WebHost.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Helpers.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Mvc.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Optimization.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.Razor.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.Deployment.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.Web.WebPages.Razor.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Newtonsoft.Json.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Antlr3.Runtime.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\zxing.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\zxing.presentation.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\HiQPdf.dep
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.csproj.AssemblyReference.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.csproj.ResolveComReference.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\obj\Release\FUNDING.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\ECARD.DL.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.IdentityModel.Logging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.IdentityModel.Tokens.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Twilio.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Microsoft.IdentityModel.Tokens.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main\FUNDING\bin\Twilio.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\FUNDING.dll.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\FUNDING.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\FUNDING.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csc.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csc.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csc.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csi.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csi.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\csi.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.Managed.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.AppContext.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Collections.Immutable.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Console.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.IO.Compression.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.IO.FileSystem.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.IO.Pipes.AccessControl.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.IO.Pipes.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Reflection.Metadata.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.AccessControl.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Claims.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Security.Principal.Windows.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.ValueTuple.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Xml.XmlDocument.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Xml.XPath.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\vbc.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\vbc.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\vbc.rsp
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\VBCSCompiler.exe
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\roslyn\VBCSCompiler.exe.config
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Antlr3.Runtime.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\BouncyCastle.Crypto.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\CoreHtmlToImage.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\DocumentFormat.OpenXml.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\ECARD.DL.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\ExcelDataReader.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\FUNDING.BL.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\GemBox.Document.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\GemBox.Pdf.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HiQPdf.Free.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HtmlRenderer.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HtmlRenderer.WinForms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.barcodes.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.commons.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.forms.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.io.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.kernel.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.layout.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.pdfa.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.sign.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.styledxmlparser.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.svg.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Bcl.AsyncInterfaces.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.DependencyInjection.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Logging.Abstractions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Logging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Options.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Primitives.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.IdentityModel.Logging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.IdentityModel.Tokens.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Web.Infrastructure.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Newtonsoft.Json.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Pkcs11Interop.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\QRCoder.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\SpreadsheetLight.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Buffers.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Diagnostics.DiagnosticSource.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Drawing.Common.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.IdentityModel.Tokens.Jwt.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.IO.Packaging.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Memory.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Net.Http.Formatting.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Numerics.Vectors.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Text.Encoding.CodePages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Threading.Tasks.Extensions.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.ValueTuple.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Helpers.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Http.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Http.WebHost.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Mvc.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Optimization.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Razor.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.Deployment.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.Razor.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Twilio.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\WebGrease.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\zxing.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\zxing.presentation.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\FUNDING.BL.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\DocumentFormat.OpenXml.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\ExcelDataReader.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\ExcelDataReader.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\GemBox.Document.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\GemBox.Pdf.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HiQPdf.Free.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HtmlRenderer.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HtmlRenderer.WinForms.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.barcodes.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.commons.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.forms.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.io.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.kernel.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.layout.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.pdfa.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.sign.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.styledxmlparser.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\itext.svg.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Bcl.AsyncInterfaces.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.DependencyInjection.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.DependencyInjection.Abstractions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Logging.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Logging.Abstractions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Options.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.Extensions.Primitives.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.IdentityModel.Tokens.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Pkcs11Interop.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\SpreadsheetLight.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Buffers.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Diagnostics.DiagnosticSource.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Drawing.Common.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.IdentityModel.Tokens.Jwt.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.IO.Packaging.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Memory.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Net.Http.Formatting.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Numerics.Vectors.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Text.Encoding.CodePages.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Threading.Tasks.Extensions.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.ValueTuple.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Http.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Http.WebHost.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Helpers.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Mvc.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Optimization.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.Razor.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.Deployment.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\System.Web.WebPages.Razor.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Newtonsoft.Json.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Twilio.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Antlr3.Runtime.pdb
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\zxing.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\zxing.presentation.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\bin\HiQPdf.dep
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.csproj.AssemblyReference.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.csproj.ResolveComReference.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.csproj.CoreCompileInputs.cache
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.csproj.CopyComplete
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.dll
+C:\PROJECTS\E-CARD SYSTEM_PROJECT\E-Card-main_Backup_09.06.2022\FUNDING\obj\Release\FUNDING.pdb

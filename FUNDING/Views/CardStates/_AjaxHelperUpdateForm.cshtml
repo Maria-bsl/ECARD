@@ -1,0 +1,60 @@
+﻿@model FUNDING.BL.BusinessEntities.Masters.CardStates_Master
+
+@{
+    AjaxOptions updateCardStateAjaxOptions = new AjaxOptions();
+    updateCardStateAjaxOptions.HttpMethod = "POST";
+    //updateCardStateAjaxOptions.UpdateTargetId = "divCardState";
+    updateCardStateAjaxOptions.OnBegin = "OnBeginRequestUpdate";
+    updateCardStateAjaxOptions.OnSuccess = "OnSuccessRequestUpdate";
+    //updateCardStateAjaxOptions.OnComplete = "OnCompleteRequestUpdate";
+    updateCardStateAjaxOptions.OnFailure = "OnFailureRequestUpdate";
+    updateCardStateAjaxOptions.Confirm = "Do you want to update card state?";
+}
+
+@using (Ajax.BeginForm(actionName: "AjaxHelperUpdateForm", controllerName: "CardStates", routeValues: null,
+    ajaxOptions: updateCardStateAjaxOptions, htmlAttributes: new { id = "ajaxHelperUpdateForm" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Modal -->
+    <div class="modal fade" id="ajaxHelperUpdateModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div id="divCardState" class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Update Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                        @Html.HiddenFor(model => model.card_state_mas_sno)
+                        @Html.Hidden("card_state_clone")
+
+                        <div class="form-group row mb-3">
+                            @Html.LabelFor(model => model.card_state, htmlAttributes: new { @class = "col-form-label col-md-auto" })
+                            <div class="col-md">
+                                @Html.EditorFor(model => model.card_state, new { htmlAttributes = new { @class = "form-control", data_val_remote = "This card state already exists", data_val_remote_additionalfields = "*.card_state,*.__RequestVerificationToken,*.card_state_clone", data_val_remote_type = "POST", data_val_remote_url = Url.Action("IsCardStateAvailable", "CardStates") } })
+                                @Html.ValidationMessageFor(model => model.card_state, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitCreateCustomers" type="submit" class="btn btn-outline-info btn-rounded">Update</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Close</button>
+                </div>
+
+                <div class="position-absolute w-100 h-100 modal_pre-loader">
+                    <div class='d-flex justify-content-center align-items-center h-100'>
+                        <div class='ripple-pre-loader'>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

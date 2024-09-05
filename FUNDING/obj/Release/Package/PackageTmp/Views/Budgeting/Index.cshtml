@@ -1,0 +1,820 @@
+﻿@{
+    ViewBag.Title = "Users";
+    Layout = "~/Views/Shared/_Customers.cshtml";
+
+    ViewData["Title"] = "Budgeting";
+    ViewData["Home"] = "Home";
+    ViewData["Chart"] = "View Chart";
+    ViewData["History"] = "History";
+    ViewData["Bct"] = "Create";
+
+    //Table header labels
+    ViewData["Sno"] = "Sno";
+
+    ViewData["Actions"] = "Actions";
+
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Dashboard", "CustomerActivity")">@ViewData["Home"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="card border-0">
+    <div class="card-body">
+
+        <div class="d-flex-cs justify-content-between">
+            <div class="mb-1 text-start">
+                <button id="registerContributionsButton" type="button" class="btn btn-outline-info btn-rounded" data-bs-toggle="modal" data-bs-target="#budgetChartsModal">
+                    <i class="fas fa-chart-pie"></i>
+                    @ViewData["Chart"]
+                </button>
+            </div>
+            <div class="mb-1 text-end">
+                <button id="registerContributionsButton" type="button" class="btn btn-outline-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#ajaxHelperCreateModal">
+                    <i class="fas fa-plus"></i>
+                    @ViewData["Bct"]
+                </button>
+                <button id="registerContributionsButton" type="button" class="btn btn-outline-success btn-rounded">
+                    <i class="fas fa-history"></i>
+                    @ViewData["History"]
+                </button>
+            </div>
+        </div>
+        <hr />
+
+        @Html.Partial("_CreateBudgetingRecord")
+        @Html.Partial("_UpdateBudgetingRecord")
+        @Html.Partial("_BudgetCharts")
+        @*@Html.Partial("_ExpenditureCharts")*@
+
+        <div class="table-responsive with-loader">
+            <table id="budgeting-datatable" class="table table-bordered display" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th class="th-sno ps-2 text-center">@ViewData["Sno"]</th>
+                        <th>Item</th>
+                        <th style="width:60px;">Quantity</th>
+                        <th style="width:70px;">Unit Price (TZS)</th>
+                        <th style="width:70px;">Total Price (TZS)</th>
+                        <th style="width:140px;">Budget Percentage</th>
+                        <th>Remarks</th>
+                        <th class="th-actions px-1" style="width:60px;">
+                            <div class="text-center">
+                                @ViewData["Actions"]
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section styles{
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <style>
+        #budgeting-datatable > tfoot th {
+            border-bottom: solid 2px #dee2e6;
+        }
+
+        .d-flex-cs {
+            display: block !important;
+        }
+
+            .d-flex-cs > div:first-of-type {
+                margin-bottom: 1rem !important;
+            }
+
+        @@media (min-width: 428px) {
+            .d-flex-cs {
+                display: flex !important;
+            }
+
+                .d-flex-cs > div:first-of-type {
+                    margin-bottom: 0.25rem !important;
+                }
+        }
+
+        .col-xl-4_custom {
+            flex: 0 0 33.33%;
+        }
+
+        .fw-b-500 {
+            font-weight: 500 !important;
+        }
+
+        .balancePercentage {
+            height: 28px;
+        }
+
+            .balancePercentage > span:first-of-type {
+                top: 3px;
+                right: 3px;
+                z-index: 10;
+            }
+
+            .balancePercentage > span:last-of-type {
+                top: 0;
+                left: 0;
+                background: #00ffc0;
+            }
+
+        .chart-wrapper {
+            min-height: 400px;
+            max-height: 40vh;
+        }
+    </style>
+}
+
+
+@section scripts{
+    <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Script/cleave.min.js"></script>
+    <script src="~/Scripts/SweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/numeral.min.js"></script>
+    <script src="~/Scripts/chart.min.js"></script>
+
+    <script>
+
+        var budgetingTable
+
+        var color = (function () {
+
+            function ChartColors() {
+                this.getChartColor = function () {
+                    return [
+                        "#2D95EC",
+                        "#F6BA2A",
+                        "#8ABB21",
+                        "#BAA1EE",
+                        "#184FB5",
+                        "#455E11",
+                        "#10BCD0",
+                        "#917859",
+                        "#005C45",
+                        "#7FA2AD",
+                        "#AA6C73",
+                        "#7A7AFF",
+                        "#C2C27F",
+                        "#173872",
+                        "#7F0000",
+                    ];
+                }
+            }
+
+            return new ChartColors();
+        })();
+
+        var budgetChartModal = (function () {
+            function BudgetChartModal() {
+                this.chartInstance = null;
+            }
+
+            BudgetChartModal.prototype.Init = function(){
+                var $budgetModal = $('#budgetChartsModal');
+
+                OnModalOpening($budgetModal);
+                OnModalClosing($budgetModal);
+            }
+
+            function OnModalOpening($modal) {
+                $modal.on('show.bs.modal', function () {
+                    budgetChartModal.chartInstance = budgetChart.initiliazeBudgetPieChart('budget-pie-chart');
+                });
+            }
+
+            function OnModalClosing($modal) {
+                $modal.on('hide.bs.modal', function () {
+                    budgetChartModal.chartInstance.destroy();
+                });
+            }
+
+            return new BudgetChartModal();
+        })();
+
+        var budgetChart = (function () {
+            function BudgetChart() {}
+
+            BudgetChart.prototype.initiliazeBudgetPieChart = function (canvasIdProperty) {
+
+                return budgetPieChart.BudgetPieChartInit(canvasIdProperty);
+            }
+
+            var budgetPieChart = (function () {
+                function BudgetPieChart() {
+                    this.BudgetPieChartInit = function (canvasIdProperty) {
+                        var $canvasElement = document.getElementById(canvasIdProperty).getContext('2d');
+
+                       return new Chart($canvasElement, budgetPieChartConfigurations());
+                    }
+                }
+
+                var budgetPieChartLabels = (function getBudgetPieChartLabels() {
+                    var labels = @Html.Raw(Json.Encode(@ViewBag.BudgetPieChart));
+                    return labels.map(i => i.budget_item);
+                })();
+
+                var budgetPieChartDatas = (function getBudgetPieChartDatas() {
+                    var datas = @Html.Raw(Json.Encode(@ViewBag.BudgetPieChart));
+                    return datas.map(i => i.total_price);
+                })();
+
+                function budgetPieChartData() {
+
+                    return {
+                        labels: budgetPieChartLabels,
+                        datasets: [{
+                            //label: 'My First dataset',
+                            backgroundColor: color.getChartColor(),
+                            borderColor: color.getChartColor(),
+                            data: budgetPieChartDatas,
+                        }],
+                    };
+                }
+
+                function budgetPieChartConfigurations() {
+
+                    return {
+                        type: 'pie',
+                        data: budgetPieChartData(),
+
+                        options: {
+                            responsive: true,
+                            maintainAspectRatio: false,
+
+                            plugins: {
+
+                                tooltips: {
+                                    enabled: true,
+                                    intersect: false,
+                                    callbacks: {
+
+                                    },
+                                },
+
+                                legend: {
+                                    position: "right",
+                                    align: 'end',
+
+                                    labels: {
+                                        usePointStyle: true,
+                                        pointStyle: 'circle',
+                                        padding: 12,
+
+                                        font: {
+                                            size: 14
+                                        }
+                                    },
+                                },
+                            },
+                        },
+                        plugins: [{
+                            beforeInit: function (chart, args, options) {
+                                var $preloaderWrapper = $('.ripple-pre-loader-wrapper');
+                                $preloaderWrapper.css('display', 'flex');
+                            }
+                        },
+                        {
+                            afterRender: function (chart, args, options) {
+                                var $preloaderWrapper = $('.ripple-pre-loader-wrapper');
+                                $preloaderWrapper.css('display', 'none');
+                            }
+                        },
+                        {
+                            resize: function (chart, newChartSize) {
+                                if (newChartSize.size.width <= 600) {
+                                    chart.options.plugins.legend.position = 'bottom';
+                                    chart.options.plugins.legend.align = 'center';
+                                } else {
+                                    chart.options.plugins.legend.position = 'right';
+                                    chart.options.plugins.legend.align = 'end';
+                                }
+                            },
+                        }
+                        ]
+                    };
+                }
+
+                return new BudgetPieChart();
+            })();
+
+
+            return new BudgetChart();
+        })();
+
+        var dataTableHandler = (function () {
+            return {
+                Init: function (datatable_id) { return InitilizeDatatable(datatable_id); },
+            };
+
+            function InitilizeDatatable(datatable_id) {
+                return $('#' + datatable_id).DataTable({
+                    processing: true,
+                    deferRender: true,
+                    stateSave: 15,
+                    language: {
+                        processing:
+                            "<div class='d-flex justify-content-center align-items-center h-100'>" +
+                            "\t<div class='ripple-pre-loader'>" +
+                            "\t\t<div></div>" +
+                            "\t\t<div></div>" +
+                            "\t</div>" +
+                            "</div>"
+                    },
+
+                        ajax: {
+                            url: '@Url.Action("BudgetingDatatableIndex")',
+                            type: "POST",
+                            dataType: "json",
+                        },
+
+                        // Table serial number
+                        //fnRowCallback: function (nRow, aData, iDisplayIndex) {
+                        //    var oSettings = this.fnSettings();
+                        //    $("td:first", nRow).html(oSettings._iDisplayStart + iDisplayIndex + 1);
+                        //    return nRow;
+                        //},
+
+                        columns: [
+                            {
+                                title: "Sno",
+                                data: 'id',
+                            },
+                            { data: 'Item', title: 'Item' },
+                            {
+                                data: 'Quantity', title: "Quantity",
+                                render: function (data, type, row) {
+                                    return '<div class="text-end">' + numeral(data).format('0,0') + '</div>';
+                                }
+                            },
+                            {
+                                data: 'Unit_Price', title: "Unit Price (TZS)",
+                                render: function (data, type, row) {
+                                    return '<div class="text-end">' + numeral(data).format('0,0') + '</div>';
+                                }
+                            },
+                            {
+                                data: 'Total_Price', title: "Total Price (TZS)",
+                                render: function (data, type, row) {
+                                    return '<div class="text-end">' + numeral(data).format('0,0') + '</div>';
+                                }
+                            },
+                            {
+                                data: 'Budget_Percentage', title: "Budget Percentage",
+                                render: function (data, type, row) {
+                                    return '<div class="balancePercentage text-end border rounded position-relative">\n' +
+                                        '\t<span class="position-absolute fw-b-500">' + data.replace(/\.00/, '') + '</span>\n' +
+                                        '\t<span class="position-absolute h-100 rounded" style="width:' + data + ';"></span>\n' +
+                                        '</div>';
+                                }
+                            },
+                            { data: 'Remarks', title: "Remarks" },
+                            //{ data: 'control_number', title: "Control Number" },
+                            //{ data: 'contribution_due_date', title: "Contribution Due Date"},
+                            {
+                                orderable: false,
+                                data: null,
+                                render: function (data, type, row) {
+
+                                    var id = row.Record_Id;
+
+                                    return "<div class='position-relative'>" +
+                                        "<div style='display:flex;' class='table-buttons justify-content-center'> " +
+                                        "\t<button class='btn btn-outline-info btn-sm' data-id=" + id + " data-btn-type='edit' data-bs-toggle='modal' data-bs-target='#ajaxHelperUpdateModal'>" +
+                                        "\t\t<i class='fas fa-pencil-alt'></i>" +
+                                        "\t</button>" +
+                                        //"\t<button class='btn btn-outline-danger btn-sm' data-id=" + id + " data-btn-type='delete'>" +
+                                        //"\t\t<i class='fas fa-trash'></i>" +
+                                        //"\t</button>" +
+                                        "</div>" +
+                                        "<div class='justify-content-center h-100 w-100 table-preloader'>" +
+                                        "\t<div class='loading-swapping-wrapper'>" +
+                                        "\t\t<div class='loading-swapping'>" +
+                                        "\t\t\t<div></div>" +
+                                        "\t\t\t<div></div>" +
+                                        "\t\t\t<div></div>" +
+                                        "\t\t</div>" +
+                                        "\t</div>" +
+                                        "</div>" +
+                                        "</div>";
+                                }
+                            }
+                        ],
+
+                        "footerCallback": function (row, data, start, end, display) {
+                            var api = this.api();
+
+                            // Remove the formatting to get integer data for summation
+                            var intVal = function (i) {
+                                return typeof i === 'string' ? i.replace(/[\$,]/g, '') * 1 : typeof i === 'number' ? i : 0;
+                            };
+
+                            // Total over all pages
+                            total = api
+                                .column(4)
+                                .data()
+                                .reduce(function (a, b) {
+                                    return intVal(a) + intVal(b);
+                                }, 0);
+
+                            // Update footer
+                            $(api.column(4).footer())
+                                .html('<span class="d-block text-end" style="white-space: nowrap;">Total: ' + numeral(total).format('0,0') + '</span>');
+                        }
+                    });
+                }
+        })();
+
+        var budgetingAjaxCalls = (function () {
+
+            //#region Budget Properties
+            function Budget() {
+                this.createFormElement = $('#ajaxHelperCreateForm');
+                this.createModalElement = $('#ajaxHelperCreateModal');
+                this.createQuantityElement = this.createFormElement.find('#Quantity_Formatted');
+                this.createUnitPriceElement = this.createFormElement.find('#Unit_Price_Formatted');
+                this.createTotalPriceElement = this.createFormElement.find('#Total_Price_Formatted');
+
+                this.updateFormElement = $('#ajaxHelperUpdateForm');
+                this.updateModalElement = $('#ajaxHelperUpdateModal');
+                this.updateQuantityElement = this.updateFormElement.find('#Quantity_Formatted');
+                this.updateUnitPriceElement = this.updateFormElement.find('#Unit_Price_Formatted');
+                this.updateTotalPriceElement = this.updateFormElement.find('#Total_Price_Formatted');
+            }
+
+            //#endregion
+
+            //#region Public Methods
+            Budget.prototype.budgetInit = function () {
+
+                resetFormFields(this.createFormElement);
+                onUpdateModalOpenHandler(this.updateModalElement);
+
+                reserFormFieldsOnModalClose(this.createFormElement);
+                reserFormFieldsOnModalClose(this.updateFormElement);
+
+                new ThousandsCommaSeparator(this.createFormElement).Init();
+                new TotalPriceCalculator(this.createFormElement).Init();
+
+                new ThousandsCommaSeparator(this.updateFormElement).Init();
+                new TotalPriceCalculator(this.updateFormElement).Init();
+
+                confirmOnSubmittingCreateForm();
+                confirmOnSubmittingUpdateForm();
+            }
+
+            Budget.prototype.onBeginRequestCreate = function () {
+                preloader.showPreloader(this.createFormElement)
+            }
+
+            Budget.prototype.onSuccessRequestCreate = function (data) {
+                preloader.hidePreloader(this.createFormElement);
+
+                if (data.loginStatus == false) {
+                    window.location.replace('@Url.Action("CustomerLogin", "Login")');
+                }
+
+                if (data.createStatus) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.response
+                    })
+                }
+
+                reloadDatatable();
+
+                closeModal(this.createModalElement);
+            }
+
+            Budget.prototype.onFailureRequestCreate = function (data) {
+                hidePreloader(this.createFormElement);
+                closeModal(this.createModalElement);
+            }
+
+
+            Budget.prototype.onBeginRequestUpdate = function () {
+                preloader.showPreloader(this.updateFormElement);
+            }
+
+            Budget.prototype.onSuccessRequestUpdate = function (data) {
+                preloader.hidePreloader(this.updateFormElement);
+
+                if (data.loginStatus == false) {
+                    window.location.replace('@Url.Action("CustomerLogin", "Login")');
+                }
+
+                if (data.updateStatus) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.response
+                    })
+                }
+
+                reloadDatatable();
+
+                closeModal(this.updateModalElement);
+            }
+
+            Budget.prototype.onFailureRequestUpdate = function (data) {
+                hidePreloader(this.updateFormElement);
+                closeModal(this.updateModalElement);
+            }
+
+            //#endregion
+
+            //#region Private Methods
+
+            function confirmOnSubmittingCreateForm() {
+                var $ajaxHelperCreateForm = budgetingAjaxCalls.createFormElement;
+
+                $ajaxHelperCreateForm.on('click', 'button[type=submit]', function (e) {
+                    e.preventDefault();
+
+                    if ($ajaxHelperCreateForm.valid()) {
+                        Swal.fire({
+                            //title: 'Are you sure?',
+                            text: "Do you want to add budget record?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $ajaxHelperCreateForm.submit();
+                            }
+                        });
+                    }
+
+                });
+            }
+
+            function confirmOnSubmittingUpdateForm() {
+                var $ajaxHelperUpdateForm = budgetingAjaxCalls.updateFormElement;
+
+                $ajaxHelperUpdateForm.on('click', 'button[type=submit]', function (e) {
+                    e.preventDefault();
+
+                    if ($ajaxHelperUpdateForm.valid()) {
+                        Swal.fire({
+                            //title: 'Are you sure?',
+                            text: "Do you want to edit this budget record?",
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Yes!'
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                $ajaxHelperUpdateForm.submit();
+                            }
+                        });
+                    }
+
+                });
+            }
+
+            function TotalPriceCalculator($form) {
+                this.quantity = $form.find('#Quantity_Formatted');
+                this.unitPrice = $form.find('#Unit_Price_Formatted');
+                this.totalPrice = $form.find('#Total_Price_Formatted');
+
+                this.Init = function () {
+                    calculateTotalPriceOnForm(this.quantity, this.unitPrice, this.totalPrice);
+                }
+
+                function calculateTotalPriceOnForm($quantity, $unitPrice, $totalPrice) {
+                    $quantity.on('change keyup', function () { totalPriceHandler($quantity, $unitPrice, $totalPrice)});
+                    //$quantity.on('keyup', function () { totalPriceHandler($quantity, $unitPrice, $totalPrice) });
+
+                    $unitPrice.on('change keyup', function () { totalPriceHandler($quantity, $unitPrice, $totalPrice)});
+                    //$unitPrice.on('keyup', function () { totalPriceHandler($quantity, $unitPrice, $totalPrice)});
+                }
+
+                function totalPriceHandler($quantity, $unitPrice, $totalPrice) {
+                    if (checkIfElementIsEmptyOrNull($unitPrice)) {
+                        var totalPrice = getTotalPrice($quantity, $unitPrice);
+                        $totalPrice.val(totalPrice);
+                    }
+                }
+
+                function stripCommaSeparators(valueWithCommaSeparator) {
+                    return valueWithCommaSeparator.replace(/[\$,]/g, '');
+                };
+
+                function getTotalPrice($quantity, $unitPrice) {
+                    var totalPrice = stripCommaSeparators($quantity.val()) * stripCommaSeparators($unitPrice.val());
+                    return numeral(totalPrice).format('0,0')
+                }
+
+                function checkIfElementIsEmptyOrNull($inputElement) {
+                    return $inputElement.val().length > 0;
+                }
+            }
+
+            function ThousandsCommaSeparator($form) {
+                this.quantity = $form.find('#Quantity_Formatted');
+                this.unitPrice = $form.find('#Unit_Price_Formatted');
+
+                this.Init = function () {
+                    initializeThousandsCommaSeparator(this.quantity);
+                    initializeThousandsCommaSeparator(this.unitPrice);
+                }
+
+                function initializeThousandsCommaSeparator($input) {
+                    new Cleave($input, {
+                        numeral: true,
+                        numeralThousandsGroupStyle: 'thousand'
+                    });
+                }
+
+            }
+
+
+            function resetFormFields($form) {
+                var $formElements = $form.find('.form-control');
+
+                $.each($formElements, function (index, formElement) {
+                    $(formElement).val('');
+                });
+            }
+
+            function reloadDatatable() {
+                budgetingTable.ajax.reload();
+            }
+
+
+
+            function closeModal($modal) {
+                $modal.find('.btn-close').click();
+            }
+
+            function reserFormFieldsOnModalClose($form) {
+                $form.find('.modal').on('hidden.bs.modal', function () {
+                    resetFormFields($form);
+                    validateFormElementsOnModalClose($form)
+                });
+            }
+
+            function validateFormElementsOnModalClose($form) {
+                var $field = $form.find('.input-validation-error');
+                var $spanErrorWrapper = $form.find('.field-validation-error')
+
+                //Validate the field
+                $field.removeClass('input-validation-error').addClass('valid');
+                $field.attr('aria-invalid', 'false');
+
+                //Validate the span error wrapper and remove the span error message
+                $spanErrorWrapper.removeClass('field-validation-error').addClass('field-validation-valid');
+                $spanErrorWrapper.empty();
+            }
+
+            function onUpdateModalOpenHandler($updateModal) {
+                $updateModal.on('show.bs.modal', function () {
+                    populateUpdateFormWithTableData($updateModal);
+                });
+
+            }
+
+            function populateUpdateFormWithTableData($updateModal) {
+                var $table = $('#budgeting-datatable');
+
+                $table.on('click', 'button[data-btn-type="edit"]', function (e) {
+                    var $button = $(this);
+                    var $tableCells = $button.closest('tr').children();
+
+                    var record_id = $button.attr('data-id').trim();
+                    var item = tableCellValue($tableCells, 1);
+                    var quantity = tableCellValue($tableCells,2);
+                    var unit_price = tableCellValue($tableCells,3);
+                    var total_price = tableCellValue($tableCells,4);
+                    var remarks = tableCellValue($tableCells,6);
+
+                    $updateModal.find('#Record_Id').val(record_id);
+                    $updateModal.find('#Item_clone').val(item);
+                    $updateModal.find('#Item').val(item);
+                    $updateModal.find('#Quantity_Formatted').val(quantity);
+                    $updateModal.find('#Unit_Price_Formatted').val(unit_price);
+                    $updateModal.find('#Total_Price_Formatted').val(total_price);
+                    $updateModal.find('#Remarks').val(remarks);
+                })
+            }
+
+            function tableCellValue($tableCells, cell_id) {
+                return $tableCells.eq(cell_id).text().trim()
+            }
+
+            var preloader = (function () {
+                function PreLoader() {
+                    this.preloaderElement = '.modal_pre-loader';
+                }
+
+                PreLoader.prototype.showPreloader = function ($form) {
+                    $form.find(this.preloaderElement).show();
+                }
+
+                PreLoader.prototype.hidePreloader = function($form) {
+                    $form.find(this.preloaderElement).hide();
+                }
+
+                @{ #region Object Initiation}
+                return new PreLoader();
+            }());
+            @{ #endregion;}
+
+            //#endregion
+
+
+            @{ #region Object Initiation}
+            return new Budget();
+        }());
+        @{ #endregion;}
+
+
+        $(document).ready(function () {
+            budgetingTable = dataTableHandler.Init('budgeting-datatable');
+
+            budgetingAjaxCalls.budgetInit();
+
+            budgetChartModal.Init();
+        });
+
+
+        function OnBeginRequestCreate() {
+            budgetingAjaxCalls.onBeginRequestCreate();
+        }
+
+        function OnSuccessRequestCreate(data) {
+            budgetingAjaxCalls.onSuccessRequestCreate(data);
+        }
+
+        function OnFailureRequestCreate(data) {
+            budgetingAjaxCalls.onFailureRequestCreate(data);
+        }
+
+        function OnBeginRequestUpdate() {
+            budgetingAjaxCalls.onBeginRequestUpdate();
+        }
+
+        function OnSuccessRequestUpdate(data) {
+            budgetingAjaxCalls.onSuccessRequestUpdate(data);
+        }
+
+        function OnFailureRequestUpdate(data) {
+            budgetingAjaxCalls.onFailureRequestUpdate(data);
+        }
+
+    </script>
+}
+

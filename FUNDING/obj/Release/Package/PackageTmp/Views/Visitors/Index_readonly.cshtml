@@ -1,0 +1,418 @@
+﻿@model FUNDING.BL.BusinessEntities.Masters.Visitors
+
+@{
+    ViewBag.Title = "Events";
+    Layout = "~/Views/Shared/_Customers.cshtml";
+
+    ViewData["Title"] = "Visitors";
+    ViewData["Home"] = "Home";
+    ViewData["Bct"] = "Create";
+
+    //Table header labels
+    ViewData["Sno"] = "Sno";
+
+    ViewData["Actions"] = "Actions";
+
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "CustomerActivity")">@ViewData["Home"]</a></li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="card border-0">
+    <div class="card-body">
+       
+    <div class="table-responsive with-loader">
+        <table id="VisitorsTable" class="table table-bordered display" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="th-sno pl-1 text-center">@ViewData["Sno"]</th>
+                    <th>Visitor Name</th>
+                    <th>Card State</th>
+                    <th>Number Of People</th>
+                    <th>Mobile Number</th>
+                    <th>Email Address</th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+    <style>
+        .datepicker td, .datepicker th {
+            padding: 3px !important;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/moment.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/Script/app.js"></script>
+
+    <script>
+        var VisitorsDatatable, $clickedDeleteButton;
+        var $ajaxHelperCreateForm = $('#ajaxHelperCreateForm');
+        var $ajaxHelperUpdateForm = $('#ajaxHelperUpdateForm');
+        var $ajaxHelperDeleteForm = $('#ajaxHelperDeleteForm');
+        var $VisitorsTable = $('#VisitorsTable');
+        var $ajaxHelperCreateModal = $('#ajaxHelperCreateModal');
+        var $ajaxHelperUpdateModal = $('#ajaxHelperUpdateModal');
+        var $modalPreLoader = $('#modal_pre-loader');
+
+        $(document).ready(function () {
+            VisitorsDatatable = $VisitorsTable.DataTable({
+                processing: true,
+                deferRender: true,
+                stateSave: 15,
+                language: {
+                    processing:
+                        "<div class='d-flex justify-content-center align-items-center h-100'>"+
+                        "\t<div class='ripple-pre-loader'>" +
+                        "\t\t<div></div>" +
+                        "\t\t<div></div>" +
+                        "\t</div>"+
+                        "</div>"
+                },
+
+                ajax: {
+                    url: "@Url.Action("IndexDataTable")",
+                    type: "POST",
+                    dataType: "json",
+                },
+
+                columns: [
+                    {
+                        title: 'Sno',
+                        data: 'visitor_det_sno',
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+                    { data: 'visitor_name', title:'Visitor Name'},
+                    { data:'card_state', title:'Card State'},
+                    { data: 'no_of_persons', title: 'Number of People' },
+                    { data: 'mobile_no', title: 'Mobile Number' },
+                    { data: 'email_address', title:'Email Address'},
+                ]
+
+            });
+
+            //On opening create modal clear the form fields
+            resetFormFieldsOnModalClose($ajaxHelperCreateModal, $ajaxHelperCreateForm);
+
+            OperationOnDatatableBtns();
+
+            initDatePicker_TimePicker($ajaxHelperCreateForm);
+            initDatePicker_TimePicker($ajaxHelperUpdateForm);
+
+        });
+
+       @{ #region Operations On Datatable Buttons }
+
+        function OperationOnDatatableBtns() {
+
+            //click an update button
+            $VisitorsTable.on('click', 'button[data-btn-type=edit]', function (e) {
+                e.preventDefault();
+
+                $clickedUpdateButton = $(this);
+
+                updateRecordOperation($clickedUpdateButton);
+            });
+
+            //click an delete button
+            $VisitorsTable.on('click', 'button[data-btn-type=delete]', function (e) {
+                e.preventDefault();
+
+                $clickedDeleteButton = $(this);
+
+                deleteRowRecord($clickedDeleteButton);
+
+            });
+
+        }
+
+        function updateRecordOperation($this) {
+            var url = $this.attr('data-url');
+            var data_id = $this.attr('data-id');
+            var tr = $this.parentsUntil('tbody').get(3);
+
+            populateUpdateModalFormElements($(tr), data_id);
+
+            //change form action attribute
+            $ajaxHelperUpdateForm.attr('action', url);
+
+            $ajaxHelperUpdateModal.modal('show');
+
+        }
+
+        function populateUpdateModalFormElements($table_row, data_id) {
+
+            var visitorName = $table_row.find('td').eq(1).text().trim();
+            var cardState = $table_row.find('td').eq(2).text().trim();
+            var numberOfPersons = $table_row.find('td').eq(3).text().trim();
+            var mobileNumber = $table_row.find('td').eq(4).text().trim();
+            var emailAddress = $table_row.find('td').eq(5).text().trim();
+
+            var cardStateValue = getSelectValueForDropdownList(cardState);
+
+            $ajaxHelperUpdateForm.find('#visitor_det_sno').val(data_id);
+            $ajaxHelperUpdateForm.find('#visitor_name').val(visitorName);
+            $ajaxHelperUpdateForm.find('#card_state_mas_sno').val(cardStateValue);
+            $ajaxHelperUpdateForm.find('#no_of_persons').val(numberOfPersons);
+            $ajaxHelperUpdateForm.find('#mobile_no').val(mobileNumber);
+            $ajaxHelperUpdateForm.find('#email_address').val(emailAddress);
+
+        }
+
+        function getSelectValueForDropdownList(optionItemText) {
+            var $optinItemList = $ajaxHelperUpdateForm.find('#card_state_mas_sno option');
+            var optionItemValue = '';
+
+            $.map($optinItemList, function (value, index) {
+                if ($(value).text().trim() === optionItemText) {
+                    optionItemValue = $(value).val();
+                }
+            });
+            return optionItemValue;
+        }
+
+        @{#endregion}
+
+        @{ #region Create--Record Section }
+
+        function initDatePicker_TimePicker($form) {
+            var $eventDate = $form.find('#event_date');
+            var $eventStartTime = $form.find('#event_start_time');
+
+            $($eventDate).datepicker({
+                format: 'dd/mm/yyyy',
+                //calendarWeeks: true,
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                modal: true,
+                header: true,
+                footer: true,
+            });
+
+            var $timepicker = $eventStartTime.timepicker({
+                format: 'HH:MM',
+                //calendarWeeks: true,
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                //modal: false,
+                //header: false,
+                //footer: false,
+                icons: {
+                    rightIcon: '<i class="fa fa-clock-o" aria-hidden="true"></i>'
+                }
+            });
+
+            $eventStartTime.on('click', function (e) {
+                e.preventDefault();
+                $timepicker.open();
+            });
+
+        }
+
+        function submitCreateForm() {
+            $ajaxHelperCreateForm.on('click', '#submitCreateVisitors', function (e) {
+                e.preventDefault();
+
+                var x = confirm("Do you want to add a user?");
+
+                if (x) {
+                    $ajaxHelperCreateForm.submit();
+                }
+            });
+        }
+
+        function OnBeginRequestCreate() {
+
+            //Display preloader on modal open
+            getModalPreLoader($ajaxHelperCreateModal).show();
+        }
+
+        function OnSuccessRequestCreate(data) {
+
+            //Hide modal pre-loader after closing the modal
+            getModalPreLoader($ajaxHelperCreateModal).hide();
+
+            VisitorsDatatable.ajax.reload();
+
+            $ajaxHelperCreateModal.modal('hide');
+
+            if (data.createStatus) {
+                alert(data.response);
+            }
+
+            //Reset form fields
+            resetFormFieldsOnModalClose($ajaxHelperCreateModal, $ajaxHelperCreateForm);
+
+        }
+
+        function OnFailureRequestCreate() {
+
+            //Hide modal pre-loader after closing the modal
+            getModalPreLoader($ajaxHelperCreateModal).hide();
+
+            $ajaxHelperCreateModal.modal('hide');
+
+            //Reset form fields
+            resetFormFieldsOnModalClose($ajaxHelperCreateModal, $ajaxHelperCreateForm);
+        }
+
+        @{ #endregion}
+
+        @{ #region Update--Record Section }
+
+        function submitUpdateForm() {
+            $ajaxHelperUpdateForm.on('click', '#submitCreateCardState', function (e) {
+                e.preventDefault();
+
+                var x = confirm("Do you want to update a user?");
+
+                if (x) {
+                    $ajaxHelperUpdateForm.submit();
+                }
+            });
+        }
+
+        function OnBeginRequestUpdate() {
+            //Display preloader on modal open
+            getModalPreLoader($ajaxHelperUpdateModal).show();
+        }
+
+        function OnSuccessRequestUpdate(data) {
+            $ajaxHelperUpdateModal.modal('hide');
+
+            //Reset form fields
+            resetFormFieldsOnModalClose($ajaxHelperUpdateModal, $ajaxHelperUpdateForm);
+
+            //Hide modal pre-loader after closing the modal
+            getModalPreLoader($ajaxHelperUpdateModal).hide();
+
+            if (data.updateStatus) {
+                alert(data.response);
+            }
+
+            //refresh the datatable after updating data
+            VisitorsDatatable.ajax.reload();
+        }
+
+        function OnFailureRequestUpdate() {
+            $ajaxHelperUpdateModal.modal('hide');
+
+            //Reset form fields
+            resetFormFieldsOnModalClose($ajaxHelperUpdateModal, $ajaxHelperUpdateForm);
+
+            //Hide modal pre-loader after closing the modal
+            getModalPreLoader($ajaxHelperUpdateModal).hide();
+        }
+
+        @{ #endregion}
+
+        @{ #region Delete--Record Section }
+
+        function deleteRowRecord($this) {
+            var url = $this.attr('data-url');
+            var data_id = $this.attr('data-id');
+
+            //change form action attribute
+            $ajaxHelperDeleteForm.attr('action', url);
+
+            $ajaxHelperDeleteForm.find('#visitor_det_sno').val(data_id);
+
+            $('#deleteBtn').click();
+        }
+
+
+        function OnBeginRequestDelete() {
+            //Display preloader upon confirm delete
+            $clickedDeleteButton.parent().hide().next().css('display', 'flex');
+        }
+
+        function OnSuccessRequestDelete(data) {
+            //Hide preloader on success
+            $clickedDeleteButton.parent().css('display', 'flex').next().hide();
+
+            //Reset form fields
+            resetFormFields($ajaxHelperDeleteForm);
+
+            if (data.deleteStatus) {
+                alert(data.response);
+            } else {
+                alert(data.response);
+            }
+
+            //refresh the datatable after updating data
+            VisitorsDatatable.ajax.reload();
+        }
+
+        function OnFailureRequestDelete() {
+            //Hide preloader on failure
+            $clickedDeleteButton.parent().css('display', 'flex').next().hide();
+
+            //Reset form fields
+            resetFormFields($ajaxHelperDeleteForm);
+
+        }
+
+        @{ #endregion}
+
+        /**
+         * *This function clears form field of a specific
+         *
+         * @@param form specific form Element
+         */
+        function resetFormFields(form) {
+            form.find('#visitor_name').val('');
+            form.find('#card_state_mas_sno').val('');
+            form.find('#event_name').val('');
+            form.find('#no_of_persons').val('');
+            form.find('#mobile_no').val('');
+            form.find('#email_address').val('');
+        }
+
+        function resetFormFieldsOnModalClose(modal, form) {
+            modal.on('hidden.bs.modal', function () {
+                resetFormFields(form);
+                validateFormElementsOnModalClose(form);
+            });
+        }
+
+        function getModalPreLoader(modal) {
+            return modal.find('.modal_pre-loader');
+        }
+
+        function validateFormElementsOnModalClose(form) {
+            var $field = form.find('.input-validation-error');
+            var $spanErrorWrapper = form.find('.field-validation-error')
+
+            //Validate the field
+            $field.removeClass('input-validation-error').addClass('valid');
+            $field.attr('aria-invalid', 'false');
+
+            //Validate the span error wrapper and remove the span error message
+            $spanErrorWrapper.removeClass('field-validation-error').addClass('field-validation-valid');
+            $spanErrorWrapper.empty();
+        }
+    </script>
+}

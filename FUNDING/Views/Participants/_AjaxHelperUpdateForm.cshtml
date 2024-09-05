@@ -1,0 +1,131 @@
+﻿@model FUNDING.Models.Participate
+
+
+@{ AjaxOptions updateCardStateAjaxOptions = new AjaxOptions();
+                updateCardStateAjaxOptions.HttpMethod = "POST";
+                //updateCardStateAjaxOptions.UpdateTargetId = "divCardState";
+                updateCardStateAjaxOptions.OnBegin = "OnBeginRequestUpdate";
+                updateCardStateAjaxOptions.OnSuccess = "OnSuccessRequestUpdate";
+                //updateCardStateAjaxOptions.OnComplete = "OnCompleteRequestUpdate";
+                updateCardStateAjaxOptions.OnFailure = "OnFailureRequestUpdate";
+                //updateCardStateAjaxOptions.Confirm = "Do you want to update invitee?";
+                }
+
+@using (Ajax.BeginForm(actionName: "AjaxHelperUpdateForm", controllerName: "Participants", routeValues: null,
+    ajaxOptions: updateCardStateAjaxOptions, htmlAttributes: new { id = "ajaxHelperUpdateForm", autocomplete = "off" }))
+{
+@Html.AntiForgeryToken() 
+    <!-- Modal -->
+<div class="modal fade" id="ajaxHelperUpdateModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="ajaxHelperUpdateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-xl">
+        <div id="divCardState" class="modal-content position-relative">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticBackdropLabel">Update Participant Details</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.pat_sno)
+                    @Html.Hidden("Int_Mobile_number")
+                    @Html.Hidden("mobile_no_clone")
+
+                    <div class="form-group row ">
+                        @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+                        <div class="col-sm-8 col-lg-9 col-xl-10">
+                            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-3 col-xl-2" })
+                        <div class="col-md-8 col-lg-9 col-xl-10">
+                            @Html.DropDownList("gender", new SelectList(ViewBag.statusList, "Text", "Value"), htmlAttributes: new { @id = "gender", @class = "form-control" })
+                            @* @Html.EditorFor(model => model.gender, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.phone_number, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+                        <div class="col-sm-8 col-lg-9 col-xl-10">
+                            @Html.TextBoxFor(model => model.phone_number, new { @class = "form-control" })
+                            <span id="intl-input-error" class="d-none text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+                        <div class="col-sm-8 col-lg-9 col-xl-10">
+                            @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control", @type="text" } })
+                            @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.region, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-3 col-xl-2" })
+                        <div class="col-md-8 col-lg-9 col-xl-10">
+                            @Html.DropDownListFor(model => model.region, ViewBag.regions as IEnumerable<SelectListItem>, "Select region", htmlAttributes: new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.region, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.region, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.district, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-3 col-xl-2" })
+                        <div class="col-md-8 col-lg-9 col-xl-10">
+                            @Html.DropDownListFor(model => model.district, ViewBag.districts as IEnumerable<SelectListItem>, "Select district", htmlAttributes: new { @class = "form-control" })
+                            @*@Html.EditorFor(model => model.district, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.district, "", new { @class = "text-danger" })*@
+                        </div>
+                    </div>
+
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.entrepreneur_status, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-4 col-xl-3" })
+                        <div class="col-md-8 col-lg-8 col-xl-9">
+                            @Html.DropDownListFor(model => model.entrepreneur_status, ViewBag.entrepreneur as IEnumerable<SelectListItem>,  htmlAttributes: new { @class = "form-control", @id = "entrepreneur_status" })
+
+                            @* @Html.EditorFor(model => model.ward, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.entrepreneur_status, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.opportunity, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-4 col-xl-3" })
+                        <div class="col-md-8 col-lg-8 col-xl-9">
+                            @Html.DropDownList("opportunity", ViewBag.opportunity as IEnumerable<SelectListItem>, htmlAttributes: new { @multiple = "multiple", @id = "opportunity", @class = "form-control" })
+
+                            @* @Html.EditorFor(model => model.ward, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.opportunity, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(model => model.business_sector, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-4 col-xl-3" })
+                        <div class="col-md-8 col-lg-8 col-xl-9">
+                            @Html.DropDownList("business_sector", ViewBag.business as IEnumerable<SelectListItem>, htmlAttributes: new { @multiple = "multiple", @id = "business_sector", @class = "form-control" })
+
+                            @* @Html.EditorFor(model => model.ward, new { htmlAttributes = new { @class = "form-control" } })*@
+                            @Html.ValidationMessageFor(model => model.business_sector, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="submitUpdateVisitors" type="submit" class="btn btn-outline-info btn-rounded">Update</button>
+                <button type="button" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Close</button>
+            </div>
+
+            <div class="position-absolute w-100 h-100 modal_pre-loader">
+                <div class='d-flex justify-content-center align-items-center h-100'>
+                    <div class='ripple-pre-loader'>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>}

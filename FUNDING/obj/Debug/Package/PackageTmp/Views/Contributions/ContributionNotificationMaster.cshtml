@@ -1,0 +1,125 @@
+﻿@model FUNDING.Models.CollectionModule.ContributionNotification
+
+@{
+    ViewBag.Title = "Contributions Notifications";
+    Layout = "~/Views/Shared/_Customers.cshtml";
+
+
+    ViewData["Title"] = "Contributions Notifications";
+    ViewData["Home"] = "Home";
+    ViewData["Bct"] = "Save";
+
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Dashboard", "CustomerActivity")">@ViewData["Home"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="card border-0">
+    <div class="card-body">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <div class="col-sm-11 col-md-11 col-lg-8">
+                <div class="row">
+                    <div class="form-group col-sm-8 col-md-6">
+                        @Html.LabelFor(model => model.Intimate_Date, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Intimate_Date, new { @class = "form-control mw-100" })
+                        @Html.ValidationMessageFor(model => model.Intimate_Date, "", new { @class = "text-danger" })
+                    </div>
+
+                    <div class="form-group col-sm-8 col-md-6">
+                        @Html.LabelFor(model => model.Intimate_Days, htmlAttributes: new { @class = "control-label" })
+                        @Html.TextBoxFor(model => model.Intimate_Days, new { @class = "form-control mw-100" })
+                        @Html.ValidationMessageFor(model => model.Intimate_Days, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group col-12 col-sm-8 col-md-12">
+                    <div class="text-end">
+                        <input type="submit" value="Create" class="btn btn-outline-primary btn-rounded" />
+                        <input type="reset" value="Reset" class="btn btn-outline-info btn-rounded" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        }
+    </div>
+</div>
+
+
+@section styles{
+    <link rel="stylesheet" href="~/assets/datepicker/gijgo.min.css">
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+
+    <style>
+        div.gj-datepicker, div.gj-timepicker {
+            max-width: 100%;
+        }
+
+        .datepicker td, .datepicker th {
+            padding: 3px !important;
+        }
+    </style>
+}
+
+
+@section scripts{
+    <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/moment.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/datepicker/gijgo.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            initDatePicker();
+        });
+
+        function initDatePicker() {
+            var $notificationDate = $('#Intimate_Date');
+            var todaysDate = '@Html.Raw(@ViewBag.TodaysDate)';
+            var oneDayToEventDate = '@Html.Raw(@ViewBag.EventDate)';
+
+            $notificationDate.datepicker({
+                format: 'dddd, dd mmmm yyyy',
+                //calendarWeeks: true,
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                minDate: todaysDate,
+                maxDate: oneDayToEventDate,
+                modal: true,
+                header: true,
+                footer: true,
+            });
+
+            $notificationDate.on('change', function () {
+                $validationSpan = $('#Intimate_Date-error');
+
+                if ($notificationDate.val().length > 0) {
+                    $validationSpan.text("");
+                } 
+            });
+
+        }
+    </script>
+
+}

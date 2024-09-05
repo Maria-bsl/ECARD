@@ -1,0 +1,94 @@
+﻿@model FUNDING.BL.BusinessEntities.Masters.Events
+
+
+@{
+    AjaxOptions updateEventDetailsAjaxOptions = new AjaxOptions();
+    updateEventDetailsAjaxOptions.HttpMethod = "POST";
+    //updateEventDetailsAjaxOptions.UpdateTargetId = "divEventDetails";
+    updateEventDetailsAjaxOptions.OnBegin = "OnBeginRequestUpdate";
+    updateEventDetailsAjaxOptions.OnSuccess = "OnSuccessRequestUpdate";
+    //updateEventDetailsAjaxOptions.OnComplete = "OnCompleteRequestUpdate";
+    updateEventDetailsAjaxOptions.OnFailure = "OnFailureRequestUpdate";
+    updateEventDetailsAjaxOptions.Confirm = "Do you want to update event?";
+}
+
+@using (Ajax.BeginForm(actionName: "AjaxHelperUpdateForm", controllerName: "Events", routeValues: null,
+    ajaxOptions: updateEventDetailsAjaxOptions, htmlAttributes: new { id = "ajaxHelperUpdateForm", autocomplete = "off" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.event_det_sno)
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.inviter_name, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                @Html.EditorFor(model => model.inviter_name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.inviter_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.event_name, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                @Html.EditorFor(model => model.event_name, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+                @Html.ValidationMessageFor(model => model.event_name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.event_date, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                <input type="text" id="event_date" name="event_date" class="form-control" readonly="readonly" data-val="true" data-val-required="The Ocassion Date field is required.">
+                @Html.ValidationMessageFor(model => model.event_date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.event_start_time, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                <input type="text" id="event_start_time" name="event_start_time" class="form-control" readonly="readonly" data-val="true" data-val-required="The Start Time field is required.">
+                @Html.ValidationMessageFor(model => model.event_start_time, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.venue, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                @Html.EditorFor(model => model.venue, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.venue, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.reservation, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                @Html.EditorFor(model => model.reservation, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.reservation, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group row">
+            @Html.LabelFor(model => model.remarks, htmlAttributes: new { @class = "col-form-label col-sm-4 col-lg-3 col-xl-2" })
+            <div class="col-sm-8 col-lg-9 col-xl-10">
+                @Html.EditorFor(model => model.remarks, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.remarks, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button id="submitCreateCustomers" type="submit" class="btn btn-outline-info btn-rounded">Update</button>
+        <button type="button" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Close</button>
+    </div>
+
+    <div class="position-absolute w-100 h-100 modal_pre-loader">
+        <div class='d-flex justify-content-center align-items-center h-100'>
+            <div class='ripple-pre-loader'>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+}

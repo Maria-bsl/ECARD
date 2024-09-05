@@ -1,0 +1,158 @@
+﻿@model FUNDING.BL.BusinessEntities.Masters.EMP_DET
+
+@{
+    ViewBag.Title = "Forgot";
+    Layout = null;
+   // Layout = "~/Views/Shared/Funding.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="Description" content="Enter your description here" />
+    <link rel="stylesheet" href="../../assets/bootstrap-4.5.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../assets/fontawesome-free-5.15.3-web/css/all.min.css">
+    <link rel="stylesheet" href="../../css/login-style.min.css">
+    <title>Forgot Password Page | e-nvit</title>
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon">
+
+    <style>
+
+        div.footer {
+            height: 100px;
+            display: flex;
+           flex-direction: column;
+           justify-content: center;
+           align-content:center;
+        }
+
+            div.footer p {
+                font-size: 0.75rem;
+            }
+
+        .co-operate--wrapper {
+            width: 60px;
+            height: 60px;
+        }
+
+        .co-operate-logo--wrapper {
+            background: url('../../images/Biz-Logic Round Logo.png');
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+            width: 100%;
+            height: inherit;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid px-0">
+        <div class="row mx-0">
+            <div class="main-area col-12 px-0">
+                <div class="login-box">
+                    <div class="card border-grey border-lighten-3 m-0 ">
+                        <div class="card-header border-0 bg-white pb-1">
+                            <div class="card-title text-center">
+                                <div class="p-1">
+                                    <img class="img-thumbnail mt-4" src="~/images/logo_placeholder.png" alt="branding logo" />
+                                </div>
+                            </div>
+                            <h1 class="card-subtitle line-on-side h5 text-muted text-center text-uppercase">
+                                <span>e-Nvit</span>
+                            </h1>
+                        </div>
+                        <h6 class="text-center">Reset your password</h6>
+                        <div class="card-content">
+                            <div class="card-body pt-1">
+                                <div class="alert alert-info mb-2" role="alert">
+                                    <p class="mb-0">We will send you a link to reset password.</p>
+                                </div>
+
+                                <form class="form-horizontal form-simple" action="" novalidate="" method="POST"
+                                      pb-autologin="true" autocomplete="off">
+                                    <fieldset class="form-group position-relative has-icon-left">
+                                        <input type="text" class="form-control form-control-lg input-lg no-box-shadow"
+                                               id="user-email" placeholder="Your Email" required="" pb-role="email">
+                                        <div class="form-control-position">
+                                            <i class="far fa-envelope"></i>
+                                        </div>
+                                    </fieldset>
+
+                                    <button type="button"
+                                            class="btn tff_btn btn-lg btn-block" id="btnSubmit" pb-role="submit" >Recover Password</button>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <p class="text-center m-0">
+                                <a href="@Url.Action("Login", "Login")">Return to Login Page</a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer px-2">
+                    <p class="mb-0">
+                        Designed &amp; Developed by <a class="links" href="http://bizlogicsolutions.com/" target="_blank">Biz-Logic Solutions Ltd.</a>
+                    </p>
+                    <div class="co-operate--wrapper">
+                        <div class="co-operate-logo--wrapper"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/assets/scripts/jQuery.min.js"></script>
+    <script src="/assets/popperjs-1.16.1/popper.min.js"></script>
+    <script src="/assets/bootstrap-4.5.3-dist/js/bootstrap.min.js"></script>
+    <script src="/Script/bootstrap-notify.min.js" type="text/javascript"></script>
+    <script src="/js/validations.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                addoff();
+              
+            });
+        });
+            function addoff() {
+                var message = validateEmployeeoff(),
+                type = '';
+                if (message.length > 0) {
+                    notifyMessage(message, 'danger');
+                }
+                
+                else {
+                    var txtu = document.getElementById('user-email');
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("Getemail", "Forgot")',
+                        data: JSON.stringify({ 'Sno': txtu.value }),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json',
+                        success: function (data) {
+                            if (data != 0) {
+                                window.location.href = '/Login/Login';
+                            }
+                            else {
+                                window.location.href = '/Login/Login';
+                            }
+                        }
+                    })
+                }
+            }
+        function validateEmployeeoff() {
+                var txtu = document.getElementById('user-email');
+                var result = '';
+                if (txtu.value.trim().length == 0) {
+                    result += 'E-Mail is Required.<br/>';
+                }
+                
+                return result;
+            }
+    </script>
+
+</body>
+</html>
+

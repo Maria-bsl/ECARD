@@ -1,0 +1,1330 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ECARD.DL.EDMX.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="activity_master">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="20" />
+    <Property Name="msno" Type="bigint" />
+    <Property Name="mname" Type="varchar" MaxLength="100" />
+    <Property Name="descript" Type="varchar" MaxLength="100" />
+    <Property Name="activity_status" Type="varchar" MaxLength="10" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="s_r_det" Type="varchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="arights_master">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="rcode" Type="varchar" MaxLength="20" />
+    <Property Name="rdesc" Type="varchar" MaxLength="100" />
+    <Property Name="radmin" Type="varchar" MaxLength="1" />
+    <Property Name="role_status" Type="varchar" MaxLength="10" />
+    <Property Name="emp_detail_id" Type="bigint" />
+    <Property Name="usernaem" Type="varchar" MaxLength="50" />
+    <Property Name="mcode" Type="varchar" MaxLength="20" />
+    <Property Name="mname" Type="varchar" MaxLength="100" />
+    <Property Name="module_status" Type="varchar" MaxLength="10" />
+    <Property Name="acode" Type="varchar" MaxLength="20" />
+    <Property Name="adescript" Type="varchar" MaxLength="100" />
+    <Property Name="aadd" Type="varchar" MaxLength="1" />
+    <Property Name="aview" Type="varchar" MaxLength="1" />
+    <Property Name="asearch" Type="varchar" MaxLength="1" />
+    <Property Name="aupdate" Type="varchar" MaxLength="1" />
+    <Property Name="adelete" Type="varchar" MaxLength="1" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="audit_log">
+    <Key>
+      <PropertyRef Name="audit_sno" />
+    </Key>
+    <Property Name="audit_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="audit_type" Type="varchar" MaxLength="50" />
+    <Property Name="table_name" Type="varchar" MaxLength="200" />
+    <Property Name="column_name" Type="varchar" MaxLength="200" />
+    <Property Name="old_value" Type="varchar" MaxLength="500" />
+    <Property Name="new_value" Type="varchar" MaxLength="500" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="date" />
+    <Property Name="posted_time" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="budget_master">
+    <Key>
+      <PropertyRef Name="budget_mas_sno" />
+    </Key>
+    <Property Name="budget_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="budget_item" Type="varchar" MaxLength="50" />
+    <Property Name="budget_qty" Type="int" />
+    <Property Name="unit_price" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="total_price" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="remarks" Type="varchar" MaxLength="200" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="card_measurement">
+    <Key>
+      <PropertyRef Name="card_meas_sno" />
+    </Key>
+    <Property Name="card_meas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="card_size" Type="varchar" MaxLength="10" />
+    <Property Name="template" Type="varchar" MaxLength="200" />
+    <Property Name="qrcodesize" Type="int" />
+    <Property Name="qrleft" Type="varchar" MaxLength="10" />
+    <Property Name="qrtop" Type="varchar" MaxLength="10" />
+    <Property Name="element_font_size" Type="int" />
+    <Property Name="element_italic" Type="varchar" MaxLength="10" />
+    <Property Name="element_underline" Type="varchar" MaxLength="10" />
+    <Property Name="element_textalign" Type="varchar" MaxLength="10" />
+    <Property Name="element_color" Type="varchar" MaxLength="50" />
+    <Property Name="element_font_name" Type="varchar" MaxLength="30" />
+    <Property Name="element_left" Type="varchar" MaxLength="10" />
+    <Property Name="element_top" Type="varchar" MaxLength="10" />
+    <Property Name="element_bold" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_font_size" Type="int" />
+    <Property Name="cardsize_italic" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_underline" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_textalign" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_color" Type="varchar" MaxLength="50" />
+    <Property Name="cardsize_font_name" Type="varchar" MaxLength="30" />
+    <Property Name="cardsize_left" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_top" Type="varchar" MaxLength="10" />
+    <Property Name="cardsize_bold" Type="varchar" MaxLength="10" />
+    <Property Name="label_font_size" Type="int" />
+    <Property Name="label_italic" Type="varchar" MaxLength="10" />
+    <Property Name="label_underline" Type="varchar" MaxLength="10" />
+    <Property Name="label_textalign" Type="varchar" MaxLength="10" />
+    <Property Name="label_color" Type="varchar" MaxLength="50" />
+    <Property Name="label_font_name" Type="varchar" MaxLength="30" />
+    <Property Name="label_left" Type="varchar" MaxLength="10" />
+    <Property Name="label_top" Type="varchar" MaxLength="10" />
+    <Property Name="label_bold" Type="varchar" MaxLength="10" />
+    <Property Name="digit_font_size" Type="int" />
+    <Property Name="digit_italic" Type="varchar" MaxLength="10" />
+    <Property Name="digit_underline" Type="varchar" MaxLength="10" />
+    <Property Name="digit_textalign" Type="varchar" MaxLength="10" />
+    <Property Name="digit_color" Type="varchar" MaxLength="50" />
+    <Property Name="digit_font_name" Type="varchar" MaxLength="30" />
+    <Property Name="digit_left" Type="varchar" MaxLength="10" />
+    <Property Name="digit_top" Type="varchar" MaxLength="10" />
+    <Property Name="digit_bold" Type="varchar" MaxLength="10" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="50" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="50" />
+    <Property Name="misc_column3" Type="varchar" MaxLength="50" />
+    <Property Name="misc_column4" Type="varchar" MaxLength="50" />
+    <Property Name="misc_column5" Type="varchar" MaxLength="50" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="date" />
+  </EntityType>
+  <EntityType Name="card_state_master">
+    <Key>
+      <PropertyRef Name="card_state_mas_sno" />
+    </Key>
+    <Property Name="card_state_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="card_state" Type="varchar" MaxLength="20" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="cash_collection">
+    <Key>
+      <PropertyRef Name="cash_col_sno" />
+    </Key>
+    <Property Name="cash_col_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="contri_det_sno" Type="bigint" />
+    <Property Name="contributor_name" Type="varchar" MaxLength="100" />
+    <Property Name="amount" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="remarks" Type="varchar" MaxLength="200" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="coll_date" Type="date" />
+  </EntityType>
+  <EntityType Name="con_notificaiton_master">
+    <Key>
+      <PropertyRef Name="con_notif_sno" />
+    </Key>
+    <Property Name="con_notif_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="intimate_date" Type="date" />
+    <Property Name="intimate_days" Type="int" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="contributor_details">
+    <Key>
+      <PropertyRef Name="contri_det_sno" />
+    </Key>
+    <Property Name="contri_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="contributor_name" Type="varchar" MaxLength="100" />
+    <Property Name="currency_code" Type="varchar" MaxLength="10" />
+    <Property Name="contribution_amount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="no_of_persons" Type="int" />
+    <Property Name="mobile_no" Type="varchar" MaxLength="50" />
+    <Property Name="email_address" Type="varchar" MaxLength="50" />
+    <Property Name="contri_status" Type="varchar" MaxLength="20" />
+    <Property Name="control_no" Type="varchar" MaxLength="20" />
+    <Property Name="contri_due_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="countries">
+    <Key>
+      <PropertyRef Name="country_sno" />
+    </Key>
+    <Property Name="country_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="country_name" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="cust_users">
+    <Key>
+      <PropertyRef Name="cust_users_sno" />
+    </Key>
+    <Property Name="cust_users_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="user_fullname" Type="varchar" MaxLength="100" />
+    <Property Name="username" Type="varchar" MaxLength="100" />
+    <Property Name="password" Type="varchar" MaxLength="100" />
+    <Property Name="user_type" Type="varchar" MaxLength="100" />
+    <Property Name="created_date" Type="date" />
+    <Property Name="expiry_date" Type="date" />
+    <Property Name="email_address" Type="varchar" MaxLength="50" />
+    <Property Name="mobile_no" Type="varchar" MaxLength="50" />
+    <Property Name="f_login" Type="varchar" MaxLength="50" />
+    <Property Name="log_att" Type="int" />
+    <Property Name="log_time" Type="datetime" />
+    <Property Name="log_status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="event_det_sno" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="customer_registration">
+    <Key>
+      <PropertyRef Name="cust_reg_sno" />
+    </Key>
+    <Property Name="cust_reg_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cust_name" Type="varchar" MaxLength="200" />
+    <Property Name="physical_address" Type="varchar" MaxLength="500" />
+    <Property Name="mobile_no" Type="varchar" MaxLength="200" Nullable="false" />
+    <Property Name="email_address" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="10" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="designation_list">
+    <Key>
+      <PropertyRef Name="desg_id" />
+    </Key>
+    <Property Name="desg_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="desg_name" Type="varchar" MaxLength="200" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="district_master">
+    <Key>
+      <PropertyRef Name="district_sno" />
+    </Key>
+    <Property Name="district_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="district_name" Type="varchar" MaxLength="200" />
+    <Property Name="region_id" Type="bigint" />
+    <Property Name="district_status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="email_event_text">
+    <Key>
+      <PropertyRef Name="email_e_t_sno" />
+    </Key>
+    <Property Name="email_e_t_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="s_e_i_sno" Type="bigint" />
+    <Property Name="email_subject" Type="varchar" MaxLength="200" />
+    <Property Name="email_text" Type="varchar" MaxLength="200" />
+    <Property Name="card_size" Type="varchar" MaxLength="200" />
+    <Property Name="includes" Type="varchar" MaxLength="500" />
+    <Property Name="excludes" Type="varchar" MaxLength="500" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="email_text">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="flow_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="email_text" Type="text" Nullable="false" />
+    <Property Name="email_text_local" Type="text" />
+    <Property Name="email_sub" Type="varchar" MaxLength="200" />
+    <Property Name="email_sub_local" Type="varchar" MaxLength="200" />
+    <Property Name="effective_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="emp_detail">
+    <Key>
+      <PropertyRef Name="emp_detail_id" />
+    </Key>
+    <Property Name="emp_detail_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="emp_id_no" Type="varchar" MaxLength="50" />
+    <Property Name="full_name" Type="varchar" MaxLength="200" />
+    <Property Name="first_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="middle_name" Type="varchar" MaxLength="50" />
+    <Property Name="last_name" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="desg_id" Type="bigint" />
+    <Property Name="email_id" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="50" />
+    <Property Name="pwd" Type="varchar" MaxLength="50" />
+    <Property Name="mobile_no" Type="varchar" MaxLength="100" />
+    <Property Name="created_date" Type="datetime" />
+    <Property Name="expiry_date" Type="datetime" />
+    <Property Name="f_login" Type="varchar" MaxLength="50" />
+    <Property Name="app_status" Type="varchar" MaxLength="10" />
+    <Property Name="log_att" Type="int" />
+    <Property Name="log_time" Type="datetime" />
+    <Property Name="log_status" Type="varchar" MaxLength="20" />
+    <Property Name="emp_status" Type="varchar" MaxLength="10" />
+    <Property Name="localization" Type="varchar" MaxLength="100" />
+    <Property Name="flag" Type="varchar" MaxLength="10" />
+    <Property Name="ctime" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="ErrorLogID" />
+    </Key>
+    <Property Name="ErrorLogID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Message" Type="varchar" MaxLength="2000" />
+    <Property Name="Source" Type="varchar" MaxLength="2000" />
+    <Property Name="TargetSite" Type="varchar" MaxLength="2000" />
+    <Property Name="StackTrace" Type="varchar" MaxLength="2000" />
+    <Property Name="InnerException" Type="varchar" MaxLength="2000" />
+    <Property Name="RequestURL" Type="varchar" MaxLength="2000" />
+    <Property Name="deliveryCode" Type="varchar" MaxLength="2000" />
+    <Property Name="BrowserType" Type="varchar" MaxLength="2000" />
+    <Property Name="AuditDate" Type="datetime" />
+  </EntityType>
+  <EntityType Name="event_details">
+    <Key>
+      <PropertyRef Name="event_det_sno" />
+    </Key>
+    <Property Name="event_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="inviter_name" Type="varchar" MaxLength="200" />
+    <Property Name="event_name" Type="varchar" MaxLength="200" />
+    <Property Name="event_date" Type="date" />
+    <Property Name="event_start_time" Type="datetime" />
+    <Property Name="venue" Type="varchar" MaxLength="200" />
+    <Property Name="reservation" Type="varchar" MaxLength="200" />
+    <Property Name="event_status" Type="varchar" MaxLength="10" />
+    <Property Name="remarks" Type="varchar" MaxLength="300" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="visitor_confirmation" Type="varchar" MaxLength="10" />
+    <Property Name="no_of_sms" Type="int" />
+    <Property Name="no_of_email" Type="int" />
+    <Property Name="no_of_wup" Type="int" />
+    <Property Name="pack_det_sno" Type="bigint" />
+  </EntityType>
+  <EntityType Name="expenditure_details">
+    <Key>
+      <PropertyRef Name="exp_det_sno" />
+    </Key>
+    <Property Name="exp_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="budget_mas_sno" Type="bigint" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="exp_item" Type="varchar" MaxLength="50" />
+    <Property Name="exp_qty" Type="int" />
+    <Property Name="unit_price" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="total_price" Type="decimal" Precision="14" Scale="2" />
+    <Property Name="remarks" Type="varchar" MaxLength="200" />
+    <Property Name="name_of_service_provider" Type="varchar" MaxLength="100" />
+    <Property Name="sp_contact_details" Type="varchar" MaxLength="100" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="exp_date" Type="date" />
+  </EntityType>
+  <EntityType Name="localization_master">
+    <Key>
+      <PropertyRef Name="loc_sno" />
+    </Key>
+    <Property Name="loc_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loc_eng" Type="varchar" MaxLength="500" />
+    <Property Name="loc_other" Type="varchar" MaxLength="500" />
+    <Property Name="table_name" Type="varchar" MaxLength="200" />
+    <Property Name="column_name" Type="varchar" MaxLength="200" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="updated_by" Type="varchar" MaxLength="20" />
+    <Property Name="updated_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="modules_master">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="20" />
+    <Property Name="name" Type="varchar" MaxLength="100" />
+    <Property Name="module_status" Type="varchar" MaxLength="10" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="package_details">
+    <Key>
+      <PropertyRef Name="pack_det_sno" />
+    </Key>
+    <Property Name="pack_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="pack_name" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="pack_description" Type="varchar" MaxLength="400" />
+    <Property Name="pack_price" Type="bigint" />
+    <Property Name="pack_status" Type="varchar" MaxLength="10" />
+    <Property Name="effective_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="participants">
+    <Key>
+      <PropertyRef Name="pat_sno" />
+    </Key>
+    <Property Name="pat_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fullname" Type="varchar" MaxLength="100" />
+    <Property Name="phone_number" Type="varchar" MaxLength="20" />
+    <Property Name="gender" Type="varchar" MaxLength="20" />
+    <Property Name="dob" Type="varchar" MaxLength="200" />
+    <Property Name="region" Type="bigint" />
+    <Property Name="district" Type="bigint" />
+    <Property Name="ward" Type="bigint" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="entrepreneur_status" Type="varchar" MaxLength="200" />
+    <Property Name="opportunity" Type="varchar" MaxLength="200" />
+    <Property Name="business_sector" Type="varchar" MaxLength="200" />
+    <Property Name="ip_address" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="payment_details">
+    <Key>
+      <PropertyRef Name="payment_det_sno" />
+    </Key>
+    <Property Name="payment_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="payment_date" Type="date" Nullable="false" />
+    <Property Name="payment_time" Type="datetime" Nullable="false" />
+    <Property Name="pay_control_no" Type="varchar" MaxLength="20" />
+    <Property Name="trans_channel" Type="varchar" MaxLength="100" />
+    <Property Name="payment_type" Type="varchar" MaxLength="100" />
+    <Property Name="amount_type" Type="varchar" MaxLength="100" />
+    <Property Name="payer_name" Type="varchar" MaxLength="100" />
+    <Property Name="payment_desc" Type="varchar" MaxLength="100" />
+    <Property Name="payer_id" Type="varchar" MaxLength="100" />
+    <Property Name="contri_det_sno" Type="bigint" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="currency_code" Type="varchar" MaxLength="10" />
+    <Property Name="requested_amount" Type="bigint" />
+    <Property Name="paid_amount" Type="bigint" />
+    <Property Name="pay_trans_no" Type="varchar" MaxLength="20" />
+    <Property Name="receipt_no" Type="varchar" MaxLength="20" />
+    <Property Name="message" Type="varchar" MaxLength="200" />
+    <Property Name="batch_no" Type="varchar" MaxLength="45" />
+    <Property Name="authorize_id" Type="varchar" MaxLength="20" />
+    <Property Name="secure_hash" Type="varchar" MaxLength="100" />
+    <Property Name="response_code" Type="varchar" MaxLength="20" />
+    <Property Name="merchant" Type="varchar" MaxLength="50" />
+    <Property Name="card" Type="varchar" MaxLength="50" />
+    <Property Name="token" Type="varchar" MaxLength="300" />
+    <Property Name="chksum" Type="varchar" MaxLength="300" />
+    <Property Name="status" Type="varchar" MaxLength="50" />
+    <Property Name="response" Type="varchar" MaxLength="500" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="qr_verify_details">
+    <Key>
+      <PropertyRef Name="qr_ver_det_sno" />
+    </Key>
+    <Property Name="qr_ver_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="visitor_det_sno" Type="bigint" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="qrcode" Type="varchar" MaxLength="30" />
+    <Property Name="event_start_time" Type="datetime" />
+    <Property Name="card_state_mas_sno" Type="bigint" />
+    <Property Name="no_of_persons" Type="int" />
+    <Property Name="scan_status" Type="varchar" MaxLength="10" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="region_master">
+    <Key>
+      <PropertyRef Name="region_sno" />
+    </Key>
+    <Property Name="region_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="region_name" Type="varchar" MaxLength="200" />
+    <Property Name="country_sno" Type="bigint" />
+    <Property Name="country_name" Type="varchar" MaxLength="200" />
+    <Property Name="region_status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="date" />
+  </EntityType>
+  <EntityType Name="roles_master">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="code" Type="varchar" MaxLength="20" />
+    <Property Name="descript" Type="varchar" MaxLength="100" />
+    <Property Name="admin1" Type="varchar" MaxLength="1" />
+    <Property Name="role_status" Type="varchar" MaxLength="10" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="s_e_w_event_send_details">
+    <Key>
+      <PropertyRef Name="s_e_s_det_sno" />
+    </Key>
+    <Property Name="s_e_s_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="visitor_det_sno" Type="bigint" />
+    <Property Name="sms_text" Type="varchar" MaxLength="200" />
+    <Property Name="email_text" Type="varchar" MaxLength="200" />
+    <Property Name="wup_text" Type="varchar" MaxLength="200" />
+    <Property Name="sms_sent" Type="int" />
+    <Property Name="email_sent" Type="int" />
+    <Property Name="wup_sent" Type="int" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="service_error_logs">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="error" Type="text" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sms_contribution">
+    <Key>
+      <PropertyRef Name="sms_con_sno" />
+    </Key>
+    <Property Name="sms_con_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="sms_text" Type="varchar" MaxLength="300" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sms_email_instances">
+    <Key>
+      <PropertyRef Name="s_e_i_sno" />
+    </Key>
+    <Property Name="s_e_i_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="instance_type" Type="varchar" MaxLength="50" />
+    <Property Name="instance_category" Type="varchar" MaxLength="50" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sms_event_text">
+    <Key>
+      <PropertyRef Name="sms_e_t_sno" />
+    </Key>
+    <Property Name="sms_e_t_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="s_e_i_sno" Type="bigint" />
+    <Property Name="sms_text" Type="varchar" MaxLength="200" />
+    <Property Name="card_size" Type="varchar" MaxLength="200" />
+    <Property Name="includes" Type="varchar" MaxLength="500" />
+    <Property Name="excludes" Type="varchar" MaxLength="500" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sms_invitation">
+    <Key>
+      <PropertyRef Name="sms_inv_sno" />
+    </Key>
+    <Property Name="sms_inv_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="sms_text" Type="varchar" MaxLength="300" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="sms_settings">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="varchar" MaxLength="200" />
+    <Property Name="password" Type="varchar" MaxLength="200" />
+    <Property Name="from_address" Type="varchar" MaxLength="200" />
+    <Property Name="mobile_service" Type="varchar" MaxLength="200" />
+    <Property Name="effective_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="sms_text">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="flow_id" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="sms_text" Type="text" Nullable="false" />
+    <Property Name="sms_text_other" Type="text" />
+    <Property Name="sms_sub" Type="varchar" MaxLength="200" />
+    <Property Name="sms_sub_local" Type="varchar" MaxLength="200" />
+    <Property Name="effective_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="smtp_settings">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="from_address" Type="varchar" MaxLength="200" />
+    <Property Name="smtp_address" Type="varchar" MaxLength="200" />
+    <Property Name="smtp_port" Type="varchar" MaxLength="10" />
+    <Property Name="username" Type="varchar" MaxLength="200" />
+    <Property Name="smtp_password" Type="varchar" MaxLength="200" />
+    <Property Name="ssl_enable" Type="varchar" MaxLength="5" />
+    <Property Name="effective_date" Type="date" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="table_details">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="table_name" Type="varchar" MaxLength="200" />
+    <Property Name="table_relation" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="temp_localization">
+    <Key>
+      <PropertyRef Name="loc_sno" />
+    </Key>
+    <Property Name="loc_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="loc_eng" Type="varchar" MaxLength="500" />
+    <Property Name="dyn_eng" Type="varchar" MaxLength="500" />
+    <Property Name="table_name" Type="varchar" MaxLength="200" />
+    <Property Name="column_name" Type="varchar" MaxLength="200" />
+    <Property Name="loc_lang" Type="varchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="track_details">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="full_name" Type="varchar" MaxLength="100" />
+    <Property Name="userid" Type="varchar" MaxLength="30" />
+    <Property Name="ipadd" Type="varchar" MaxLength="500" />
+    <Property Name="email" Type="varchar" MaxLength="200" />
+    <Property Name="login_time" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="descrip" Type="varchar" MaxLength="500" />
+    <Property Name="logout_time" Type="datetime" />
+  </EntityType>
+  <EntityType Name="twilio_notification_log">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="account_sid" Type="varchar" MaxLength="200" />
+    <Property Name="sms_sid" Type="varchar" MaxLength="100" />
+    <Property Name="api_version" Type="varchar" MaxLength="200" />
+    <Property Name="received_at" Type="datetime" />
+    <Property Name="sms_status" Type="varchar" MaxLength="200" />
+    <Property Name="channel_install_sid" Type="varchar" MaxLength="100" />
+    <Property Name="channel_to_address" Type="varchar" MaxLength="200" />
+    <Property Name="messaging_service_sid" Type="varchar" MaxLength="200" />
+    <Property Name="message_status" Type="varchar" MaxLength="200" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="channel_prefix" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column3" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="twilio_send_log">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="varchar" MaxLength="100" />
+    <Property Name="accountsid" Type="varchar" MaxLength="200" />
+    <Property Name="sid" Type="varchar" MaxLength="100" />
+    <Property Name="apiversion" Type="varchar" MaxLength="200" />
+    <Property Name="body" Type="varchar" MaxLength="400" />
+    <Property Name="date_created" Type="datetime" />
+    <Property Name="date_Sent" Type="datetime" />
+    <Property Name="date_updated" Type="datetime" />
+    <Property Name="direction" Type="varchar" MaxLength="200" />
+    <Property Name="error_code" Type="varchar" MaxLength="50" />
+    <Property Name="error_messages" Type="varchar" MaxLength="200" />
+    <Property Name="whatsapp_from" Type="varchar" MaxLength="100" />
+    <Property Name="whatsapp_to" Type="varchar" MaxLength="100" />
+    <Property Name="messaging_service_sid" Type="varchar" MaxLength="200" />
+    <Property Name="num_media" Type="varchar" MaxLength="20" />
+    <Property Name="num_segment" Type="varchar" MaxLength="20" />
+    <Property Name="price" Type="varchar" MaxLength="200" />
+    <Property Name="price_unit" Type="varchar" MaxLength="200" />
+    <Property Name="status" Type="varchar" MaxLength="200" />
+    <Property Name="subrecource_uris" Type="varchar" MaxLength="200" />
+    <Property Name="uri" Type="varchar" MaxLength="200" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column3" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="visitor_details">
+    <Key>
+      <PropertyRef Name="visitor_det_sno" />
+    </Key>
+    <Property Name="visitor_det_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="cust_reg_sno" Type="bigint" />
+    <Property Name="visitor_name" Type="varchar" MaxLength="100" />
+    <Property Name="qrcode" Type="varchar" MaxLength="30" />
+    <Property Name="card_state_mas_sno" Type="bigint" />
+    <Property Name="no_of_persons" Type="int" />
+    <Property Name="mobile_no" Type="varchar" MaxLength="50" />
+    <Property Name="email_address" Type="varchar" MaxLength="50" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" Nullable="false" />
+    <Property Name="table_number" Type="varchar" MaxLength="10" />
+    <Property Name="att_status" Type="varchar" MaxLength="1" />
+    <Property Name="designation" Type="varchar" MaxLength="100" />
+    <Property Name="company_name" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="ward_master">
+    <Key>
+      <PropertyRef Name="ward_sno" />
+    </Key>
+    <Property Name="ward_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ward_name" Type="varchar" MaxLength="200" />
+    <Property Name="region_id" Type="bigint" />
+    <Property Name="district_sno" Type="bigint" />
+    <Property Name="ward_status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="webhook_error_log">
+    <Key>
+      <PropertyRef Name="sno" />
+    </Key>
+    <Property Name="sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="account_sid" Type="varchar" MaxLength="200" />
+    <Property Name="sid" Type="varchar" MaxLength="100" />
+    <Property Name="parent_account_sid" Type="varchar" MaxLength="200" />
+    <Property Name="received_at" Type="datetime" />
+    <Property Name="level" Type="varchar" MaxLength="200" />
+    <Property Name="payload_type" Type="varchar" MaxLength="100" />
+    <Property Name="payload" Type="varchar" MaxLength="300" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="100" />
+    <Property Name="misc_column3" Type="datetime" />
+  </EntityType>
+  <EntityType Name="wup_event_text">
+    <Key>
+      <PropertyRef Name="wup_e_t_sno" />
+    </Key>
+    <Property Name="wup_e_t_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="event_det_sno" Type="bigint" />
+    <Property Name="s_e_i_sno" Type="bigint" />
+    <Property Name="wup_text" Type="varchar" MaxLength="200" />
+    <Property Name="card_size" Type="varchar" MaxLength="200" />
+    <Property Name="includes" Type="varchar" MaxLength="500" />
+    <Property Name="excludes" Type="varchar" MaxLength="500" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'acode_sno_rk' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="acode_sno_rk" />-->
+  <Association Name="bud_mas_sno_even_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="budget_master" Type="Self.budget_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="budget_master">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="card_meas_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="card_measurement" Type="Self.card_measurement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="card_measurement">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cash_col_sno_contri_det_rk">
+    <End Role="contributor_details" Type="Self.contributor_details" Multiplicity="0..1" />
+    <End Role="cash_collection" Type="Self.cash_collection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="contributor_details">
+        <PropertyRef Name="contri_det_sno" />
+      </Principal>
+      <Dependent Role="cash_collection">
+        <PropertyRef Name="contri_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cash_col_sno_even_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="cash_collection" Type="Self.cash_collection" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="cash_collection">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="con_notif_sno_even_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="con_notificaiton_master" Type="Self.con_notificaiton_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="con_notificaiton_master">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="contri_det_cust_reg_sno_rk">
+    <End Role="customer_registration" Type="Self.customer_registration" Multiplicity="0..1" />
+    <End Role="contributor_details" Type="Self.contributor_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_registration">
+        <PropertyRef Name="cust_reg_sno" />
+      </Principal>
+      <Dependent Role="contributor_details">
+        <PropertyRef Name="cust_reg_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="contri_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="contributor_details" Type="Self.contributor_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="contributor_details">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="cust_user_regist_sno_rk">
+    <End Role="customer_registration" Type="Self.customer_registration" Multiplicity="0..1" />
+    <End Role="cust_users" Type="Self.cust_users" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_registration">
+        <PropertyRef Name="cust_reg_sno" />
+      </Principal>
+      <Dependent Role="cust_users">
+        <PropertyRef Name="cust_reg_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="dist_reg_id_rk">
+    <End Role="region_master" Type="Self.region_master" Multiplicity="0..1" />
+    <End Role="district_master" Type="Self.district_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="region_master">
+        <PropertyRef Name="region_sno" />
+      </Principal>
+      <Dependent Role="district_master">
+        <PropertyRef Name="region_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="email_e_t_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="email_event_text" Type="Self.email_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="email_event_text">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="email_s_e_t_e_i_sno_rk">
+    <End Role="sms_email_instances" Type="Self.sms_email_instances" Multiplicity="0..1" />
+    <End Role="email_event_text" Type="Self.email_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sms_email_instances">
+        <PropertyRef Name="s_e_i_sno" />
+      </Principal>
+      <Dependent Role="email_event_text">
+        <PropertyRef Name="s_e_i_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="event_det_cust_reg_sno_rk">
+    <End Role="customer_registration" Type="Self.customer_registration" Multiplicity="0..1" />
+    <End Role="event_details" Type="Self.event_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_registration">
+        <PropertyRef Name="cust_reg_sno" />
+      </Principal>
+      <Dependent Role="event_details">
+        <PropertyRef Name="cust_reg_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="event_det_pack_sno_rk">
+    <End Role="package_details" Type="Self.package_details" Multiplicity="0..1" />
+    <End Role="event_details" Type="Self.event_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="package_details">
+        <PropertyRef Name="pack_det_sno" />
+      </Principal>
+      <Dependent Role="event_details">
+        <PropertyRef Name="pack_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="exp_det_bud_mas_sno_rk">
+    <End Role="budget_master" Type="Self.budget_master" Multiplicity="0..1" />
+    <End Role="expenditure_details" Type="Self.expenditure_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="budget_master">
+        <PropertyRef Name="budget_mas_sno" />
+      </Principal>
+      <Dependent Role="expenditure_details">
+        <PropertyRef Name="budget_mas_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="exp_det_sno_even_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="expenditure_details" Type="Self.expenditure_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="expenditure_details">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'module_sno_rk' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="module_sno_rk" />-->
+  <Association Name="moudule_sno_rk">
+    <End Role="modules_master" Type="Self.modules_master" Multiplicity="0..1" />
+    <End Role="activity_master" Type="Self.activity_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="modules_master">
+        <PropertyRef Name="sno" />
+      </Principal>
+      <Dependent Role="activity_master">
+        <PropertyRef Name="msno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="qr_card_state_mas_sno_rk">
+    <End Role="card_state_master" Type="Self.card_state_master" Multiplicity="0..1" />
+    <End Role="qr_verify_details" Type="Self.qr_verify_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="card_state_master">
+        <PropertyRef Name="card_state_mas_sno" />
+      </Principal>
+      <Dependent Role="qr_verify_details">
+        <PropertyRef Name="card_state_mas_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="qr_det_cust_reg_sno_rk">
+    <End Role="customer_registration" Type="Self.customer_registration" Multiplicity="0..1" />
+    <End Role="qr_verify_details" Type="Self.qr_verify_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_registration">
+        <PropertyRef Name="cust_reg_sno" />
+      </Principal>
+      <Dependent Role="qr_verify_details">
+        <PropertyRef Name="cust_reg_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="qr_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="qr_verify_details" Type="Self.qr_verify_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="qr_verify_details">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="qr_verify_vis_det_sno_rk">
+    <End Role="visitor_details" Type="Self.visitor_details" Multiplicity="0..1" />
+    <End Role="qr_verify_details" Type="Self.qr_verify_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="visitor_details">
+        <PropertyRef Name="visitor_det_sno" />
+      </Principal>
+      <Dependent Role="qr_verify_details">
+        <PropertyRef Name="visitor_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="region_county_sno_rk">
+    <End Role="countries" Type="Self.countries" Multiplicity="0..1" />
+    <End Role="region_master" Type="Self.region_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="countries">
+        <PropertyRef Name="country_sno" />
+      </Principal>
+      <Dependent Role="region_master">
+        <PropertyRef Name="country_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <!--Errors Found During Generation:
+warning 6035: The relationship 'role_sno_rk' has columns that are not part of the key of the table on the primary side of the relationship. The relationship was excluded.
+        <Association Name="role_sno_rk" />-->
+  <Association Name="s_e_s_det_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="s_e_w_event_send_details" Type="Self.s_e_w_event_send_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="s_e_w_event_send_details">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="s_e_t_e_i_sno_rk">
+    <End Role="sms_email_instances" Type="Self.sms_email_instances" Multiplicity="0..1" />
+    <End Role="sms_event_text" Type="Self.sms_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sms_email_instances">
+        <PropertyRef Name="s_e_i_sno" />
+      </Principal>
+      <Dependent Role="sms_event_text">
+        <PropertyRef Name="s_e_i_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sms_con_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="sms_contribution" Type="Self.sms_contribution" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="sms_contribution">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sms_e_t_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="sms_event_text" Type="Self.sms_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="sms_event_text">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="sms_inv_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="sms_invitation" Type="Self.sms_invitation" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="sms_invitation">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="visi_card_state_mas_sno_rk">
+    <End Role="card_state_master" Type="Self.card_state_master" Multiplicity="0..1" />
+    <End Role="visitor_details" Type="Self.visitor_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="card_state_master">
+        <PropertyRef Name="card_state_mas_sno" />
+      </Principal>
+      <Dependent Role="visitor_details">
+        <PropertyRef Name="card_state_mas_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="visi_det_cust_reg_sno_rk">
+    <End Role="customer_registration" Type="Self.customer_registration" Multiplicity="0..1" />
+    <End Role="visitor_details" Type="Self.visitor_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="customer_registration">
+        <PropertyRef Name="cust_reg_sno" />
+      </Principal>
+      <Dependent Role="visitor_details">
+        <PropertyRef Name="cust_reg_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="visi_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="visitor_details" Type="Self.visitor_details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="visitor_details">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ward_dis_id_rk">
+    <End Role="district_master" Type="Self.district_master" Multiplicity="0..1" />
+    <End Role="ward_master" Type="Self.ward_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="district_master">
+        <PropertyRef Name="district_sno" />
+      </Principal>
+      <Dependent Role="ward_master">
+        <PropertyRef Name="district_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ward_reg_id_rk">
+    <End Role="region_master" Type="Self.region_master" Multiplicity="0..1" />
+    <End Role="ward_master" Type="Self.ward_master" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="region_master">
+        <PropertyRef Name="region_sno" />
+      </Principal>
+      <Dependent Role="ward_master">
+        <PropertyRef Name="region_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wup_e_t_event_det_sno_rk">
+    <End Role="event_details" Type="Self.event_details" Multiplicity="0..1" />
+    <End Role="wup_event_text" Type="Self.wup_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="event_details">
+        <PropertyRef Name="event_det_sno" />
+      </Principal>
+      <Dependent Role="wup_event_text">
+        <PropertyRef Name="event_det_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="wup_s_e_t_e_i_sno_rk">
+    <End Role="sms_email_instances" Type="Self.sms_email_instances" Multiplicity="0..1" />
+    <End Role="wup_event_text" Type="Self.wup_event_text" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="sms_email_instances">
+        <PropertyRef Name="s_e_i_sno" />
+      </Principal>
+      <Dependent Role="wup_event_text">
+        <PropertyRef Name="s_e_i_sno" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ECARDDLEDMXStoreContainer">
+    <EntitySet Name="activity_master" EntityType="Self.activity_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="arights_master" EntityType="Self.arights_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="audit_log" EntityType="Self.audit_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="budget_master" EntityType="Self.budget_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="card_measurement" EntityType="Self.card_measurement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="card_state_master" EntityType="Self.card_state_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cash_collection" EntityType="Self.cash_collection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="con_notificaiton_master" EntityType="Self.con_notificaiton_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contributor_details" EntityType="Self.contributor_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="cust_users" EntityType="Self.cust_users" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="customer_registration" EntityType="Self.customer_registration" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="designation_list" EntityType="Self.designation_list" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="district_master" EntityType="Self.district_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="email_event_text" EntityType="Self.email_event_text" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="email_text" EntityType="Self.email_text" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="emp_detail" EntityType="Self.emp_detail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="event_details" EntityType="Self.event_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="expenditure_details" EntityType="Self.expenditure_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="localization_master" EntityType="Self.localization_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="modules_master" EntityType="Self.modules_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="package_details" EntityType="Self.package_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="participants" EntityType="Self.participants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="payment_details" EntityType="Self.payment_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="qr_verify_details" EntityType="Self.qr_verify_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="region_master" EntityType="Self.region_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roles_master" EntityType="Self.roles_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="s_e_w_event_send_details" EntityType="Self.s_e_w_event_send_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="service_error_logs" EntityType="Self.service_error_logs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_contribution" EntityType="Self.sms_contribution" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_email_instances" EntityType="Self.sms_email_instances" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_event_text" EntityType="Self.sms_event_text" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_invitation" EntityType="Self.sms_invitation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_settings" EntityType="Self.sms_settings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sms_text" EntityType="Self.sms_text" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="smtp_settings" EntityType="Self.smtp_settings" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="table_details" EntityType="Self.table_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="temp_localization" EntityType="Self.temp_localization" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="track_details" EntityType="Self.track_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="twilio_notification_log" EntityType="Self.twilio_notification_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="twilio_send_log" EntityType="Self.twilio_send_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="visitor_details" EntityType="Self.visitor_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ward_master" EntityType="Self.ward_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="webhook_error_log" EntityType="Self.webhook_error_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="wup_event_text" EntityType="Self.wup_event_text" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="bud_mas_sno_even_rk" Association="Self.bud_mas_sno_even_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="budget_master" EntitySet="budget_master" />
+    </AssociationSet>
+    <AssociationSet Name="card_meas_event_det_sno_rk" Association="Self.card_meas_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="card_measurement" EntitySet="card_measurement" />
+    </AssociationSet>
+    <AssociationSet Name="cash_col_sno_contri_det_rk" Association="Self.cash_col_sno_contri_det_rk">
+      <End Role="contributor_details" EntitySet="contributor_details" />
+      <End Role="cash_collection" EntitySet="cash_collection" />
+    </AssociationSet>
+    <AssociationSet Name="cash_col_sno_even_rk" Association="Self.cash_col_sno_even_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="cash_collection" EntitySet="cash_collection" />
+    </AssociationSet>
+    <AssociationSet Name="con_notif_sno_even_rk" Association="Self.con_notif_sno_even_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="con_notificaiton_master" EntitySet="con_notificaiton_master" />
+    </AssociationSet>
+    <AssociationSet Name="contri_det_cust_reg_sno_rk" Association="Self.contri_det_cust_reg_sno_rk">
+      <End Role="customer_registration" EntitySet="customer_registration" />
+      <End Role="contributor_details" EntitySet="contributor_details" />
+    </AssociationSet>
+    <AssociationSet Name="contri_event_det_sno_rk" Association="Self.contri_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="contributor_details" EntitySet="contributor_details" />
+    </AssociationSet>
+    <AssociationSet Name="cust_user_regist_sno_rk" Association="Self.cust_user_regist_sno_rk">
+      <End Role="customer_registration" EntitySet="customer_registration" />
+      <End Role="cust_users" EntitySet="cust_users" />
+    </AssociationSet>
+    <AssociationSet Name="dist_reg_id_rk" Association="Self.dist_reg_id_rk">
+      <End Role="region_master" EntitySet="region_master" />
+      <End Role="district_master" EntitySet="district_master" />
+    </AssociationSet>
+    <AssociationSet Name="email_e_t_event_det_sno_rk" Association="Self.email_e_t_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="email_event_text" EntitySet="email_event_text" />
+    </AssociationSet>
+    <AssociationSet Name="email_s_e_t_e_i_sno_rk" Association="Self.email_s_e_t_e_i_sno_rk">
+      <End Role="sms_email_instances" EntitySet="sms_email_instances" />
+      <End Role="email_event_text" EntitySet="email_event_text" />
+    </AssociationSet>
+    <AssociationSet Name="event_det_cust_reg_sno_rk" Association="Self.event_det_cust_reg_sno_rk">
+      <End Role="customer_registration" EntitySet="customer_registration" />
+      <End Role="event_details" EntitySet="event_details" />
+    </AssociationSet>
+    <AssociationSet Name="event_det_pack_sno_rk" Association="Self.event_det_pack_sno_rk">
+      <End Role="package_details" EntitySet="package_details" />
+      <End Role="event_details" EntitySet="event_details" />
+    </AssociationSet>
+    <AssociationSet Name="exp_det_bud_mas_sno_rk" Association="Self.exp_det_bud_mas_sno_rk">
+      <End Role="budget_master" EntitySet="budget_master" />
+      <End Role="expenditure_details" EntitySet="expenditure_details" />
+    </AssociationSet>
+    <AssociationSet Name="exp_det_sno_even_rk" Association="Self.exp_det_sno_even_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="expenditure_details" EntitySet="expenditure_details" />
+    </AssociationSet>
+    <AssociationSet Name="moudule_sno_rk" Association="Self.moudule_sno_rk">
+      <End Role="modules_master" EntitySet="modules_master" />
+      <End Role="activity_master" EntitySet="activity_master" />
+    </AssociationSet>
+    <AssociationSet Name="qr_card_state_mas_sno_rk" Association="Self.qr_card_state_mas_sno_rk">
+      <End Role="card_state_master" EntitySet="card_state_master" />
+      <End Role="qr_verify_details" EntitySet="qr_verify_details" />
+    </AssociationSet>
+    <AssociationSet Name="qr_det_cust_reg_sno_rk" Association="Self.qr_det_cust_reg_sno_rk">
+      <End Role="customer_registration" EntitySet="customer_registration" />
+      <End Role="qr_verify_details" EntitySet="qr_verify_details" />
+    </AssociationSet>
+    <AssociationSet Name="qr_event_det_sno_rk" Association="Self.qr_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="qr_verify_details" EntitySet="qr_verify_details" />
+    </AssociationSet>
+    <AssociationSet Name="qr_verify_vis_det_sno_rk" Association="Self.qr_verify_vis_det_sno_rk">
+      <End Role="visitor_details" EntitySet="visitor_details" />
+      <End Role="qr_verify_details" EntitySet="qr_verify_details" />
+    </AssociationSet>
+    <AssociationSet Name="region_county_sno_rk" Association="Self.region_county_sno_rk">
+      <End Role="countries" EntitySet="countries" />
+      <End Role="region_master" EntitySet="region_master" />
+    </AssociationSet>
+    <AssociationSet Name="s_e_s_det_event_det_sno_rk" Association="Self.s_e_s_det_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="s_e_w_event_send_details" EntitySet="s_e_w_event_send_details" />
+    </AssociationSet>
+    <AssociationSet Name="s_e_t_e_i_sno_rk" Association="Self.s_e_t_e_i_sno_rk">
+      <End Role="sms_email_instances" EntitySet="sms_email_instances" />
+      <End Role="sms_event_text" EntitySet="sms_event_text" />
+    </AssociationSet>
+    <AssociationSet Name="sms_con_event_det_sno_rk" Association="Self.sms_con_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="sms_contribution" EntitySet="sms_contribution" />
+    </AssociationSet>
+    <AssociationSet Name="sms_e_t_event_det_sno_rk" Association="Self.sms_e_t_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="sms_event_text" EntitySet="sms_event_text" />
+    </AssociationSet>
+    <AssociationSet Name="sms_inv_event_det_sno_rk" Association="Self.sms_inv_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="sms_invitation" EntitySet="sms_invitation" />
+    </AssociationSet>
+    <AssociationSet Name="visi_card_state_mas_sno_rk" Association="Self.visi_card_state_mas_sno_rk">
+      <End Role="card_state_master" EntitySet="card_state_master" />
+      <End Role="visitor_details" EntitySet="visitor_details" />
+    </AssociationSet>
+    <AssociationSet Name="visi_det_cust_reg_sno_rk" Association="Self.visi_det_cust_reg_sno_rk">
+      <End Role="customer_registration" EntitySet="customer_registration" />
+      <End Role="visitor_details" EntitySet="visitor_details" />
+    </AssociationSet>
+    <AssociationSet Name="visi_event_det_sno_rk" Association="Self.visi_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="visitor_details" EntitySet="visitor_details" />
+    </AssociationSet>
+    <AssociationSet Name="ward_dis_id_rk" Association="Self.ward_dis_id_rk">
+      <End Role="district_master" EntitySet="district_master" />
+      <End Role="ward_master" EntitySet="ward_master" />
+    </AssociationSet>
+    <AssociationSet Name="ward_reg_id_rk" Association="Self.ward_reg_id_rk">
+      <End Role="region_master" EntitySet="region_master" />
+      <End Role="ward_master" EntitySet="ward_master" />
+    </AssociationSet>
+    <AssociationSet Name="wup_e_t_event_det_sno_rk" Association="Self.wup_e_t_event_det_sno_rk">
+      <End Role="event_details" EntitySet="event_details" />
+      <End Role="wup_event_text" EntitySet="wup_event_text" />
+    </AssociationSet>
+    <AssociationSet Name="wup_s_e_t_e_i_sno_rk" Association="Self.wup_s_e_t_e_i_sno_rk">
+      <End Role="sms_email_instances" EntitySet="sms_email_instances" />
+      <End Role="wup_event_text" EntitySet="wup_event_text" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

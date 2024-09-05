@@ -1,0 +1,285 @@
+﻿
+@{ ViewBag.Title = "Change Password";
+    Layout = "~/Views/Shared/_Customers.cshtml";
+
+    ViewData["Title"] = "Change Password";
+    ViewData["Home"] = "Home"; }
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Dashboard", "CustomerActivity")">@ViewData["Home"]</a></li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+<div class="card border-0">
+    <div class="card-body">
+        <form class="col-12 p-0 mx-auto mt-4" action="AddRegion" method="post">
+            @* <h5 class="modal-title" id="lblage1">Change Password</h5> *@
+            <div class="row mx-0">
+                <div class="form-group row col-md-11 col-lg-9">
+                    <label for="gender" class="col-sm-4 col-md-3 pt-2">
+                        Current Password<span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-8 col-md-9">
+                        <div id="current_password" class="position-relative max-400px  max-md-300px">
+                            <input type="password" class="form-control" id="txtcurpwd" placeholder="Current password"
+                                   onblur="validateCurPassword(this);" name="currentPassword" />
+                            <div class="form-control-position">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                        <label class="text-danger" id="lblError"></label>
+                    </div>
+                </div>
+                <div class="form-group row col-md-11 col-lg-9">
+                    <label for="gender" class="col-sm-4 col-md-3 pt-2">
+                        New Password<span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-8 col-md-9">
+                        <div id="new_password" class="position-relative max-400px  max-md-300px">
+                            <input type="password" class="form-control" id="txtpwd" placeholder="New password"
+                                   onblur="checkconfirmpwdcur1(this);" onfocusout="validatePassword1(this);" name="newPassword" />
+                            <input type="hidden" class="form-control  hidden" id="txtSID">
+                            <div class="form-control-position position-right d-flex">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row col-md-11 col-lg-9">
+                    <label for="gender" class="col-sm-4 col-md-3 pt-2">
+                        Confirm Password<span class="text-danger">*</span>
+                    </label>
+                    <div class="col-sm-8 col-md-9">
+                        <div id="confirm_password" class="position-relative max-400px max-md-300px">
+                            <input type="password" class="form-control" id="txtcpwd" onblur="checkconfirmpwdcur1(this)"
+                                   onfocusout="validatePassword1(this);" placeholder="Confirm password" name="confirmPassword" />
+                            <div class="form-control-position position-right d-flex">
+                                <i class="fas fa-eye"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group text-end btn-colsm-3-max400px btn-colmd-3-max300px">
+                    <button type="button" class="btn btn-outline-primary btn-rounded" id="btnSubmit">Save</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Script/bootstrap-notify.min.js"></script>
+
+
+    <script type="text/javascript">
+
+        var pwd = true, pw = true, error, chg = true;
+        jQuery(".bc").hide();
+        jQuery("#txtpwd").prop("readonly", true);
+        jQuery("#txtcpwd").prop("readonly", true);
+        $(document).ready(function () {
+            $("#btnSubmit").click(function () {
+                addReGION();
+            })
+            $("#btnDelete").click(function () {
+                delRegion();
+            });
+        });
+
+        function resetRegion() {
+            var txtcurpwd = document.getElementById("txtcurpwd");
+            var txtpwd = document.getElementById('txtpwd');
+            var txtcpwd = document.getElementById("txtcpwd");
+            txtpwd.value = '';
+            txtcpwd.value = '';
+            txtcurpwd.value = '';
+        }
+
+        function validatepwd() {
+            var txtpwd = document.getElementById('txtpwd');
+            var txtcpwd = document.getElementById("txtcpwd");
+            var txtcurpwd = document.getElementById("txtcurpwd");
+            result = '';
+
+            var currentPasswordValue = txtcurpwd.value.trim();
+            var newPasswordValue = txtpwd.value.trim();
+            var confirmPasswordValue = txtcpwd.value.trim();
+
+            var reg = /^[a-zA-Z0-9]+$/;
+
+            if (currentPasswordValue.length == 0) {
+                result += 'Current Password is Required.<br/>';
+            } else {
+                if (!reg.test(currentPasswordValue)) {
+                    result += 'Current Password should only contain alphanumeric.<br/>';
+                }
+            }
+
+            if (newPasswordValue.length == 0) {
+                result += 'Password is Required.<br/>';
+            } else {
+                if (!reg.test(newPasswordValue)) {
+                    result += 'New Password should only contain alphanumeric.<br/>';
+                }
+            }
+
+            if (confirmPasswordValue.length == 0) {
+                result += 'confirm Password is Required.<br/>';
+            } else {
+                if (!reg.test(confirmPasswordValue)) {
+                    result += 'Confirm Password should only contain alphanumeric.<br/>';
+                }
+
+            }
+
+            
+           
+
+            return result;
+        }
+
+    function validateCurPassword(e) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("CheckPassword", "ChangePassword")',
+            data: JSON.stringify({ 'password': e.value }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data == true) {
+                    jQuery(".bc").show();
+                    jQuery("#txtpwd").prop("readonly", false);
+                    jQuery("#txtcpwd").prop("readonly", false);
+                    lblError.innerHTML = "";
+                    error = "";
+                } else {
+                    jQuery(".bc").hide();
+                    jQuery("#txtpwd").prop("readonly", true);
+                    jQuery("#txtcpwd").prop("readonly", true);
+                    lblError.innerHTML = "Incorrect Current Password";
+                    error = "Incorrect Current Password.";
+                    jQuery('#lblError').show();
+                    jQuery('#lblError').css('color', 'Red');
+                }
+            }
+        })
+    }
+
+        function checkconfirmpwdcur1() {
+            var txtpwd = document.getElementById('txtpwd');
+            var txtcurpwd = document.getElementById("txtcurpwd");
+            var txtcpwd = document.getElementById("txtcpwd");
+            if (txtpwd.value == txtcurpwd.value) {
+                lblError.innerHTML = "";
+                chg = false;
+                lblError.innerHTML = "Current & New Password's should not be same.";
+                error = "Current & New Password's should not be same.";
+                jQuery('#lblError').show();
+                jQuery('#lblError').css('color', 'Red');
+            }
+            else if (txtpwd.value != txtcpwd.value && txtcpwd.value != '') {
+                pw = false;
+                lblError.innerHTML = "Passwords does not match.";
+                error = "Passwords does not match.";
+                jQuery('#lblError').show();
+                jQuery('#lblError').css('color', 'Red');
+            } else {
+                lblError.innerHTML = "";
+                pw = true;
+                chg = true;
+                error = '';
+            }
+        }
+
+        function notifyMessage(message, type) {
+            jQuery.notify({
+                // options
+                message: message
+            }, {
+                // settings
+                type: type,
+                delay: 2000
+            });
+        }
+
+    function addReGION() {
+        var message = validatepwd();
+        if (message.length > 0) {
+          notifyMessage(message, 'danger');
+            //$.notify(message, 'success');
+        }
+        else {
+            if (error != '') {
+                message = error;
+                notifyMessage(message, 'danger');
+               // $.notify(message, 'success');
+            }
+            else {
+                var txtcpwd = document.getElementById("txtcpwd").value;
+                jQuery.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("UpdatePassword", "ChangePassword")',
+                    data: JSON.stringify({ 'password': txtcpwd }),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data !== null) {
+                            message = ' Updated Successfully.';
+                            type = 'success';
+                            resetRegion();
+                            window.location.href = '@Url.Action("Dashboard", "CustomerActivity")';
+                        }
+                        //notifyMessage(message, type);
+                        $.notify(message, type);
+                    }
+                });
+            }
+        }
+    }
+
+    $(document).ready(function () {
+        var current_password_eye = $('#current_password i');
+        var current_password_input = $('#txtcurpwd');
+
+        var new_password_eye = $('#new_password i');
+        var new_password_input = $('#txtpwd');
+
+        var confirm_password_eye = $('#confirm_password i');
+        var confirm_password_input = $('#txtcpwd');
+
+        changePassword(current_password_eye, current_password_input);
+        changePassword(new_password_eye, new_password_input);
+        changePassword(confirm_password_eye, confirm_password_input);
+
+    });
+
+    function changePassword(password_eye, password_input) {
+        $(password_eye).click(function (e) {
+            e.preventDefault();
+
+            if ($(password_input).attr('type') !== 'text') {
+                // change eye icon
+                $(password_eye).removeClass('fa-eye');
+                $(password_eye).addClass('fa-eye-slash');
+                // show passowrd text
+                $(password_input).attr('type', 'text');
+            } else {
+                // change eye icon
+                $(password_eye).removeClass('fa-eye-slash');
+                $(password_eye).addClass('fa-eye');
+                // show passowrd text
+                $(password_input).attr('type', 'password');
+            }
+        });
+    }
+    </script>
+}
+

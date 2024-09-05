@@ -1,0 +1,120 @@
+h5 {
+    color: white;
+    margin-left: 10px;
+    font-weight: 400;
+}
+
+img.brand-image {
+    width: 50px;
+}
+
+.modal-title {
+    color: rgb(33, 37, 41);
+}
+
+/*Error message in validations*/
+.text-danger.field-validation-error {
+    display: block;
+}
+
+.form-group {
+    margin-bottom: .75rem;
+}
+
+    .form-group select {
+        appearance: listbox;
+        -webkit-appearance: listbox;
+        -moz-appearance: listbox;
+    }
+
+
+/*Layout fixes*/
+
+#main-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.page-wrapper {
+    flex: 1 1 auto;
+    width: 100%;
+}
+
+
+.form-control-position {
+    position: absolute !important;
+    top: 0;
+    right: 4px;
+    z-index: 2;
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    line-height: 3.2rem;
+    text-align: center;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
+
+.max-300px {
+    max-width: 300px;
+}
+
+.max-400px {
+    max-width: 400px;
+}
+
+.btn-colsm-4-max300px {
+    max-width: calc((300px - 55px) + 33.33333%);
+}
+
+.btn-colsm-4-max400px {
+    max-width: calc((400px - 55px) + 33.33333%);
+}
+
+@media (min-width: 640px) {
+    .max-md-300px {
+        max-width: 300px;
+    }
+
+    .btn-colmd-3-max300px {
+        max-width: calc((300px - 55px) + 25%);
+    }
+
+    .btn-colmd-3-max400px {
+        max-width: calc((400px - 55px) + 25%);
+    }
+}
+
+@media (min-width: 992px) {
+    .max-lg-300px {
+        max-width: 300px;
+    }
+
+    .btn-w-md-max300px {
+        max-width: calc(300px + 25%);
+    }
+
+    .btn-w-md-max400px {
+        max-width: calc(400px + 25%);
+    }
+}
+
+
+/*Datatable table-borders*/
+table.table-bordered.dataTable th:first-of-type, table.table-bordered.dataTable td:first-of-type {
+    border-left-width: 1px;
+}
+
+table.table-bordered.dataTable th:last-of-type, table.table-bordered.dataTable td:last-of-type {
+    border-right-width: 1px;
+}
+
+table.table-bordered.dataTable th, table.table-bordered.dataTable td {
+    border-top-width: 1px;
+}
+
+table.table-bordered.dataTable tbody > tr:last-of-type > td {
+    border-bottom-width: 1px;
+}
