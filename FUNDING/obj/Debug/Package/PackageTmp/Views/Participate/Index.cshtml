@@ -185,7 +185,7 @@
                                 <div class="form-group row">
                                     @Html.LabelFor(model => model.entrepreneur_status, htmlAttributes: new { @class = "col-form-label col-md-4 col-lg-4 col-xl-3" })
                                     <div class="col-md-8 col-lg-8 col-xl-9">
-                                        @Html.DropDownListFor(model => model.entrepreneur_status, ViewBag.entrepreneur as IEnumerable<SelectListItem>, htmlAttributes: new { @class = "form-control mw-100" })
+                                        @Html.DropDownListFor(model => model.entrepreneur_status, ViewBag.entreprenuer as IEnumerable<SelectListItem>, htmlAttributes: new { @class = "form-control mw-100" })
 
                                         @* @Html.EditorFor(model => model.ward, new { htmlAttributes = new { @class = "form-control" } })*@
                                         @Html.ValidationMessageFor(model => model.entrepreneur_status, "", new { @class = "text-danger" })

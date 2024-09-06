@@ -19,11 +19,10 @@
             width: 200px;
         }
 
-        .card-main-template {
-            @*background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");*@
-            background-image: url('@ViewBag.DefaultCardTemplate');
+       @* .card-main-template {
+            background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");
         }
-
+*@
         .card-item[data-content="event-invitee"] span,
         .card-item[data-content="table_number_label"] span,
         .card-item[data-content="card_size_label"] span,
@@ -346,7 +345,7 @@
     <script>
         var draggableElementData;
         //var draggableElementData.event_id;
-        
+
       @*  var draggableElementData = @Html.Raw(Json.Encode(@ViewBag.DraggableElements));
         console.log(" on first :"+draggableElementData);*@
         var VisitorList = [];
@@ -384,6 +383,13 @@
 
                          if (data.data == 1) {
                              draggableElementData = data.DraggableElement;
+
+                                 var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                                 $cardMainTemplate.css('background-image', cardTemplateStyle);
+
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
+                            
 
                              console.log(data.response);
 
@@ -428,6 +434,16 @@
 
                              console.log(draggableElementData);
 
+                             var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                             $cardMainTemplate.css('background-image', cardTemplateStyle);
+
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
+                             console.log(cardElement);
+
+                             console.log(cardElement);
+
+
                              fontSizeHandler();
 
                              qrCodeResizeHandler.Init();
@@ -458,7 +474,7 @@
 
                              bulkCardDownloadHandler();
 
-                             @* 
+                             @*
                              console.log("index: " + draggableElementData);
                              accordionCard.classList.add('d-block');
                              saveButton.classList.add('d-block'); *@
@@ -775,7 +791,7 @@
             var $tableDigitDraggableElement = $('.card-item[data-content="table_number_digit"]');
             var fontSizeValue = draggableElementData.editableElement.FontDetails.FontSize;
 
-            
+
 
             $fontSizeInput.val(fontSizeValue);
 
@@ -1434,7 +1450,7 @@
                                 title: data.response
                             })
                         }*@
-                      
+
                         if (data.loginStatus == false) {
                             window.location.replace('@Url.Action("Login", "Login")');
 

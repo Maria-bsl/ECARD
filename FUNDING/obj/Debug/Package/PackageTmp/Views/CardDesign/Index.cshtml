@@ -378,7 +378,8 @@
             width: 148.2mm;
             height: 209.9mm;
             margin: 0 auto;
-            background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");
+            @*background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");*@
+            background-image: url('@ViewBag.DefaultCardTemplate');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;

@@ -54,7 +54,7 @@ namespace FUNDING.Controllers
       if (this.Session["admin1"] == null)
         return (ActionResult) this.RedirectToAction("Login", "Login");
       var defaultCardTemplate = DirectoryHelpers.GetDefaultCardTemplate();
-      ViewBag.DefaultCardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(defaultCardTemplate);
+      ViewBag.DefaultCardTemplate = defaultCardTemplate;
       ViewBag.DefaultQRCode = DirectoryHelpers.GetDefaultQRCode();
       ViewBag.DefaultFont = DirectoryHelpers.GetDefaultFont();
 
@@ -275,11 +275,12 @@ namespace FUNDING.Controllers
         return Json( new
         {
           data = 0,
+          ViewBag.DefaultCardTemplate,
           response = new
           {
             event_id = 0,
             displayCardSize = false,
-            cardTemplate = defaultCardTemplate,
+            cardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(defaultCardTemplate),
             qrCodeElement = draggableElement7,
             editableElement = draggableElement9,
             cardSizeLabel = draggableElement13,
@@ -288,9 +289,13 @@ namespace FUNDING.Controllers
             Visitors = selectListItemList
           }
         });
+
+
       }
-           // HostingEnvironment.MapPath();
+        
+      //HostingEnvironment.MapPath(DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath());
       ViewBag.DefaultCardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(cardMeasurement.template);
+      //ViewBag.DefaultCardTemplate = cardMeasurement.template;
 
       QrCodeDraggableElement draggableElement16 = new QrCodeDraggableElement();
       ElementPosition elementPosition1 = new ElementPosition();
@@ -367,7 +372,7 @@ namespace FUNDING.Controllers
       {
         event_id = event_id,
         displayCardSize = cardMeasurement.card_size,
-        cardTemplate = cardMeasurement.template,
+        cardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(cardMeasurement.template),
         qrCodeElement = draggableElement17,
         editableElement = draggableElement19,
         cardSizeLabel = draggableElement23,
@@ -381,11 +386,12 @@ namespace FUNDING.Controllers
       {
         data = 1,
         ViewBag.DraggableElement,
+        ViewBag.DefaultCardTemplate,
         response = new
         {
           event_id = event_id,
           displayCardSize = cardMeasurement.card_size,
-          cardTemplate = cardMeasurement.template,
+          cardTemplate = DirectoryHelpers.RemoveTildeSymbolForJsVirtualPath(cardMeasurement.template),
           qrCodeElement = draggableElement17,
           editableElement = draggableElement19,
           cardSizeLabel = draggableElement23,
@@ -934,8 +940,12 @@ namespace FUNDING.Controllers
         if (System.IO.File.Exists(path))
           return this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path));
       }
-      return this.Content("File does not exist");
-    }
+      return this.Json(new
+      {
+          sendStatus = false,
+          message = "File does not exist"
+      });
+     }
 
     [HttpPost]
     [Route("Generate-and-Preview")]
@@ -1003,9 +1013,15 @@ namespace FUNDING.Controllers
         visitor_id = vd.visitor_det_sno,
         vd.visitor_name
       }).FirstOrDefault();
+
       string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg", (object) data.visitor_id, (object) data.visitor_name));
-      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Content("File does not exist");
-    }
+      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Json(new
+      {
+          sendStatus = false,
+          message = "File does not exist"
+      });
+
+     }
 
     [Route("Card-Test")]
     public async Task<ActionResult> CardTest()
@@ -1246,7 +1262,11 @@ namespace FUNDING.Controllers
         event_name = vd.event_details.event_name
       }).FirstOrDefault();
       string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.zip", (object) data.event_id, (object) data.event_name));
-      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Content("File does not exist");
+      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult)Json(new
+      {
+          sendStatus = false,
+          mesage = "File does not exist"
+      });
     }
 
     [Route("whatsapp-notification")]
@@ -1254,28 +1274,7 @@ namespace FUNDING.Controllers
     {
       if (this.Session["admin1"] == null)
         return RedirectToAction("Login", "Login");
-
-
-   /*   // ISSUE: reference to a compiler-generated field
-      if (CardDesignMasterController.\u003C\u003Eo__26.\u003C\u003Ep__0 == null)
-      {
-        // ISSUE: reference to a compiler-generated field
-        CardDesignMasterController.\u003C\u003Eo__26.\u003C\u003Ep__0 = CallSite<Func<CallSite, object, IQueryable<SelectListItem>, object>>.Create(Microsoft.CSharp.RuntimeBinder.Binder.SetMember(CSharpBinderFlags.None, "EventDropDownList", typeof (CardDesignMasterController), (IEnumerable<CSharpArgumentInfo>) new CSharpArgumentInfo[2]
-        {
-          CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.None, (string) null),
-          CSharpArgumentInfo.Create(CSharpArgumentInfoFlags.UseCompileTimeType, (string) null)
-        }));
-      }
-      ParameterExpression parameterExpression;
-      // ISSUE: reference to a compiler-generated field
-      // ISSUE: reference to a compiler-generated field
-      // ISSUE: method reference
-      // ISSUE: method reference
-      // ISSUE: method reference
-      // ISSUE: method reference
-      object obj = CardDesignMasterController.\u003C\u003Eo__26.\u003C\u003Ep__0.Target((CallSite) CardDesignMasterController.\u003C\u003Eo__26.\u003C\u003Ep__0, this.ViewBag, this._dbContext.event_details.Where<event_details>((Expression<Func<event_details, bool>>) (e => e.event_date >= (DateTime?) DateTime.Today)).Select<event_details, SelectListItem>(Expression.Lambda<Func<event_details, SelectListItem>>((Expression) Expression.MemberInit(Expression.New(typeof (SelectListItem)), (MemberBinding) Expression.Bind((MethodInfo) MethodBase.GetMethodFromHandle(__methodref (SelectListItem.set_Value)), (Expression) Expression.Call(b.event_det_sno, (MethodInfo) MethodBase.GetMethodFromHandle(__methodref (long.ToString)), Array.Empty<Expression>())), (MemberBinding) Expression.Bind((MethodInfo) MethodBase.GetMethodFromHandle(__methodref (SelectListItem.set_Text)), (Expression) Expression.Property((Expression) parameterExpression, (MethodInfo) MethodBase.GetMethodFromHandle(__methodref (event_details.get_event_name))))), parameterExpression)));
-           */ 
-   #region Event dropdownlist
+            #region Event dropdownlist
 
             //TODO: there must be a way to view only active events
 
@@ -1387,9 +1386,44 @@ namespace FUNDING.Controllers
           sendStatus = false,
           response = "Notification sending failed!"
         });
-      foreach (visitor_details visitorDetails in list)
-        await SendWhatsAppMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
-      return Json(new
+
+            #region Check if card exist 
+/*
+            string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg",data.visitor_id,data.visitor_name));
+            return System.IO.File.Exists(path) ? (ActionResult)this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult)this.Json(new {
+                sendStatus = false,
+                response = "File does not exist" });
+*/
+
+
+
+            #endregion
+            foreach (visitor_details visitorDetails in list)
+                try { 
+                        await SendWhatsAppMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
+                }
+                catch (Exception ex)
+                {
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+                    var errorLog = new service_error_logs
+                    {
+                        error = ex.ToString(),
+                        posted_date = DateTime.Now
+                        /*,
+                        StackTrace = ex.StackTrace,
+                        TargetSite = ex.TargetSite.ToString(),
+                        InnerException = ex.InnerException.ToString(),
+                        AuditDate = DateTime.Now,
+                        RequestURL = "twilio send log Db",
+                        BrowserType = ""*/
+
+                    };
+                    context.service_error_logs.Add(errorLog);
+                    await context.SaveChangesAsync();
+                    continue;
+                }
+
+            return Json(new
       {
         sendStatus = true,
         response = "WhatsApp Card has been successfully sent"
@@ -1413,20 +1447,45 @@ namespace FUNDING.Controllers
         for (int index = 0; index < length; ++index)
         {
           int visitor_id = int.Parse(Visitors[index]);
-          if (visitorDetails.visitor_det_sno == visitor_id && visitorDetails.mobile_no != null)
-          await SendWhatsAppMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
+                    if (visitorDetails.visitor_det_sno == visitor_id && visitorDetails.mobile_no != null)
+                        try
+                        {
+                            await SendWhatsAppMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
+                        }catch(Exception ex)
+                        {
+                            ECARDAPPEntities context = new ECARDAPPEntities();
+                            var errorLog = new service_error_logs
+                            {
+                                error = ex.ToString(),
+                                posted_date = DateTime.Now
+                                /*,
+                                StackTrace = ex.StackTrace,
+                                TargetSite = ex.TargetSite.ToString(),
+                                InnerException = ex.InnerException.ToString(),
+                                AuditDate = DateTime.Now,
+                                RequestURL = "twilio send log Db",
+                                BrowserType = ""*/
+
+                            };
+                            context.service_error_logs.Add(errorLog);
+                            await context.SaveChangesAsync();
+                            continue;
+                        }
+
         }
       }
       return (ActionResult) this.Json((object) new
       {
         sendStatus = true,
-        response = "WhatsApp Card has been successfully sent"
+          response = "WhatsApp Card has been successfully sent"
       });
     }
 
     private string GetMediaURI(visitor_details visitorDetails)
     {
       string stringToEscape = string.Format("{0}_{1}.jpeg", (object) visitorDetails.visitor_det_sno, (object) visitorDetails.visitor_name);
+
+
       string appSetting = ConfigurationManager.AppSettings["card_files_dir"];
       return Uri.EscapeUriString(stringToEscape);
     }
@@ -1601,28 +1660,17 @@ namespace FUNDING.Controllers
             }
             catch (Exception ex)
             {
-                // Capture error details and save them to the database
-                //  await SaveMessageResponseToDatabase(visitorDetails, null, "Failed", ex.HResult.ToString(), ex.Message);
                 System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}"); 
                 System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
                 ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new ErrorLog
+                var errorLog = new service_error_logs
                 {
-                    Message = ex.Message,
-                    Source = ex.Source,
-                    StackTrace = ex.StackTrace,
-                    TargetSite = ex.TargetSite.ToString(),
-                    InnerException = ex.InnerException.ToString(),
-                    AuditDate = DateTime.Now,
-                    RequestURL = "twilio send log Db",
-                    BrowserType = ""
-
-
+                    error = ex.ToString(),
+                    posted_date = DateTime.Now
                 };
-                context.ErrorLogs.Add(errorLog);
+                context.service_error_logs.Add(errorLog);
                 await context.SaveChangesAsync();
-
 
             }
         }
