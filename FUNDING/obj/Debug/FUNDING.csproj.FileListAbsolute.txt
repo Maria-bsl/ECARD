@@ -2448,3 +2448,5 @@ D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\obj\Debug\FUNDING.csproj.
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\obj\Debug\FUNDING.csproj.CopyComplete
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\obj\Debug\FUNDING.dll
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\obj\Debug\FUNDING.pdb
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\bin\itext.bouncy-castle-adapter.dll
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING\bin\itext.bouncy-castle-adapter.xml

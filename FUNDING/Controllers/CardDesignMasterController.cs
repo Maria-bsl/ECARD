@@ -737,16 +737,16 @@ namespace FUNDING.Controllers
       }
       await Task.WhenAll((IEnumerable<Task>) taskList2);
       List<Task> taskList3 = new List<Task>();
-      string pdfAbsolutePath = CardDesignMasterController.GetPDFFormatCardDirectoryAbsolutePath();
+      string pdfAbsolutePath = GetPDFFormatCardDirectoryAbsolutePath();
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
         taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno, EscapeCharacterForFileName(visitor_details.visitor_name)))))));
       }
       await Task.WhenAll((IEnumerable<Task>) taskList3);
-      string directoryAbsolutePath = CardDesignMasterController.GetCardDirectoryAbsolutePath();
+      string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
       visitor_details zipFileData = visitorEventDetails.FirstOrDefault<visitor_details>();
-      CardDesignMasterController.GenerateAndPopulateZipFile(CardDesignMasterController.GetZipFullPath(directoryAbsolutePath, zipFileData), CardDesignMasterController.GetListOfGeneratedCardFullPaths(visitorEventDetails, directoryAbsolutePath));
+      GenerateAndPopulateZipFile(GetZipFullPath(directoryAbsolutePath, zipFileData), GetListOfGeneratedCardFullPaths(visitorEventDetails, directoryAbsolutePath));
       return masterController.Json(new
       {
         message = "Card successfully generated",
@@ -765,7 +765,11 @@ namespace FUNDING.Controllers
         event_name = vd.event_details.event_name
       }).FirstOrDefault();
       string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.zip", (object) data.event_id, (object) data.event_name));
-      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Content("File does not exist");
+      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Json(new
+      {
+          message = "File does not exist",
+          downloadStatus = true
+      });
     }
 
     [HttpPost]
@@ -819,7 +823,10 @@ namespace FUNDING.Controllers
         CardGenerationService.TableNumberDigitElementValues = tableNumberDigit;
         CardGenerationService.QrCodeElementValues = qrCodeElement;
         CardGenerationService.IsCardSizeDisplayed = displayCardSize;
-        CardGenerationService.ConvertPDF2png(CardGenerationService.PdfGenerator(invitee));
+
+                var pdfGeneratedFile = CardGenerationService.PdfGenerator(invitee);
+                var path = CardGenerationService.ConvertPDF2png(pdfGeneratedFile);
+                //CardGenerationService.ConvertPDF2png(CardGenerationService.PdfGenerator(invitee));
       }
       return (ActionResult) this.Json((object) new
       {
@@ -840,7 +847,7 @@ namespace FUNDING.Controllers
       }).ToList();
       foreach (var data in visitors)
       {
-        string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg", (object) data.visitor_id, (object) data.visitor_name));
+        string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg", data.visitor_id, data.visitor_name));
         if (System.IO.File.Exists(path))
           return (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path));
       }
@@ -908,15 +915,15 @@ namespace FUNDING.Controllers
               }))
             });
             List<Task> taskList = new List<Task>();
-            string pdfAbsolutePath = CardDesignMasterController.GetPDFFormatCardDirectoryAbsolutePath();
-            taskList.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", (object) visitor_details.visitor_det_sno, (object) CardDesignMasterController.EscapeCharacterForFileName(visitor_details.visitor_name)))))));
+            string pdfAbsolutePath = GetPDFFormatCardDirectoryAbsolutePath();
+            taskList.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", (object) visitor_details.visitor_det_sno, (object) EscapeCharacterForFileName(visitor_details.visitor_name)))))));
             await Task.WhenAll((IEnumerable<Task>) taskList);
           }
         }
       }
-      string directoryAbsolutePath = CardDesignMasterController.GetCardDirectoryAbsolutePath();
+      string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
       visitor_details zipFileData = visitorEventDetails.FirstOrDefault<visitor_details>();
-      CardDesignMasterController.GenerateAndPopulateZipFile(CardDesignMasterController.GetZipFullPath(directoryAbsolutePath, zipFileData), CardDesignMasterController.GetListOfGeneratedSomeCardFullPaths(Visitors, visitorEventDetails, directoryAbsolutePath));
+      GenerateAndPopulateZipFile(GetZipFullPath(directoryAbsolutePath, zipFileData), GetListOfGeneratedSomeCardFullPaths(Visitors, visitorEventDetails, directoryAbsolutePath));
       return (ActionResult) masterController.Json((object) new
       {
         message = "Card successfully generated",
@@ -964,16 +971,16 @@ namespace FUNDING.Controllers
         {
           loginStatus = false
         });
-      var data = this._dbContext.visitor_details.Where<visitor_details>((Expression<Func<visitor_details, bool>>) (ev => ev.event_det_sno == (long?) event_id)).Select(vd => new
+      var data = this._dbContext.visitor_details.Where (ev => ev.event_det_sno == event_id).Select(vd => new
       {
         visitor_id = vd.visitor_det_sno,
-        event_det_sno = vd.event_det_sno,
-        visitor_name = vd.visitor_name,
-        event_name = vd.event_details.event_name,
-        qrcode = vd.qrcode,
+        vd.event_det_sno,
+        vd.visitor_name,
+        vd.event_details.event_name,
+        vd.qrcode,
         card_size = vd.no_of_persons,
-        venue = vd.event_details.venue,
-        table_number = vd.table_number
+        vd.event_details.venue,
+        vd.table_number
       }).FirstOrDefault();
       if (data == null)
         return (ActionResult) this.Json((object) new
@@ -996,32 +1003,59 @@ namespace FUNDING.Controllers
       CardGenerationService.TableNumberDigitElementValues = tableNumberDigit;
       CardGenerationService.QrCodeElementValues = qrCodeElement;
       CardGenerationService.IsCardSizeDisplayed = displayCardSize;
-      CardGenerationService.ConvertPDF2png(CardGenerationService.PdfGenerator(invitee));
-      return (ActionResult) this.Json((object) new
+      var pdfGeneratedFile = CardGenerationService.PdfGenerator(invitee);
+      var path = CardGenerationService.ConvertPDF2png(pdfGeneratedFile);
+
+
+            return (ActionResult) this.Json((object) new
       {
         message = "Card successfully generated",
         downloadStatus = true
       });
+
     }
 
     public ActionResult DownloadGenerateAndPreview(long event_id)
     {
       if (this.Session["admin1"] == null)
         return (ActionResult) this.RedirectToAction("Login", "Login");
-      var data = this._dbContext.visitor_details.Where(ev => ev.event_det_sno == (long?) event_id).Select(vd => new
+      var data = this._dbContext.visitor_details.Where(ev => ev.event_det_sno == event_id).Select(vd => new
       {
         visitor_id = vd.visitor_det_sno,
         vd.visitor_name
       }).FirstOrDefault();
 
-      string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg", (object) data.visitor_id, (object) data.visitor_name));
-      return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Json(new
-      {
-          sendStatus = false,
-          message = "File does not exist"
-      });
+            /*  string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.jpeg", (object) data.visitor_id, (object) data.visitor_name));
+              return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Json(new
+              {
+                  sendStatus = false,
+                  message = "File does not exist"
+              });*/
 
-     }
+            var directorypath = HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory);
+            var cardPath = string.Format("{0}_{1}.jpeg", data.visitor_id, data.visitor_name.Trim());
+
+            var path = Path.Combine(directorypath,cardPath);
+
+            if (System.IO.File.Exists(path))
+            {
+                //Read the File data into Byte Array.
+                byte[] bytes = System.IO.File.ReadAllBytes(path);
+
+                string downloadedFileName = DirectoryHelpers.GetTimestampedFile(path);
+
+                //Send the File to Download.
+                return File(bytes, System.Net.Mime.MediaTypeNames.Application.Octet, downloadedFileName);
+            }
+
+            return this.Json(new
+            {
+                sendStatus = false,
+                message = "File does not exist"
+            });
+            //Content("File does not exist");
+
+        }
 
     [Route("Card-Test")]
     public async Task<ActionResult> CardTest()
@@ -1230,6 +1264,7 @@ namespace FUNDING.Controllers
           CardGenerationService.QrCodeElementValues = qrCodeElement;
           CardGenerationService.IsCardSizeDisplayed = displayCardSize;
           CardGenerationService.PdfGenerator(invitee);
+
         })));
       }
       await Task.WhenAll( taskList2);
@@ -1238,7 +1273,7 @@ namespace FUNDING.Controllers
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
-        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", (object) visitor_details.visitor_det_sno, (object) CardDesignMasterController.EscapeCharacterForFileName(visitor_details.visitor_name)))))));
+        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno,EscapeCharacterForFileName(visitor_details.visitor_name)))))));
       }
       await Task.WhenAll( taskList3);
       string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
@@ -1256,7 +1291,7 @@ namespace FUNDING.Controllers
     {
       if (this.Session["admin1"] == null)
         return (ActionResult) this.RedirectToAction("Login", "Login");
-      var data = this._dbContext.visitor_details.Where<visitor_details>((Expression<Func<visitor_details, bool>>) (ev => ev.event_det_sno == (long?) event_id)).Select(vd => new
+      var data = this._dbContext.visitor_details.Where (ev => ev.event_det_sno == event_id).Select(vd => new
       {
         event_id = vd.event_details.event_det_sno,
         event_name = vd.event_details.event_name

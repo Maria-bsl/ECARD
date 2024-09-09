@@ -4,6 +4,7 @@
 // MVID: 5DE1C1E8-8D80-43BD-915D-F2502219BD58
 // Assembly location: D:\ECardtest - 22082024\bin\FUNDING.dll
 
+using ECARD.DL.EDMX;
 using FUNDING.Models.AppHelpers;
 using System;
 using System.Drawing;
@@ -27,8 +28,8 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
       string cardSize,
       string venue)
     {
-      string appearOnQrCode = QRCodeGenerator.FormatTextsToAppearOnQRCode(VisitorqrCodeID.Substring(9), inviteeName, cardSize, venue);
-      string logicLogoFullPath = QRCodeGenerator.GetBizLogicLogoFullPath();
+      string appearOnQrCode = FormatTextsToAppearOnQRCode(VisitorqrCodeID.Substring(9), inviteeName, cardSize, venue);
+      string logicLogoFullPath = GetBizLogicLogoFullPath();
       bool flag = true;
       while (flag)
       {
@@ -36,7 +37,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
         {
           using (new MemoryStream())
           {
-            string codeFullImagePath = QRCodeGenerator.GetSafeQR_CodeFullImagePath(VisitorId, inviteeName);
+            string codeFullImagePath = GetSafeQR_CodeFullImagePath(VisitorId, inviteeName);
             BarcodeWriter barcodeWriter = new BarcodeWriter();
             EncodingOptions encodingOptions = new EncodingOptions()
             {
@@ -45,7 +46,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
               Margin = 0,
               PureBarcode = false
             };
-            encodingOptions.Hints.Add(EncodeHintType.ERROR_CORRECTION, (object) ErrorCorrectionLevel.H);
+            encodingOptions.Hints.Add(EncodeHintType.ERROR_CORRECTION, ErrorCorrectionLevel.H);
             barcodeWriter.Renderer = (IBarcodeRenderer<Bitmap>) new BitmapRenderer();
             barcodeWriter.Options = encodingOptions;
             barcodeWriter.Format = BarcodeFormat.QR_CODE;
@@ -71,8 +72,8 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
       string venue,
       string table_number)
     {
-      string appearOnQrCode = QRCodeGenerator.FormatTextsToAppearOnQRCode(VisitorqrCodeID.Substring(9), inviteeName, cardSize, venue, table_number);
-      string logicLogoFullPath = QRCodeGenerator.GetBizLogicLogoFullPath();
+      string appearOnQrCode = FormatTextsToAppearOnQRCode(VisitorqrCodeID.Substring(9), inviteeName, cardSize, venue, table_number);
+      string logicLogoFullPath = GetBizLogicLogoFullPath();
       bool flag = true;
       while (flag)
       {
@@ -80,7 +81,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
         {
           using (new MemoryStream())
           {
-            string codeFullImagePath = QRCodeGenerator.GetSafeQR_CodeFullImagePath(VisitorId, inviteeName);
+            string codeFullImagePath = GetSafeQR_CodeFullImagePath(VisitorId, inviteeName);
             BarcodeWriter barcodeWriter = new BarcodeWriter();
             EncodingOptions encodingOptions = new EncodingOptions()
             {
@@ -102,7 +103,15 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
         }
         catch (Exception ex)
         {
-          flag = true;
+            ECARDAPPEntities context = new ECARDAPPEntities();
+            var errorLog = new service_error_logs
+            {
+                error = ex.ToString(),
+                posted_date = DateTime.Now
+            };
+            context.service_error_logs.Add(errorLog);
+            context.SaveChangesAsync();
+                    flag = true;
         }
       }
     }
@@ -128,7 +137,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
 
     private static string GetSafeQR_CodeFullImagePath(long VisitorId, string inviteeName)
     {
-      string withInviteeDetails = QRCodeGenerator.GenerateQRCodeFileNameWithInviteeDetails(VisitorId, inviteeName);
+      string withInviteeDetails = GenerateQRCodeFileNameWithInviteeDetails(VisitorId, inviteeName);
       string str = HostingEnvironment.MapPath(DirectoryHelpers.QrCodeVirtualDirectory);
       if (!Directory.Exists(str))
         Directory.CreateDirectory(str);
@@ -142,7 +151,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
       long VisitorId,
       string inviteeName)
     {
-      return string.Format("{0}_{1}.jpeg", (object) VisitorId, (object) QRCodeGenerator.EscapeCharacterForFileName(inviteeName));
+      return string.Format("{0}_{1}.jpeg", (object) VisitorId, (object) EscapeCharacterForFileName(inviteeName));
     }
 
     private static string GetBizLogicLogoFullPath()
