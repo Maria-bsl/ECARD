@@ -66,9 +66,9 @@ namespace FUNDING.Models.CollectionModule
       bool flag;
       do
       {
-        generatedControlNumber = Contributions.GenerateControlNumber(contribution_id);
+        generatedControlNumber = GenerateControlNumber(contribution_id);
         using (ECARDAPPEntities ecardappEntities = new ECARDAPPEntities())
-          flag = ecardappEntities.contributor_details.Where<contributor_details>((Expression<Func<contributor_details, bool>>) (v => v.contri_det_sno == contribution_id && v.control_no == generatedControlNumber)).FirstOrDefault<contributor_details>() != null;
+          flag = ecardappEntities.contributor_details.Where(v => v.contri_det_sno == contribution_id && v.control_no == generatedControlNumber).FirstOrDefault() != null;
       }
       while (flag);
       return generatedControlNumber;
@@ -76,7 +76,7 @@ namespace FUNDING.Models.CollectionModule
 
     public static string GenerateControlNumber(long contribution_id)
     {
-      return string.Format("C{0}{1}", (object) Convert.ToString(contribution_id).PadLeft(6, '0'), (object) Contributions.GetGeneratedRandomDigits(6));
+      return string.Format("C{0}{1}", Convert.ToString(contribution_id).PadLeft(6, '0'), GetGeneratedRandomDigits(6));
     }
 
     private static string GetGeneratedRandomDigits(int len)
@@ -135,9 +135,9 @@ namespace FUNDING.Models.CollectionModule
     {
       using (ECARDAPPEntities _dbContext = new ECARDAPPEntities())
       {
-        contributor_details contributionRecord = Contributions.CLASS_INSTANCE.SaveNewRecord(_dbContext, contribution, event_id, customer_reg_no, user_id);
-        Contributions.CLASS_INSTANCE.SaveContributionControlNumber(_dbContext, contributionRecord, contribution);
-        Contributions.CLASS_INSTANCE.Send_SMS_After_Contributor_Pledges(_dbContext, contributionRecord);
+        contributor_details contributionRecord = CLASS_INSTANCE.SaveNewRecord(_dbContext, contribution, event_id, customer_reg_no, user_id);
+        CLASS_INSTANCE.SaveContributionControlNumber(_dbContext, contributionRecord, contribution);
+        CLASS_INSTANCE.Send_SMS_After_Contributor_Pledges(_dbContext, contributionRecord);
       }
     }
 
@@ -151,7 +151,7 @@ namespace FUNDING.Models.CollectionModule
       contributor_details entity = new contributor_details()
       {
         contributor_name = contribution.Contributor_name,
-        contribution_amount = Contributions.CLASS_INSTANCE.UnformattedContributionAmount(contribution.Contribution_amount),
+        contribution_amount = CLASS_INSTANCE.UnformattedContributionAmount(contribution.Contribution_amount),
         mobile_no = contribution.Int_Mobile_number.Replace("+", ""),
         email_address = contribution.Email_address,
         event_det_sno = event_id,
@@ -175,7 +175,7 @@ namespace FUNDING.Models.CollectionModule
       contributor.contri_status = "affirmed";
       dbContext.Entry<contributor_details>(contributor).State = EntityState.Modified;
       dbContext.SaveChanges();
-      Contributions.SaveContributorAsInvitee(dbContext, contributor);
+      SaveContributorAsInvitee(dbContext, contributor);
     }
 
     public static void RejectReservationHandler(
@@ -203,7 +203,7 @@ namespace FUNDING.Models.CollectionModule
         contributorDetails.email_address = contribution.Email_address;
         _dbContext.Entry<contributor_details>(contributorDetails).State = EntityState.Modified;
         _dbContext.SaveChanges();
-        Contributions.CLASS_INSTANCE.Send_SMS_After_Contributor_Pledges(_dbContext, contributorDetails);
+        CLASS_INSTANCE.Send_SMS_After_Contributor_Pledges(_dbContext, contributorDetails);
         return true;
       }
     }
@@ -255,14 +255,14 @@ namespace FUNDING.Models.CollectionModule
     {
       using (ECARDAPPEntities ecardappEntities = new ECARDAPPEntities())
       {
-        List<contributor_details> list = ecardappEntities.contributor_details.Where<contributor_details>((Expression<Func<contributor_details, bool>>) (iv => iv.event_det_sno == id)).ToList<contributor_details>();
-        sms_contribution smsContribution = ecardappEntities.sms_contribution.Where<sms_contribution>((Expression<Func<sms_contribution, bool>>) (ib => ib.event_det_sno == id)).First<sms_contribution>();
+        List<contributor_details> list = ecardappEntities.contributor_details.Where(iv => iv.event_det_sno == id).ToList();
+        sms_contribution smsContribution = ecardappEntities.sms_contribution.Where(ib => ib.event_det_sno == id).First();
         if (list == null && smsContribution == null)
           return;
         foreach (contributor_details contributorDetails in list)
         {
           string contributorName = contributorDetails.contributor_name;
-          Contributions.FormattedThousandsSeparator(contributorDetails.contribution_amount);
+          FormattedThousandsSeparator(contributorDetails.contribution_amount);
           string eventName = smsContribution.event_details.event_name;
           string controlNo = contributorDetails.control_no;
           SMS_Handler.SendLocalSMS(smsContribution.sms_text.Replace("{contributor}", contributorName), contributorDetails.mobile_no);
@@ -274,15 +274,12 @@ namespace FUNDING.Models.CollectionModule
       ECARDAPPEntities _dbContext,
       contributor_details contributionRecord)
     {
-      event_details eventDetails = _dbContext.event_details.Find(new object[1]
-      {
-        (object) contributionRecord.event_det_sno
-      });
-      sms_contribution smsContribution = _dbContext.sms_contribution.Where<sms_contribution>((Expression<Func<sms_contribution, bool>>) (ic => ic.event_det_sno == contributionRecord.event_det_sno)).First<sms_contribution>();
+      event_details eventDetails = _dbContext.event_details.Find(contributionRecord.event_det_sno);
+      var smsContribution = _dbContext.sms_contribution.Where(ic => ic.event_det_sno == contributionRecord.event_det_sno).First();
       if (eventDetails == null && smsContribution == null)
         return;
       string contributorName = contributionRecord.contributor_name;
-      Contributions.FormattedThousandsSeparator(contributionRecord.contribution_amount);
+      FormattedThousandsSeparator(contributionRecord.contribution_amount);
       string eventName = eventDetails.event_name;
       string controlNo = contributionRecord.control_no;
       SMS_Handler.SendLocalSMS(smsContribution.sms_text.Replace("{contributor}", contributorName), contributionRecord.mobile_no);

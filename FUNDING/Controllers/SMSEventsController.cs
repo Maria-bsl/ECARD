@@ -1,18 +1,11 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: FUNDING.Controllers.SMSEventsController
-// Assembly: FUNDING, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 5DE1C1E8-8D80-43BD-915D-F2502219BD58
-// Assembly location: D:\ECardtest - 22082024\bin\FUNDING.dll
+﻿
 
 using ECARD.DL.EDMX;
 using FUNDING.BL.BusinessEntities.Masters;
-using Microsoft.CSharp.RuntimeBinder;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Web.Mvc;
 
  
@@ -50,8 +43,8 @@ namespace FUNDING.Controllers
     public ActionResult OnEventChangeAction(string Event_Id)
     {
       long event_id = Convert.ToInt64(Event_Id);
-      List<visitor_details> list = this._dbContext.visitor_details.Where<visitor_details>((Expression<Func<visitor_details, bool>>) (v => v.event_det_sno == (long?) event_id && v.event_details.event_date >= (DateTime?) DateTime.Today)).ToList<visitor_details>();
-      return list.Count<visitor_details>() > 0 ? (ActionResult) this.Json((object) new
+      List<visitor_details> list = this._dbContext.visitor_details.Where(v => v.event_det_sno == event_id && v.event_details.event_date >= (DateTime?) DateTime.Today).ToList();
+      return list.Count() > 0 ? this.Json(new
       {
         status = true,
         data_value = list.Select(v => new
@@ -69,7 +62,7 @@ namespace FUNDING.Controllers
     [HttpPost]
     public ActionResult AddSMSEvent(long Event_Id, string Message, long sno)
     {
-      sms_invitation smsInvitation = this._dbContext.sms_invitation.Where<sms_invitation>((Expression<Func<sms_invitation, bool>>) (v => v.event_det_sno == (long?) Event_Id)).FirstOrDefault<sms_invitation>();
+      sms_invitation smsInvitation = this._dbContext.sms_invitation.Where(v => v.event_det_sno == Event_Id).FirstOrDefault();
       this.cy.sms_text = Message;
       this.cy.event_sno = new long?(Event_Id);
       this.cy.sno = sno;
@@ -77,7 +70,7 @@ namespace FUNDING.Controllers
       if (sno == 0L)
       {
         if (smsInvitation == null)
-          return (ActionResult) this.Json((object) this.cy.AddSMSEvents(this.cy), JsonRequestBehavior.AllowGet);
+          return Json(cy.AddSMSEvents(cy), JsonRequestBehavior.AllowGet);
       }
       else if (sno > 0L && smsInvitation != null)
       {

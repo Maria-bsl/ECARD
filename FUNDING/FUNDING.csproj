@@ -377,7 +377,9 @@
     <Compile Include="Controllers\CardStatesController.cs" />
     <Compile Include="Controllers\ChangePasswordController.cs" />
     <Compile Include="Controllers\ChangepwdController.cs" />
+    <Compile Include="Controllers\Contributions-Controller - Copy - Copy.cs" />
     <Compile Include="Controllers\ContributionsController.cs" />
+    <Compile Include="Controllers\ContributionsCompilerController.cs" />
     <Compile Include="Controllers\CustomerActivityController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CustomerUsersController.cs" />

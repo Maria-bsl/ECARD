@@ -47,7 +47,7 @@
 
         <div id="registerContributionsForm" style="display:none;">
 
-            <h4 class="mb-2">Contribution Registation Form</h4>
+            <h4 class="mb-2">Contribution Registration Form</h4>
 
             @Html.Partial("_AjaxHelperCreateForm")
         </div>
@@ -519,7 +519,7 @@
 
             // Click an send sms button
 
-            $('#sendsms').click(function (e) {
+            $('#sendsms').on('click', function (e) {
                 e.preventDefault();
 
                 SmsAllRowRecord();
@@ -885,10 +885,11 @@
 
     function SmsAllRowRecord() {
 
+        // var data_id = $this.attr('data-id');
         //change form action attribute
         $ajaxHelperSmsAllForm.attr('action', dataUrl);
 
-       // $ajaxHelperSmsAllForm.find('#contribution_id').val(data_id);
+        // $ajaxHelperSmsAllForm.find('#contribution_id').val(data_id);
 
         $('#SmsAllBtn').on('click', function (e) {
             e.preventDefault();

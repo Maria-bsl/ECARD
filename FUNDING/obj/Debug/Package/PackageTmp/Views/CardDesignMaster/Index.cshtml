@@ -325,7 +325,7 @@
                         <div class="spinner-border spinner-border-sm" style="display: none"></div>
                         <span>Multi-Generate</span>
                     </button>
-                    @* <a id="download-list-button" class="btn btn-success btn-rounded text-white">Download Invitees Card</a>*@
+                    <a id="bulk-download-button-Multiple" class="btn btn-success btn-rounded text-white" style="display: none;">Download Multiple Cards</a>@**@
                 </div>
             </div>
 
@@ -384,11 +384,12 @@
                          if (data.data == 1) {
                              draggableElementData = data.DraggableElement;
 
+                                 var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                                 $cardMainTemplate.css('background-image', cardTemplateStyle);
 
-                             const cardElement = document.querySelector('.card-main-template');
-                             cardElement.style.backgroundImage = 'url("@Url.Content(ViewBag.DefaultCardTemplate)")';
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
 
-                             console.log(cardElement);
 
                              console.log(data.response);
 
@@ -421,6 +422,7 @@
                              cardListDownloadHandler();
 
                              bulkCardDownloadHandler();
+                             bulkCardDownloadHandlerM();
 
                               @* accordionCard.classList.add('d-none');
                              saveButton.classList.add('d-none'); @Html.Raw(Json.Encode(@ViewBag.DraggableElements))*@
@@ -433,9 +435,11 @@
 
                              console.log(draggableElementData);
 
-                             const cardElement = document.querySelector('.card-main-template');
-                             cardElement.style.backgroundImage = 'url("@Url.Content(ViewBag.DefaultCardTemplate)")';
+                             var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                             $cardMainTemplate.css('background-image', cardTemplateStyle);
 
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
                              console.log(cardElement);
 
                              console.log(cardElement);
@@ -470,6 +474,7 @@
                              cardListDownloadHandler();
 
                              bulkCardDownloadHandler();
+                             bulkCardDownloadHandlerM();
 
                              @*
                              console.log("index: " + draggableElementData);
@@ -1261,7 +1266,7 @@
                     return false;
                 }
                @* var $bulkGeneratorButton = $('#bulkGenerateButton');*@
-                var $bulkDownloadButton = $("#bulk-download-button");
+                var $bulkDownloadMButton = $("#bulk-download-button-Multiple");
                 var $previewButton = $("#previewButton");
                 var $bulbGenerateButton = $("#bulbGenerateButton");
                 var $downloadButton = $("#download-button");
@@ -1270,7 +1275,7 @@
                 $previewButton.show();
                 $downloadButton.hide();
 
-                $bulkDownloadButton.css({
+                $bulkDownloadMButton.css({
                     'border-top-left-radius': '60px',
                     'border-bottom-left-radius': '60px',
                 });
@@ -1326,7 +1331,8 @@
 
                         } else if (data.downloadStatus == true) {
                             $previewIviteeButton.removeClass('card-design-wait');
-                            $bulkDownloadButton.show();
+                            $bulkDownloadMButton.removeClass('d-none');
+                            $bulkDownloadMButton.show();
                             $previewIviteeButton.hide();
                             Toast.fire({
                                 icon: 'success',
@@ -1355,7 +1361,7 @@
 
              $(downloadSingleButton).on('click', function () {
                  if ($eventDropdownList.val() !== '') {
-                     location.href = "@Url.Action("BulkDownloadGenerateAndPreviewMultiple", "CardDesignMaster")?event_id=" + $eventDropDown.val() + "?visitors=" +VisitorList;
+                     location.href = "@Url.Action("BulkDownloadGenerateAndPreviewM", "CardDesignMaster")?event_id=" + $eventDropDown.val() + "?visitors=" +VisitorList;
                 } else {
                     alert("Please select Invitee(s) first");
                 }
@@ -1491,6 +1497,18 @@
             $('#bulk-download-button').on('click', function () {
                 if ($eventDropDown.val() !== '') {
                     location.href = "@Url.Action("BulkDownloadGenerateAndPreview", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                } else {
+                    alert("Please select event first");
+                }
+            })
+        }
+
+
+        function bulkCardDownloadHandlerM() {
+            var $eventDropDown = $('#Events');
+            $('#bulk-download-button-Multiple').on('click', function () {
+                if ($eventDropDown.val() !== '') {
+                    location.href = "@Url.Action("BulkDownloadGenerateAndPreviewM", "CardDesignMaster")?event_id=" + $eventDropDown.val();
                 } else {
                     alert("Please select event first");
                 }

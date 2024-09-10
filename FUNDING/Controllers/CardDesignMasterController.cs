@@ -764,7 +764,7 @@ namespace FUNDING.Controllers
         event_id = vd.event_details.event_det_sno,
         event_name = vd.event_details.event_name
       }).FirstOrDefault();
-      string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.zip", (object) data.event_id, (object) data.event_name));
+      string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}_Multiple.zip", (object) data.event_id, (object) data.event_name));
       return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult) this.Json(new
       {
           message = "File does not exist",
@@ -854,8 +854,10 @@ namespace FUNDING.Controllers
       return (ActionResult) this.Content("File does not exist");
     }
 
+    #region  Multiple Generating Cards
+
     [HttpPost]
-    [Route("Generate-and-Preview2")]
+    [Route("Generate-and-Preview2")] 
     public async Task<ActionResult> GenerateAndPreview2(
       long event_id,
       bool displayCardSize,
@@ -875,15 +877,15 @@ namespace FUNDING.Controllers
         });
       int i = 0;
       int d = Visitors.Length;
-      List<visitor_details> visitorEventDetails = masterController._dbContext.visitor_details.Where<visitor_details>((Expression<Func<visitor_details, bool>>) (ev => ev.event_det_sno == (long?) event_id)).ToList<visitor_details>();
-      if (visitorEventDetails.Count<visitor_details>() <= 0)
-        return (ActionResult) masterController.Json((object) new
+      var visitorEventDetails = masterController._dbContext.visitor_details.Where (ev => ev.event_det_sno == event_id).ToList();
+      if (visitorEventDetails.Count() <= 0)
+        return masterController.Json( new
         {
           message = "Please Select at least one invitee",
           downloadStatus = false
         });
       List<Task> qrCodeGenerationTask = new List<Task>();
-      string venue = visitorEventDetails.FirstOrDefault<visitor_details>().event_details.venue;
+      string venue = visitorEventDetails.FirstOrDefault().event_details.venue;
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
@@ -916,14 +918,15 @@ namespace FUNDING.Controllers
             });
             List<Task> taskList = new List<Task>();
             string pdfAbsolutePath = GetPDFFormatCardDirectoryAbsolutePath();
-            taskList.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", (object) visitor_details.visitor_det_sno, (object) EscapeCharacterForFileName(visitor_details.visitor_name)))))));
+            taskList.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf",visitor_details.visitor_det_sno,EscapeCharacterForFileName(visitor_details.visitor_name)))))));
             await Task.WhenAll((IEnumerable<Task>) taskList);
+                     
           }
         }
       }
       string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
-      visitor_details zipFileData = visitorEventDetails.FirstOrDefault<visitor_details>();
-      GenerateAndPopulateZipFile(GetZipFullPath(directoryAbsolutePath, zipFileData), GetListOfGeneratedSomeCardFullPaths(Visitors, visitorEventDetails, directoryAbsolutePath));
+      visitor_details zipFileData = visitorEventDetails.FirstOrDefault();
+      GenerateAndPopulateZipFile(GetZipFullPathMultipleCards(directoryAbsolutePath, zipFileData), GetListOfGeneratedSomeCardFullPaths(Visitors, visitorEventDetails, directoryAbsolutePath));
       return (ActionResult) masterController.Json((object) new
       {
         message = "Card successfully generated",
@@ -931,6 +934,9 @@ namespace FUNDING.Controllers
       });
     }
 
+
+
+     #endregion
     public ActionResult DownloadGenerateAndPreview2(long event_id, string[] Visitors)
     {
       if (this.Session["admin1"] == null)
@@ -954,6 +960,8 @@ namespace FUNDING.Controllers
       });
      }
 
+
+    #region Card Preview and Download Single First Invitee
     [HttpPost]
     [Route("Generate-and-Preview")]
     public ActionResult GenerateAndPreview(
@@ -1056,6 +1064,12 @@ namespace FUNDING.Controllers
             //Content("File does not exist");
 
         }
+
+
+
+
+  #endregion
+
 
     [Route("Card-Test")]
     public async Task<ActionResult> CardTest()
@@ -1286,6 +1300,27 @@ namespace FUNDING.Controllers
       });
     }
 
+
+    #region Multiple Cards Download
+    [Route("Bulk-Card-Download-M")]
+    public ActionResult BulkDownloadGenerateAndPreviewM(long event_id)
+    {
+        if (this.Session["admin1"] == null)
+            return (ActionResult)this.RedirectToAction("Login", "Login");
+        var data = this._dbContext.visitor_details.Where(ev => ev.event_det_sno == event_id).Select(vd => new
+        {
+            event_id = vd.event_details.event_det_sno,
+            event_name = vd.event_details.event_name
+        }).FirstOrDefault();
+        string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}_Multiple.zip", data.event_id, data.event_name));
+        return System.IO.File.Exists(path) ? (ActionResult)this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult)Json(new
+        {
+            sendStatus = false,
+            mesage = "File does not exist"
+        });
+    }
+   #endregion
+
     [Route("Bulk-Card-Download")]
     public ActionResult BulkDownloadGenerateAndPreview(long event_id)
     {
@@ -1296,7 +1331,7 @@ namespace FUNDING.Controllers
         event_id = vd.event_details.event_det_sno,
         event_name = vd.event_details.event_name
       }).FirstOrDefault();
-      string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.zip", (object) data.event_id, (object) data.event_name));
+      string path = Path.Combine(HostingEnvironment.MapPath(DirectoryHelpers.Generated_Cards_DirVirtualDirectory), string.Format("{0}_{1}.zip",data.event_id,data.event_name));
       return System.IO.File.Exists(path) ? (ActionResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path)) : (ActionResult)Json(new
       {
           sendStatus = false,
@@ -1884,6 +1919,14 @@ namespace FUNDING.Controllers
       if (System.IO.File.Exists(path))
         System.IO.File.Delete(path);
       return path;
+    }
+
+    private static string GetZipFullPathMultipleCards(string absolutePath, visitor_details zipFileData)
+    {
+        string path = Path.Combine(absolutePath, string.Format("{0}_{1}_Multiple.zip", zipFileData.event_det_sno, zipFileData.event_details.event_name));
+        if (System.IO.File.Exists(path))
+            System.IO.File.Delete(path);
+        return path;
     }
 
     [Route("Card-Templates")]

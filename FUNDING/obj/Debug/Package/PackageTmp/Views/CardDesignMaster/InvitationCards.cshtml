@@ -461,7 +461,7 @@
                 }
 
                 if ($eventDropDown.val() !== '') {
-                    location.href = "@Url.Action("BulkDownloadGenerateAndPreview", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                    location.href = "@Url.Action("BulkDownloadGenerateAndPreviewM", "CardDesignMaster")?event_id=" + $eventDropDown.val();
                 } else {
                     alert("Please select event first");
                 }
@@ -490,7 +490,7 @@
                      success: function (data) {
                          console.log(data);
 
-                         var s = '<option value="-1">Please Select Invitees</option>';
+                         var s = '<option value="-1"  disabled>Please Select Invitees</option>';
                          for (var i = 0; i < data.visitorSelectionList.length; i++) {
                              s += '<option value="' + data.visitorSelectionList[i].Value + '">' + data.visitorSelectionList[i].Text + '</option>';
                          }

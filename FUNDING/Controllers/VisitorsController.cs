@@ -1,16 +1,9 @@
-﻿// Decompiled with JetBrains decompiler
-// Type: FUNDING.Controllers.VisitorsController
-// Assembly: FUNDING, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-// MVID: 5DE1C1E8-8D80-43BD-915D-F2502219BD58
-// Assembly location: D:\ECardtest - 22082024\bin\FUNDING.dll
-
+﻿
 using ECARD.DL.EDMX;
 using FUNDING.BL.BusinessEntities.Masters;
 using FUNDING.Models.AppHelpers;
 using FUNDING.Models.ViewModels;
-using Microsoft.CSharp.RuntimeBinder;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Globalization;
@@ -18,8 +11,6 @@ using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Net;
-using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -50,14 +41,14 @@ namespace FUNDING.Controllers
 
                 return (ActionResult) this.View();
       }
-      return this.Session["admin1"] as string == CustomerUsers.NormalUserType ? (ActionResult) this.View("Index_readonly") : (ActionResult) this.RedirectToAction("CustomerLogin", "Login");
+      return this.Session["admin1"] as string == CustomerUsers.NormalUserType ? this.View("Index_readonly") : (ActionResult) this.RedirectToAction("CustomerLogin", "Login");
     }
 
     public ActionResult IndexDataTable()
     {
       this.GetCustomerAdminID();
       long? eventID = this.GetEventID();
-      var visitor = this._dbContext.visitor_details.Include<visitor_details, card_state_master>(c => c.card_state_master).Where<visitor_details>((Expression<Func<visitor_details, bool>>) (iv => iv.event_det_sno == eventID)).OrderByDescending<visitor_details, DateTime>((Expression<Func<visitor_details, DateTime>>) (iv => iv.posted_date)).Select(vd => new
+      var visitor = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == eventID).OrderByDescending(iv => iv.posted_date).Select(vd => new
       {
         vd.visitor_det_sno,
         vd.visitor_name,
@@ -190,7 +181,7 @@ namespace FUNDING.Controllers
 
     public FileResult DownloadExcelTemplateVisitorCode()
     {
-      string path = Path.Combine(DirectoryHelpers.ExcelTemplateAbsoluteDirectory, string.Format("{0}.xlsx", (object) "Invitees_Registation_Template_Visitors_Code"));
+      string path = Path.Combine(DirectoryHelpers.ExcelTemplateAbsoluteDirectory, string.Format("{0}.xlsx", "Invitees_Registation_Template_Visitors_Code"));
       return (FileResult) this.File(System.IO.File.ReadAllBytes(path), "application/octet-stream", DirectoryHelpers.GetTimestampedFile(path));
     }
 
@@ -342,17 +333,18 @@ namespace FUNDING.Controllers
     public ActionResult AjaxHelperSmsAllForm(long? id)
     {
       if (!id.HasValue)
-        return (ActionResult) this.Json((object) new
+        return Json(new
         {
           SmsStatus = false,
           response = "Failed! ID not supplied"
         });
       long? event_id = id;
-      List<visitor_details> list = this._dbContext.visitor_details.Include<visitor_details, card_state_master>((Expression<Func<visitor_details, card_state_master>>) (c => c.card_state_master)).Where<visitor_details>((Expression<Func<visitor_details, bool>>) (iv => iv.event_det_sno == event_id)).ToList<visitor_details>();
-      sms_invitation smsInvitation = this._dbContext.sms_invitation.Where<sms_invitation>((Expression<Func<sms_invitation, bool>>) (iv => iv.event_det_sno == event_id)).First<sms_invitation>();
+      var list = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == event_id).ToList();
+          list.FirstOrDefault();
+      sms_invitation smsInvitation = this._dbContext.sms_invitation.Where(iv => iv.event_det_sno == event_id).First();
       List<string> stringList = new List<string>();
       if (smsInvitation == null)
-        return (ActionResult) this.Json((object) new
+        return Json( new
         {
           SmsStatus = false,
           response = "SMS Template was not found, Please define before sending SMS."
@@ -361,7 +353,6 @@ namespace FUNDING.Controllers
       {
         foreach (visitor_details visitorDetails in list)
         {
-          list.FirstOrDefault<visitor_details>();
           stringList.Add(this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id));
           string inviteeWelcomeText = this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id);
           this.SendLocalInviteeWelcomeSMS(visitorDetails.mobile_no, inviteeWelcomeText);
@@ -392,8 +383,9 @@ namespace FUNDING.Controllers
           response = "Failed! Item does not exist"
         });
       long? event_id = event_sno;
-      List<visitor_details> list = this._dbContext.visitor_details.Include<visitor_details, card_state_master>((Expression<Func<visitor_details, card_state_master>>) (c => c.card_state_master)).Where<visitor_details>((Expression<Func<visitor_details, bool>>) (iv => iv.event_det_sno == event_id)).ToList<visitor_details>();
-      sms_invitation smsInvitation = this._dbContext.sms_invitation.Where<sms_invitation>((Expression<Func<sms_invitation, bool>>) (iv => iv.event_det_sno == event_id)).First<sms_invitation>();
+      var list = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == event_id).ToList();
+            list.FirstOrDefault();
+      var smsInvitation = this._dbContext.sms_invitation.Where(iv => iv.event_det_sno == event_id).First();
       List<string> stringList = new List<string>();
       if (smsInvitation == null)
         return (ActionResult) this.Json((object) new
@@ -410,7 +402,6 @@ namespace FUNDING.Controllers
           long valueOrDefault = nullable.GetValueOrDefault();
           if (visitorDetSno == valueOrDefault & nullable.HasValue)
           {
-            list.FirstOrDefault<visitor_details>();
             stringList.Add(this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id));
             string inviteeWelcomeText = this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id);
             this.SendLocalInviteeWelcomeSMS(visitorDetails.mobile_no, inviteeWelcomeText);
@@ -428,7 +419,8 @@ namespace FUNDING.Controllers
     [Route("send-sms")]
     public JsonResult SendSMS(long? id, long? event_sno)
     {
-      List<visitor_details> list = this._dbContext.visitor_details.Include<visitor_details, card_state_master>((Expression<Func<visitor_details, card_state_master>>) (c => c.card_state_master)).Where<visitor_details>((Expression<Func<visitor_details, bool>>) (iv => iv.event_det_sno == event_sno)).ToList<visitor_details>();
+      List<visitor_details> list = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == event_sno).ToList();
+            list.FirstOrDefault<visitor_details>();
       List<string> stringList = new List<string>();
       if (list != null)
       {
@@ -439,7 +431,6 @@ namespace FUNDING.Controllers
           long valueOrDefault = nullable.GetValueOrDefault();
           if (visitorDetSno == valueOrDefault & nullable.HasValue)
           {
-            list.FirstOrDefault<visitor_details>();
             stringList.Add(this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_sno));
             string inviteeWelcomeText = this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_sno);
             this.SendLocalInviteeWelcomeSMS(visitorDetails.mobile_no, inviteeWelcomeText);
@@ -486,7 +477,7 @@ namespace FUNDING.Controllers
 
     public ActionResult SendBulkWelcomeSMS(string __RequestVerificationToken = "", long event_id = 4)
     {
-      List<visitor_details> list = this._dbContext.visitor_details.Include<visitor_details, card_state_master>((Expression<Func<visitor_details, card_state_master>>) (c => c.card_state_master)).Where<visitor_details>((Expression<Func<visitor_details, bool>>) (iv => iv.event_det_sno == (long?) event_id)).ToList<visitor_details>();
+      List<visitor_details> list = this._dbContext.visitor_details.Include(c => c.card_state_master).Where<visitor_details>(iv => iv.event_det_sno == event_id).ToList();
       if (list.Count == 0)
         return (ActionResult) this.Json((object) new
         {
@@ -528,12 +519,12 @@ namespace FUNDING.Controllers
      
     
       string smsText = _dbContext.sms_invitation.Where(c =>c.event_details.event_det_sno == event_id)
-                .Select(e => e.sms_text.ToString()).ToString(); // Unable to render the statement
+                .Select(e => e.sms_text.ToString()).First(); // Unable to render the statement
       string titleCase = textInfo.ToTitleCase(inviteeName.ToLower());
       string newValue = qrCodeIdentity.Substring(9);
       int? nullable = card_size;
       int num = 1;
-      return nullable.GetValueOrDefault() == num & nullable.HasValue ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - )" + card_size.ToString())) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double) - " + card_size.ToString()));
+      return nullable.GetValueOrDefault() == num & nullable.HasValue ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - )" + card_size.ToString())) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double - ) " + card_size.ToString()));
     }
 
     private void SendLocalInviteeWelcomeSMS(string visitorMobileNumber, string sms_text)

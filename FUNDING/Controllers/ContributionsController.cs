@@ -37,6 +37,7 @@ namespace FUNDING.Controllers
                 .Select(p => new
                 {
                     contribution_id = p.contri_det_sno,
+                    event_det_sno = event_id,
                     p.contributor_name,
                     contribution_amount = Contributions.FormattedThousandsSeparator(p.contribution_amount),
                     mobile_number = p.mobile_no,
@@ -111,6 +112,32 @@ namespace FUNDING.Controllers
 
             return PartialView("_AjaxHelperCreateForm", contribution);
         }
+
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        [Route("Contributions/AjaxHelperSmsAllForm/{id}")]
+        public ActionResult AjaxHelperSmsAllForm(long? id)
+        {
+            if (!id.HasValue)
+                return (ActionResult)this.Json((object)new
+                {
+                    SmsStatus = false,
+                    response = "Failed! ID not supplied"
+                });
+            Contributions.Send_SMS_All_Contributor_Pledges(id);
+            return (ActionResult)this.Json((object)new
+            {
+                SmsStatus = true,
+                response = "All SMS are successful Sent."
+            });
+        }
+
+
+
+
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
