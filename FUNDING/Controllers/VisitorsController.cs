@@ -525,7 +525,7 @@ namespace FUNDING.Controllers
       string newValue = qrCodeIdentity.Substring(9);
       int? nullable = card_size;
       int num = 1;
-      return (nullable.GetValueOrDefault() == num & nullable.HasValue) ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - "+ card_size.ToString()) +" )" ) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double - "  + card_size.ToString())+ ") ");
+      return (nullable.GetValueOrDefault() == num & nullable.HasValue) ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - "+ card_size.ToString() +")" )) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double - "  + card_size.ToString()+ ")"));
     }
 
     private void SendLocalInviteeWelcomeSMS(string visitorMobileNumber, string sms_text)
