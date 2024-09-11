@@ -1,0 +1,13 @@
+@font-face {
+    font-family: 'Square Peg';
+    src: url('SquarePeg-Regular.eot');
+    src: url('SquarePeg-Regular.eot?#iefix') format('embedded-opentype'),
+        url('SquarePeg-Regular.woff2') format('woff2'),
+        url('SquarePeg-Regular.woff') format('woff'),
+        url('SquarePeg-Regular.ttf') format('truetype'),
+        url('SquarePeg-Regular.svg#SquarePeg-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

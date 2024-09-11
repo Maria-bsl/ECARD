@@ -85,7 +85,7 @@
                     </div>
                     <div class="form-group col-md-12 col-lg-8 mb-3">
                         @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "d-block mb-1" })
-                        @Html.TextAreaFor(model => model.Message, new { type = "text", @class = "form-control mw-100", @placeholder = "ID: {qr_code}. {invitee_name} karibu katika {event_name}, {event_date},{event_venue} kuanzia {event_time}, Dar es Salaam.", @rows="5", @title= "{qr_code}. {invitee_name} , {invitee_name} is a must" })
+                        @Html.TextAreaFor(model => model.Message, new { type = "text", @class = "form-control mw-100", @placeholder = "ID: {qr_code}. {invitee_name} karibu katika ......", @rows="5", @title= "{qr_code}. {invitee_name} , {invitee_name} is a must" })
                         @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
                         <input type="hidden" class="form-control  hidden" id="txtSID">
                     </div>

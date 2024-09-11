@@ -136,6 +136,7 @@ namespace FUNDING.Controllers
       }
       catch (Exception ex)
       {
+
         return (ActionResult) this.Json((object) new
         {
           uploadStatus = false,
@@ -207,7 +208,7 @@ namespace FUNDING.Controllers
         {
           event_det_sno = this.GetEventID(),
           cust_reg_sno = this.GetCustomerAdminID(),
-          visitor_name = visitor.visitor_name,
+          visitor_name = visitor.visitor_name.ToString().Trim(),
           card_state_mas_sno = visitor.card_state_mas_sno,
           no_of_persons = visitor.no_of_persons,
           table_number = visitor.Table_Number,
@@ -267,7 +268,7 @@ namespace FUNDING.Controllers
           updateStatus = false,
           response = "Failed! Record does not exist."
         });
-      entity.visitor_name = visitor.visitor_name;
+      entity.visitor_name = visitor.visitor_name.ToString().Trim();
       entity.card_state_mas_sno = visitor.card_state_mas_sno;
       entity.no_of_persons = visitor.no_of_persons;
       entity.table_number = visitor.Table_Number;
@@ -368,23 +369,26 @@ namespace FUNDING.Controllers
     [HttpPost]
     [ValidateAntiForgeryToken]
     [Route("Visitors/AjaxHelperSmsForm/{id}/{event_sno}")]
-    public ActionResult AjaxHelperSmsForm(long? id, long? event_sno)
+    public ActionResult AjaxHelperSmsForm(long? visitor_det_sno, long? event_det_sno)
     {
-      if (!id.HasValue)
+      if (!visitor_det_sno.HasValue)
         return (ActionResult) this.Json((object) new
         {
           SmsStatus = false,
           response = "Failed! ID not supplied"
         });
-      if (!event_sno.HasValue)
+      if (!event_det_sno.HasValue)
         return (ActionResult) this.Json((object) new
         {
           SmsStatus = false,
           response = "Failed! Item does not exist"
         });
-      long? event_id = event_sno;
-      var list = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == event_id).ToList();
-            list.FirstOrDefault();
+      long? event_id = event_det_sno;
+      var visitor_Details = this._dbContext.visitor_details.Include(c => c.card_state_master).Where(iv => iv.event_det_sno == event_id  && iv.visitor_det_sno == visitor_det_sno).FirstOrDefault();
+            
+          //long visitorDetSno = visitorDetails.visitor_det_sno;
+          long? nullable = visitor_det_sno;
+          long valueOrDefault = nullable.GetValueOrDefault();
       var smsInvitation = this._dbContext.sms_invitation.Where(iv => iv.event_det_sno == event_id).First();
       List<string> stringList = new List<string>();
       if (smsInvitation == null)
@@ -393,20 +397,17 @@ namespace FUNDING.Controllers
           SmsStatus = false,
           response = "SMS Template was not found, Please define before sending SMS."
         });
-      if (list != null)
+      if (visitor_Details != null)
       {
-        foreach (visitor_details visitorDetails in list)
-        {
-          long visitorDetSno = visitorDetails.visitor_det_sno;
-          long? nullable = id;
-          long valueOrDefault = nullable.GetValueOrDefault();
-          if (visitorDetSno == valueOrDefault & nullable.HasValue)
+        /*foreach (var visitorDetails in list)
+        {*/
+          if (visitor_Details.visitor_det_sno  == visitor_det_sno)
           {
-            stringList.Add(this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id));
-            string inviteeWelcomeText = this.GetInviteeWelcomeText(visitorDetails.visitor_name, visitorDetails.qrcode, visitorDetails.no_of_persons, event_id);
-            this.SendLocalInviteeWelcomeSMS(visitorDetails.mobile_no, inviteeWelcomeText);
+            stringList.Add(this.GetInviteeWelcomeText(visitor_Details.visitor_name, visitor_Details.qrcode, visitor_Details.no_of_persons, event_id));
+            string inviteeWelcomeText = this.GetInviteeWelcomeText(visitor_Details.visitor_name, visitor_Details.qrcode, visitor_Details.no_of_persons, event_id);
+            this.SendLocalInviteeWelcomeSMS(visitor_Details.mobile_no, inviteeWelcomeText);
           }
-        }
+        //}
       }
       return (ActionResult) this.Json((object) new
       {
@@ -524,7 +525,7 @@ namespace FUNDING.Controllers
       string newValue = qrCodeIdentity.Substring(9);
       int? nullable = card_size;
       int num = 1;
-      return nullable.GetValueOrDefault() == num & nullable.HasValue ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - )" + card_size.ToString())) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double - ) " + card_size.ToString()));
+      return (nullable.GetValueOrDefault() == num & nullable.HasValue) ? string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Single - "+ card_size.ToString()) +" )" ) : string.Format(smsText.Replace("{qr_code}", newValue).Replace("{invitee_name}", titleCase).Replace("{card_size}", "(Double - "  + card_size.ToString())+ ") ");
     }
 
     private void SendLocalInviteeWelcomeSMS(string visitorMobileNumber, string sms_text)

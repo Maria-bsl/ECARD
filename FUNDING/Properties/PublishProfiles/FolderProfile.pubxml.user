@@ -8912,10 +8912,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/01/0001 00:00:00</publishTime>
     </File>
     <File Include="bin/FUNDING.dll">
-      <publishTime>09/10/2024 18:08:40</publishTime>
+      <publishTime>09/11/2024 18:18:06</publishTime>
     </File>
     <File Include="bin/FUNDING.pdb">
-      <publishTime>09/10/2024 18:08:40</publishTime>
+      <publishTime>09/11/2024 18:18:06</publishTime>
     </File>
     <File Include="bin/GemBox.Document.dll">
       <publishTime>08/13/2024 12:42:40</publishTime>
@@ -9328,14 +9328,167 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bin/zxing.presentation.dll">
       <publishTime>02/22/2023 23:37:28</publishTime>
     </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/01OISSO.png">
+      <publishTime>07/08/2024 19:54:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/10esterfinal.png">
+      <publishTime>06/06/2024 18:44:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/1esterfinal.png">
+      <publishTime>06/06/2024 18:43:14</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/1muSENDOFF.png">
+      <publishTime>06/06/2024 15:39:44</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/1PEACE.png">
+      <publishTime>06/06/2024 11:30:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/2allenfinal.png">
+      <publishTime>08/02/2024 14:53:16</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/2Denis_Mchango.png">
+      <publishTime>05/27/2024 18:27:26</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/2eMMA.png">
+      <publishTime>07/25/2024 15:49:18</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/2kitchen_partySw.png">
+      <publishTime>05/30/2024 18:26:46</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/allenfinal.png">
+      <publishTime>07/26/2024 17:24:48</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/ArushaMWN.jpg">
+      <publishTime>07/23/2024 16:00:40</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/BarbaraSW.png">
+      <publishTime>07/16/2024 18:28:04</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/CatherinePurple.png">
+      <publishTime>07/09/2024 11:45:04</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Deo3.png">
+      <publishTime>06/12/2024 13:13:52</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Deo_wed.png">
+      <publishTime>06/24/2024 13:54:28</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Diana.png">
+      <publishTime>08/14/2024 17:47:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Edmund.png">
+      <publishTime>06/10/2024 13:17:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Frank.png">
+      <publishTime>06/24/2024 18:04:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/frida.png">
+      <publishTime>05/22/2024 13:41:52</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/FridaNeemaNUDE.png">
+      <publishTime>08/16/2024 15:48:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/George_ruth_resized.png">
+      <publishTime>09/05/2024 13:23:54</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Grayton.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/gudiFINAL.png">
+      <publishTime>06/05/2024 15:30:08</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Gwajima.png">
+      <publishTime>08/17/2024 14:37:14</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/HANIFA.png">
+      <publishTime>08/06/2024 14:41:46</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Hassan.png">
+      <publishTime>08/13/2024 18:42:24</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/HassanVumilia.png">
+      <publishTime>08/13/2024 19:22:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/idda.png">
+      <publishTime>06/11/2024 13:52:04</publishTime>
+    </File>
     <File Include="CardDesign_Dir/CardTemplates_Dir/image1.png">
       <publishTime>04/11/2022 10:42:20</publishTime>
     </File>
     <File Include="CardDesign_Dir/CardTemplates_Dir/Invitation-Card_GlassX.png">
       <publishTime>05/18/2022 16:16:22</publishTime>
     </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/JosephMwakatage.png">
+      <publishTime>06/04/2024 16:21:20</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Kelegepc.png">
+      <publishTime>06/18/2024 19:50:54</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/kitchenMada.png">
+      <publishTime>06/04/2024 18:40:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/KOMUNIO.png">
+      <publishTime>05/28/2024 12:51:36</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Mercy.png">
+      <publishTime>05/20/2024 16:59:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Mfwango1.png">
+      <publishTime>05/17/2024 18:09:44</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Moses.png">
+      <publishTime>06/04/2024 15:27:16</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/muSENDOFF.png">
+      <publishTime>06/01/2024 13:56:46</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/MWN-Invitation-Card-2024-Kahama.jpg">
+      <publishTime>06/14/2024 14:20:40</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/MWN-Invitation-Card-2024-Mwanza.jpg">
+      <publishTime>05/15/2024 10:32:36</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/My Invitation.png">
+      <publishTime>06/03/2024 12:56:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/MyInvitation.png">
+      <publishTime>06/03/2024 13:15:08</publishTime>
+    </File>
     <File Include="CardDesign_Dir/CardTemplates_Dir/New-Project.png">
       <publishTime>04/12/2022 15:43:00</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Nyanjige2.png">
+      <publishTime>06/14/2024 17:56:44</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/NyanjigeFinAl.png">
+      <publishTime>06/12/2024 13:34:18</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Nzunda_v.png">
+      <publishTime>05/17/2024 14:22:40</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/PEACE.png">
+      <publishTime>06/06/2024 11:27:18</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Pinkubarikio.png">
+      <publishTime>06/18/2024 14:19:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/raph.png">
+      <publishTime>07/08/2024 20:24:20</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/SabahFinal2.png">
+      <publishTime>06/12/2024 17:56:42</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Sabri2.png">
+      <publishTime>05/18/2024 15:20:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/Salha.png">
+      <publishTime>07/30/2024 16:05:54</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/sara.png">
+      <publishTime>06/18/2024 17:52:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/CardTemplates_Dir/vail.png">
+      <publishTime>07/01/2024 18:06:00</publishTime>
     </File>
     <File Include="CardDesign_Dir/Customer_CardTemplates_Dir/b_envit_00010012_1.png">
       <publishTime>12/04/2022 21:00:48</publishTime>
@@ -9345,6 +9498,375 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     </File>
     <File Include="CardDesign_Dir/Customer_CardTemplates_Dir/b_envit_00010012_3.png">
       <publishTime>12/04/2022 21:03:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Biz-Logic-Round-Logo.png">
+      <publishTime>04/11/2022 13:12:28</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Biz-Logic-Round-Logo100.png">
+      <publishTime>04/11/2022 13:12:28</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Biz-Logic-Round-Logo150.png">
+      <publishTime>01/01/0001 00:00:00</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Biz-Logic-Round-Logo200.png">
+      <publishTime>06/30/2022 13:49:56</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Default_Font_Lato-Regular.ttf">
+      <publishTime>04/11/2022 13:12:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Default_QR_Code.png">
+      <publishTime>04/11/2022 13:12:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Default_Dir/Default_Template.png">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/ExcelTemplate_Dir/Invitees_Registation_Template.xlsx">
+      <publishTime>01/20/2024 17:09:44</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/Acme-Regular.eot">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/Acme-Regular.svg">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/Acme-Regular.ttf">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/Acme-Regular.woff">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/Acme-Regular.woff2">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/demo.html">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Acme/stylesheet.css">
+      <publishTime>06/01/2022 17:47:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro.eot">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro.svg">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro.ttf">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro.woff">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro.woff2">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro_1.woff">
+      <publishTime>08/29/2022 17:54:52</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/AphroditeSlimPro_1.woff2">
+      <publishTime>08/29/2022 17:55:34</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/demo.html">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Aphrodite Slim Pro/stylesheet.css">
+      <publishTime>05/18/2022 15:15:32</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/demo.html">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/FjallaOne-Regular.eot">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/FjallaOne-Regular.svg">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/FjallaOne-Regular.ttf">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/FjallaOne-Regular.woff">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/FjallaOne-Regular.woff2">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Fjalla One/stylesheet.css">
+      <publishTime>04/12/2022 11:48:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/flanker/FlankerGriffo-Bold.ttf">
+      <publishTime>07/18/2022 18:25:24</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/footlight/FootlightMTLight.ttf">
+      <publishTime>09/16/2022 17:22:20</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/demo.html">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/GrapeNuts-Regular.eot">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/GrapeNuts-Regular.svg">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/GrapeNuts-Regular.ttf">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/GrapeNuts-Regular.woff">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/GrapeNuts-Regular.woff2">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Grape Nuts/stylesheet.css">
+      <publishTime>04/12/2022 18:12:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/griffo/FlankerGriffo.ttf">
+      <publishTime>07/18/2022 18:40:58</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/demo.html">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/Lora-Regular.eot">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/Lora-Regular.svg">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/Lora-Regular.ttf">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/Lora-Regular.woff">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/Lora-Regular.woff2">
+      <publishTime>05/23/2021 15:06:06</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Laro/stylesheet.css">
+      <publishTime>05/23/2021 15:06:08</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/demo.html">
+      <publishTime>05/23/2021 15:06:08</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/Lato-Regular.eot">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/Lato-Regular.svg">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/Lato-Regular.ttf">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/Lato-Regular.woff">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/Lato-Regular.woff2">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Lato/stylesheet.css">
+      <publishTime>05/23/2021 15:06:10</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/demo.html">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/OPTICopperplate-Light.eot">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/OPTICopperplate-Light.svg">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/OPTICopperplate-Light.ttf">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/OPTICopperplate-Light.woff">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/OPTICopperplate-Light.woff2">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/OPTICopperplate/stylesheet.css">
+      <publishTime>06/01/2022 17:48:38</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/demo.html">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/SquarePeg-Regular.eot">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/SquarePeg-Regular.svg">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/SquarePeg-Regular.ttf">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/SquarePeg-Regular.woff">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/SquarePeg-Regular.woff2">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Square Peg/stylesheet.css">
+      <publishTime>04/20/2022 18:32:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/demo.html">
+      <publishTime>07/02/2022 18:20:00</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/stylesheet.css">
+      <publishTime>07/02/2022 18:20:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/TimesNRCyrMT.eot">
+      <publishTime>07/02/2022 18:20:00</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/TimesNRCyrMT.svg">
+      <publishTime>07/02/2022 18:20:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/TimesNRCyrMT.ttf">
+      <publishTime>07/02/2022 18:20:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/TimesNRCyrMT.woff">
+      <publishTime>07/02/2022 18:20:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Times New Roman Cyr/TimesNRCyrMT.woff2">
+      <publishTime>07/02/2022 18:20:02</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/demo.html">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/stylesheet.css">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/Updock-Regular.eot">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/Updock-Regular.svg">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/Updock-Regular.ttf">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/Updock-Regular.woff">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Fonts_Dir/Updock/Updock-Regular.woff2">
+      <publishTime>04/20/2022 18:31:50</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259041_MrJoshua.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259042_pablius.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259043_lubango.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259044_scott.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259045_MrBaraka.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259046_George.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259047_Ben.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259048_john.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259117_J Maria.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259118_MrJoshuas.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259119_mr &amp; mrs josh.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259263_barak.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/259979_mrJohn.jpeg">
+      <publishTime>09/10/2024 11:30:15</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Generated_Cards_Dir/70132_bilogic-event_Multiple.zip">
+      <publishTime>09/10/2024 11:31:30</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259041_MrJoshua.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259042_pablius.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259043_lubango.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259044_scott.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259045_MrBaraka.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259046_George.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259047_Ben.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259048_john.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259117_J Maria.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259118_MrJoshuas.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259119_mr &amp; mrs josh.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259263_barak.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/PDFs_Dir/259979_mrJohn.pdf">
+      <publishTime>09/10/2024 11:30:13</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259041_MrJoshua.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259042_pablius.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259043_lubango.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259044_scott.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259045_MrBaraka.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259046_George.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259047_Ben.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259048_john.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259117_J Maria.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259118_MrJoshuas.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259119_mr &amp; mrs josh.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259263_barak.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
+    </File>
+    <File Include="CardDesign_Dir/Qr_Code_Dir/259979_mrJohn.jpeg">
+      <publishTime>09/10/2024 11:30:12</publishTime>
     </File>
     <File Include="Content/bootstrap-grid.css">
       <publishTime>08/26/2024 15:01:49</publishTime>
@@ -27767,7 +28289,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/21/2022 09:06:06</publishTime>
     </File>
     <File Include="Views/CardDesignMaster/Index.cshtml">
-      <publishTime>09/10/2024 11:14:52</publishTime>
+      <publishTime>09/11/2024 17:09:43</publishTime>
     </File>
     <File Include="Views/CardDesignMaster/InvitationCards.cshtml">
       <publishTime>09/10/2024 11:59:50</publishTime>
@@ -27776,7 +28298,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/18/2024 12:06:02</publishTime>
     </File>
     <File Include="Views/CardDesignMaster/WhatsAppNotificationCards.cshtml">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>09/11/2024 08:17:49</publishTime>
     </File>
     <File Include="Views/CardDesignMaster/WhatsAppNotification_old.cshtml">
       <publishTime>12/20/2023 15:29:22</publishTime>
@@ -28106,10 +28628,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/27/2023 14:46:16</publishTime>
     </File>
     <File Include="Views/SmsContribution/SMSContribution.cshtml">
-      <publishTime>01/16/2024 10:59:48</publishTime>
+      <publishTime>09/11/2024 18:17:56</publishTime>
     </File>
     <File Include="Views/SMSEvents/SMSEvent.cshtml">
-      <publishTime>01/16/2024 10:58:54</publishTime>
+      <publishTime>09/11/2024 18:17:41</publishTime>
     </File>
     <File Include="Views/SMSSETNGS/SMSSETNGS.cshtml">
       <publishTime>04/11/2022 10:36:18</publishTime>
@@ -28208,7 +28730,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/11/2022 10:36:20</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>09/10/2024 15:56:34</publishTime>
+      <publishTime>09/11/2024 17:09:55</publishTime>
     </File>
     <File Include="Web_old.config">
       <publishTime>10/07/2022 12:03:44</publishTime>

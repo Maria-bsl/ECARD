@@ -18,7 +18,7 @@ namespace FUNDING.Models.Notifications
     [RegularExpression("^\\+?\\d+$", ErrorMessage = "Please enter a valid WhatsApp mobile number.")]
     public string WhatsAppNumber { get; set; }
 
-    [Required(ErrorMessage = "Please enter message.")]
+    [Required(ErrorMessage = "Please enter Notification Type.")]
     public string Message { get; set; }
 
     [ForeignKey("visitor_details")]

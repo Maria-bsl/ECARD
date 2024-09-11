@@ -50,14 +50,14 @@ namespace FUNDING.Models.AppHelpers
           int num = 0;
           while (reader.Read())
           {
-            if (num > 0 && !ExcelUploadedFileHandler.IsReaderNull(reader))
+            if (num > 0 && !IsReaderNull(reader))
               listOfVisitors.Add(new visitor_details()
               {
-                visitor_name = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(0)),
-                no_of_persons = ExcelUploadedFileHandler.GetIntegerExcelValue(reader.GetValue(1)),
-                mobile_no = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(2)),
-                email_address = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(3)),
-                table_number = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(4)),
+                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()),
+                no_of_persons = GetIntegerExcelValue(reader.GetValue(1)),
+                mobile_no = GetStringExcelValue(reader.GetValue(2)),
+                email_address = GetStringExcelValue(reader.GetValue(3)),
+                table_number = GetStringExcelValue(reader.GetValue(4)),
                 card_state_mas_sno = CardStates_Master.DEFAULT_CARBD_STATE_ID,
                 cust_reg_sno = CustomerAdminID,
                 event_det_sno = EventID,
@@ -84,15 +84,15 @@ namespace FUNDING.Models.AppHelpers
           int num = 0;
           while (reader.Read())
           {
-            if (num > 0 && !ExcelUploadedFileHandler.IsReaderNull(reader))
+            if (num > 0 && !IsReaderNull(reader))
               listOfVisitors.Add(new visitor_details()
               {
-                visitor_name = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(0)),
-                no_of_persons = ExcelUploadedFileHandler.GetIntegerExcelValue(reader.GetValue(1)),
-                qrcode = ExcelUploadedFileHandler.GetStringExcelValue((object) (reader.GetValue(2)?.ToString() + reader.GetValue(3)?.ToString())),
-                mobile_no = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(4)),
-                email_address = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(5)),
-                table_number = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(6)),
+                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()),
+                no_of_persons = GetIntegerExcelValue(reader.GetValue(1)),
+                qrcode = GetStringExcelValue((object) (reader.GetValue(2)?.ToString() + reader.GetValue(3)?.ToString())),
+                mobile_no = GetStringExcelValue(reader.GetValue(4)),
+                email_address = GetStringExcelValue(reader.GetValue(5)),
+                table_number = GetStringExcelValue(reader.GetValue(6)),
                 card_state_mas_sno = CardStates_Master.DEFAULT_CARBD_STATE_ID,
                 cust_reg_sno = CustomerAdminID,
                 event_det_sno = EventID,
@@ -111,7 +111,7 @@ namespace FUNDING.Models.AppHelpers
       {
         using (ECARDAPPEntities dbContext = new ECARDAPPEntities())
         {
-          if (!ExcelUploadedFileHandler.IsTheCurrentUserAlreadyExists(dbContext, listOfVisitor))
+          if (!IsTheCurrentUserAlreadyExists(dbContext, listOfVisitor))
           {
             dbContext.visitor_details.Add(listOfVisitor);
             dbContext.SaveChanges();
@@ -126,7 +126,7 @@ namespace FUNDING.Models.AppHelpers
       {
         using (ECARDAPPEntities dbContext = new ECARDAPPEntities())
         {
-          if (!ExcelUploadedFileHandler.IsTheCurrentUserAlreadyExists(dbContext, listOfVisitor))
+          if (!IsTheCurrentUserAlreadyExists(dbContext, listOfVisitor))
           {
             dbContext.visitor_details.Add(listOfVisitor);
             dbContext.SaveChanges();
@@ -142,14 +142,14 @@ namespace FUNDING.Models.AppHelpers
       ECARDAPPEntities dbContext,
       visitor_details visitor)
     {
-      return dbContext.visitor_details.Where<visitor_details>((Expression<Func<visitor_details, bool>>) (cv => cv.event_det_sno == visitor.event_det_sno && cv.visitor_name == visitor.visitor_name && cv.mobile_no == visitor.mobile_no)).FirstOrDefault<visitor_details>() != null;
+      return dbContext.visitor_details.Where(cv => cv.event_det_sno == visitor.event_det_sno && cv.visitor_name == visitor.visitor_name && cv.mobile_no == visitor.mobile_no).FirstOrDefault() != null;
     }
 
     private static bool IsReaderNull(IExcelDataReader reader)
     {
-      string stringExcelValue1 = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(0));
-      int? integerExcelValue = ExcelUploadedFileHandler.GetIntegerExcelValue(reader.GetValue(1));
-      string stringExcelValue2 = ExcelUploadedFileHandler.GetStringExcelValue(reader.GetValue(2));
+      string stringExcelValue1 = GetStringExcelValue(reader.GetValue(0));
+      int? integerExcelValue = GetIntegerExcelValue(reader.GetValue(1));
+      string stringExcelValue2 = GetStringExcelValue(reader.GetValue(2));
       return string.IsNullOrEmpty(stringExcelValue1) && !integerExcelValue.HasValue && string.IsNullOrEmpty(stringExcelValue2);
     }
 
