@@ -1762,7 +1762,7 @@ namespace FUNDING.Controllers
                                 continue;
                             }
                         }
-                        if (Message.ToString().Equals("3"))// Save the date
+                        if (Message.ToString().Equals("3"))  // Save the date
                         {
                             try
                             {
@@ -1839,16 +1839,21 @@ namespace FUNDING.Controllers
 
     private string GetMediaURI(visitor_details visitorDetails)
     {
-      string stringToEscape = string.Format("{0}_{1}.jpeg", (object) visitorDetails.visitor_det_sno, (object) visitorDetails.visitor_name);
-
+      //string stringToEscape = string.Format("264539_MDOGO WAKE CONSO 2.jpeg");
+      
+      string stringToEscape = string.Format("{0}_{1}.jpeg", (object)visitorDetails.visitor_det_sno, (object)visitorDetails.visitor_name);
 
       string appSetting = ConfigurationManager.AppSettings["card_files_dir"];
+
       return Uri.EscapeUriString(stringToEscape);
     }
 
     private string GetMediaURIMulti(visitor_details visitorDetails, long? vid)
     {
-      return Uri.EscapeUriString(string.Format("{0}_{1}.jpeg", (object) vid, (object) visitorDetails.visitor_name));
+       return Uri.EscapeUriString(string.Format("{0}_{1}.jpeg", (object) vid, (object) visitorDetails.visitor_name));
+
+        // string stringToEscape = string.Format("264539_MDOGO WAKE CONSO 2.jpeg");
+        // return Uri.EscapeUriString(string.Format("{0}_{1}.jpeg", 264539, "MDOGO WAKE CONSO 2"));
     }
 
 
@@ -2352,8 +2357,6 @@ namespace FUNDING.Controllers
         #endregion
 
 
-
-
         #region SendWhatsAppMessageAsyncdb and Save Error & Response to Db (Normal Envents Cards)
         /*      private static async Task SendWhatsAppMessageAsyncdb1(string mediaUri, visitor_details visitorDetails){
 
@@ -2452,7 +2455,7 @@ namespace FUNDING.Controllers
 
         #endregion
 
-        [ChildActionOnly]
+    [ChildActionOnly]
     public ActionResult EventDetails()
     {
       return PartialView("_FillForm", _EventDetails);
