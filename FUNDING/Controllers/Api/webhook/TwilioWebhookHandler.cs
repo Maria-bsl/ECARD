@@ -59,6 +59,7 @@ namespace FUNDING.Controllers.Api
                 System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
                 System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
+
                 ECARDAPPEntities context = new ECARDAPPEntities();
                 var errorLog = new ErrorLog
                 {
@@ -74,7 +75,7 @@ namespace FUNDING.Controllers.Api
 
                 };
                 context.ErrorLogs.Add(errorLog);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 // ex.ToString();
                 return Ok(ex.ToString());
 

@@ -188,14 +188,14 @@ namespace FUNDING.Models.CardGenerationModule
         }
         catch (Exception ex)
         {
-            ECARDAPPEntities context = new ECARDAPPEntities();
+           /* ECARDAPPEntities context = new ECARDAPPEntities();
             var errorLog = new service_error_logs
             {
                 error = ex.ToString(),
                 posted_date = DateTime.Now
             };
             context.service_error_logs.Add(errorLog);
-            context.SaveChangesAsync();
+            context.SaveChanges();*/
             flag = true;
         }
       }
@@ -312,14 +312,14 @@ namespace FUNDING.Models.CardGenerationModule
           }
           catch (Exception ex)
           {
-            ECARDAPPEntities context = new ECARDAPPEntities();
+            /*ECARDAPPEntities context = new ECARDAPPEntities();
             var errorLog = new service_error_logs
             {
                 error = ex.ToString(),
                 posted_date = DateTime.Now
             };
             context.service_error_logs.Add(errorLog);
-            context.SaveChangesAsync();
+            context.SaveChanges();*/
             flag = true;
           }
         }

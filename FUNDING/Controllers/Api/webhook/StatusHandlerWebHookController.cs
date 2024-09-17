@@ -61,6 +61,14 @@ namespace FUNDING.Controllers.Api.webhook
                 System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
                 ECARDAPPEntities context = new ECARDAPPEntities();
+                /*var errorLogs = new service_error_logs
+                {
+                    error = ex.ToString(),
+                    posted_date = DateTime.Now
+                };
+                context.service_error_logs.Add(errorLogs);
+                context.SaveChanges();*/
+
                 var errorLog = new ErrorLog
                 {
                     Message = ex.Message,
@@ -75,9 +83,10 @@ namespace FUNDING.Controllers.Api.webhook
 
                 };
                 context.ErrorLogs.Add(errorLog);
-                await context.SaveChangesAsync();
+                context.SaveChanges();
                 // ex.ToString();
                 return Ok(ex.ToString());
+                //return TaskContinuationOptions
 
             }
 

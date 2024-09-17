@@ -103,6 +103,7 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
         }
         catch (Exception ex)
         {
+            /*
             ECARDAPPEntities context = new ECARDAPPEntities();
             var errorLog = new service_error_logs
             {
@@ -110,8 +111,9 @@ namespace FUNDING.Models.CardGenerationModule.QR_Code
                 posted_date = DateTime.Now
             };
             context.service_error_logs.Add(errorLog);
-            context.SaveChangesAsync();
-                    flag = true;
+            context.SaveChanges();*/
+
+            flag = true;
         }
       }
     }

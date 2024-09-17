@@ -8,18 +8,14 @@ using FUNDING.Models.CardGenerationModule.QR_Code;
 using FUNDING.Models.CardGererationMaster;
 using FUNDING.Models.CardGererationMaster.DraggableElements;
 using FUNDING.Models.Notifications;
-using Microsoft.CSharp.RuntimeBinder;
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
@@ -38,6 +34,8 @@ namespace FUNDING.Controllers
     private readonly List<CardTemplates> _ListOfCardTemplatesVirtualPath;
     private readonly List<FontFamily> _AllFonts;
     private readonly CardEventDetailsViewModel _EventDetails;
+
+        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
     public List<string>[] Lists { get; private set; }
 
@@ -697,21 +695,31 @@ namespace FUNDING.Controllers
         {
           loginStatus = false
         });
-      List<visitor_details> visitorEventDetails = masterController._dbContext.visitor_details.Where(ev => ev.event_det_sno == (long?) event_id).ToList();
+      var visitorEventDetails = masterController._dbContext.visitor_details.Where(ev => ev.event_det_sno == (long?) event_id).ToList();
       if (visitorEventDetails.Count() <= 0)
         return masterController.Json(new
         {
           message = "Failed to generate card",
           downloadStatus = false
         });
+
+
       List<Task> taskList1 = new List<Task>();
       string venue = visitorEventDetails.FirstOrDefault().event_details.venue;
-      foreach (visitor_details visitorDetails in visitorEventDetails)
-      {
-        visitor_details visitor_details = visitorDetails;
-        taskList1.Add(Task.Run(() => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number)));
-      }
+            foreach (visitor_details visitorDetails in visitorEventDetails)
+            {
+                visitor_details visitor_details = visitorDetails;
+                taskList1.Add(Task.Run(() => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number), cancellationTokenSource.Token));
+
+                if (cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    Console.WriteLine("Task cancellation requested.");
+                    break; // Gracefully exit
+                }
+            }
       await Task.WhenAll((IEnumerable<Task>) taskList1);
+
+
       List<Task> taskList2 = new List<Task>();
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
@@ -733,7 +741,13 @@ namespace FUNDING.Controllers
           CardGenerationService.QrCodeElementValues = qrCodeElement;
           CardGenerationService.IsCardSizeDisplayed = displayCardSize;
           CardGenerationService.PdfGenerator(invitee);
-        })));
+        }), cancellationTokenSource.Token));
+
+                if (cancellationTokenSource.Token.IsCancellationRequested)
+                {
+                    Console.WriteLine("Task cancellation requested.");
+                    break; // Gracefully exit
+                }
       }
       await Task.WhenAll((IEnumerable<Task>) taskList2);
       List<Task> taskList3 = new List<Task>();
@@ -741,9 +755,18 @@ namespace FUNDING.Controllers
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
-        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno, EscapeCharacterForFileName(visitor_details.visitor_name)))))));
+        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno, EscapeCharacterForFileName(visitor_details.visitor_name))))), cancellationTokenSource.Token));
+
+            if (cancellationTokenSource.Token.IsCancellationRequested)
+            {
+                Console.WriteLine("Task cancellation requested.");
+                break; // Gracefully exit
+            }
       }
       await Task.WhenAll((IEnumerable<Task>) taskList3);
+
+           
+
       string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
       visitor_details zipFileData = visitorEventDetails.FirstOrDefault<visitor_details>();
       GenerateAndPopulateZipFile(GetZipFullPath(directoryAbsolutePath, zipFileData), GetListOfGeneratedCardFullPaths(visitorEventDetails, directoryAbsolutePath));
@@ -916,6 +939,7 @@ namespace FUNDING.Controllers
                 CardGenerationService.PdfGenerator(invitee);
               }))
             });
+                
             List<Task> taskList = new List<Task>();
             string pdfAbsolutePath = GetPDFFormatCardDirectoryAbsolutePath();
             taskList.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf",visitor_details.visitor_det_sno,EscapeCharacterForFileName(visitor_details.visitor_name)))))));
@@ -1236,7 +1260,9 @@ namespace FUNDING.Controllers
       EditableDraggableElement tableNumberDigit,
       QrCodeDraggableElement qrCodeElement)
     {
-      CardDesignMasterController masterController = this;
+       
+
+            CardDesignMasterController masterController = this;
       if (masterController.Session["admin1"] == null)
         return  masterController.Json( new
         {
@@ -1290,6 +1316,8 @@ namespace FUNDING.Controllers
         taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno,EscapeCharacterForFileName(visitor_details.visitor_name)))))));
       }
       await Task.WhenAll( taskList3);
+
+          
       string directoryAbsolutePath = GetCardDirectoryAbsolutePath();
       visitor_details zipFileData = visitorEventDetails.FirstOrDefault();
       GenerateAndPopulateZipFile(GetZipFullPath(directoryAbsolutePath, zipFileData), GetListOfGeneratedCardFullPaths(visitorEventDetails, directoryAbsolutePath));
@@ -1489,76 +1517,20 @@ namespace FUNDING.Controllers
       string mediaUri = GetMediaURI(visitorDetails);
       Url.Content(mediaUri);
             if (whatsApp.Message.ToString().Equals("1")) // Card Notification Swahili
-            {
-                try { 
-                await SendWhatsAppCardSWMessageAsync(mediaUri, visitorDetails);
-                }
-                catch (Exception ex)
-                {
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-                    
-                }
+            { 
+                await SendWhatsAppCardSWMessageAsync(mediaUri, visitorDetails); 
             }
             if (whatsApp.Message.ToString().Equals("2")) // Card Notification English
             {
-                try { 
-                await SendWhatsAppCardENMessageAsync(mediaUri, visitorDetails);
-                }
-                catch (Exception ex)
-                {
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-                    
-                }
+                await SendWhatsAppCardENMessageAsync(mediaUri, visitorDetails);  
             }
             if (whatsApp.Message.ToString().Equals("3"))// Save the date
             {
-                try { 
                 await SendWhatsAppSaveTheDateMessageAsync(mediaUri, visitorDetails);
-                }
-                catch (Exception ex)
-                {
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-                    
-                }
             }
             if (whatsApp.Message.ToString().Equals("4")) // Thank You
             {
-                try { 
                 await SendWhatsAppThankYouMessageAsync(mediaUri, visitorDetails);
-                }
-                catch (Exception ex)
-                {
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-                    
-                }
             }
             return Json(new
       {
@@ -1578,7 +1550,6 @@ namespace FUNDING.Controllers
           sendStatus = false,
           response = "Notification sending failed!"
         });
-
 
 
             #region Check if card exist 
@@ -1627,14 +1598,14 @@ namespace FUNDING.Controllers
                     }
                     catch (Exception ex)
                     {
-                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        /*ECARDAPPEntities context = new ECARDAPPEntities();
                         var errorLog = new service_error_logs
                         {
                             error = ex.ToString(),
                             posted_date = DateTime.Now
                         };
                         context.service_error_logs.Add(errorLog);
-                        await context.SaveChangesAsync();
+                        await context.SaveChangesAsync();*/
                         continue;
                     }
                 }
@@ -1645,16 +1616,7 @@ namespace FUNDING.Controllers
                         await SendWhatsAppCardENMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {
-                        ECARDAPPEntities context = new ECARDAPPEntities();
-                        var errorLog = new service_error_logs
-                        {
-                            error = ex.ToString(),
-                            posted_date = DateTime.Now
-                        };
-                        context.service_error_logs.Add(errorLog);
-                        await context.SaveChangesAsync();
-                        continue;
+                    {continue;
                     }
                 }
                 if (whatsApp.Message.ToString().Equals("3"))// Save the date
@@ -1664,16 +1626,7 @@ namespace FUNDING.Controllers
                         await SendWhatsAppSaveTheDateMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {
-                        ECARDAPPEntities context = new ECARDAPPEntities();
-                        var errorLog = new service_error_logs
-                        {
-                            error = ex.ToString(),
-                            posted_date = DateTime.Now
-                        };
-                        context.service_error_logs.Add(errorLog);
-                        await context.SaveChangesAsync();
-                        continue;
+                    {continue;
                     }
                 }
                 if (whatsApp.Message.ToString().Equals("4")) // Thank You
@@ -1683,20 +1636,13 @@ namespace FUNDING.Controllers
                         await SendWhatsAppThankYouMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {
-                        ECARDAPPEntities context = new ECARDAPPEntities();
-                        var errorLog = new service_error_logs
-                        {
-                            error = ex.ToString(),
-                            posted_date = DateTime.Now
-                        };
-                        context.service_error_logs.Add(errorLog);
-                        await context.SaveChangesAsync();
-                        continue;
+                    {continue;
                     }
                 }
 
             }
+
+            
             return Json(new
       {
         sendStatus = true,
@@ -1706,7 +1652,7 @@ namespace FUNDING.Controllers
 
     [HttpPost]
     [Route("whatsapp-notification")]
-    public async Task<ActionResult> WhatsAppNotification(string[] Visitors, long? Event_Id, string Message)
+    public async Task<ActionResult> WhatsAppNotificationAsync(string[] Visitors, long? Event_Id, string Message)
     {
       List<visitor_details> list = _dbContext.visitor_details.Where(v => v.event_det_sno == Event_Id).ToList();
       if (list == null)
@@ -1716,95 +1662,58 @@ namespace FUNDING.Controllers
           response = "Notification sending failed!"
         });
       int length = Visitors.Length;
-      foreach (visitor_details visitorDetails in list)
-      {
-        for (int index = 0; index < length; ++index)
-        {
-          int visitor_id = int.Parse(Visitors[index]);
-                    if (visitorDetails.visitor_det_sno == visitor_id && visitorDetails.mobile_no != null)
+          foreach (visitor_details visitorDetails in list)
+          {
+            for (int index = 0; index < length; ++index)
+            {
+              int visitor_id = int.Parse(Visitors[index]);
+                if (visitorDetails.visitor_det_sno == visitor_id && visitorDetails.mobile_no != null)
+                {
+                    if (Message.ToString().Equals("1")) // Card Notification Swahili
                     {
-
-                        if (Message.ToString().Equals("1")) // Card Notification Swahili
+                        try
                         {
-                            try
-                            {
-                                await SendWhatsAppCardSWMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
-                            }
-                            catch (Exception ex)
-                            {
-                                ECARDAPPEntities context = new ECARDAPPEntities();
-                                var errorLog = new service_error_logs
-                                {
-                                    error = ex.ToString(),
-                                    posted_date = DateTime.Now
-                                };
-                                context.service_error_logs.Add(errorLog);
-                                await context.SaveChangesAsync();
-                                continue;
-                            }
+                            await SendWhatsAppCardSWMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }
-                        if (Message.ToString().Equals("2")) // Card Notification English
+                        catch (Exception ex)
                         {
-                            try
-                            {
-                                await SendWhatsAppCardENMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
-                            }
-                            catch (Exception ex)
-                            {
-                                ECARDAPPEntities context = new ECARDAPPEntities();
-                                var errorLog = new service_error_logs
-                                {
-                                    error = ex.ToString(),
-                                    posted_date = DateTime.Now
-                                };
-                                context.service_error_logs.Add(errorLog);
-                                await context.SaveChangesAsync();
-                                continue;
-                            }
+                            continue;
                         }
-                        if (Message.ToString().Equals("3"))  // Save the date
-                        {
-                            try
-                            {
-                                await SendWhatsAppSaveTheDateMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
-                            }
-                            catch (Exception ex)
-                            {
-                                ECARDAPPEntities context = new ECARDAPPEntities();
-                                var errorLog = new service_error_logs
-                                {
-                                    error = ex.ToString(),
-                                    posted_date = DateTime.Now
-                                };
-                                context.service_error_logs.Add(errorLog);
-                                await context.SaveChangesAsync();
-                                continue;
-                            }
-                        }
-                        if (Message.ToString().Equals("4")) // Thank You
-                        {
-                            try
-                            {
-                                await SendWhatsAppThankYouMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
-                            }
-                            catch (Exception ex)
-                            {
-                                ECARDAPPEntities context = new ECARDAPPEntities();
-                                var errorLog = new service_error_logs
-                                {
-                                    error = ex.ToString(),
-                                    posted_date = DateTime.Now
-                                };
-                                context.service_error_logs.Add(errorLog);
-                                await context.SaveChangesAsync();
-                                continue;
-                            }
-                        }
-
                     }
+                    if (Message.ToString().Equals("2")) // Card Notification English
+                    {
+                        try
+                        {
+                            await SendWhatsAppCardENMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
+                        }
+                        catch (Exception ex)
+                        {continue;
+                        }
+                    }
+                    if (Message.ToString().Equals("3"))  // Save the date
+                    {
+                        try
+                        {
+                            await SendWhatsAppSaveTheDateMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
+                        }
+                        catch (Exception ex)
+                        {continue;
+                        }
+                    }
+                    if (Message.ToString().Equals("4")) // Thank You
+                    {
+                        try
+                        {
+                            await SendWhatsAppThankYouMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
+                        }
+                        catch (Exception ex)
+                        {continue;
+                        }
+                    }
+                }
 
-
-                   /* try
+                #region Previous SendWhatsAppMessageAsync await with Error Log
+                /* try
                         {
                             await SendWhatsAppMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }catch(Exception ex)
@@ -1827,9 +1736,11 @@ namespace FUNDING.Controllers
                             await context.SaveChangesAsync();
                             continue;
                         }*/
-
+                #endregion
+            }
         }
-      }
+
+
       return (ActionResult) this.Json((object) new
       {
         sendStatus = true,
@@ -1860,28 +1771,26 @@ namespace FUNDING.Controllers
         #region Normal EVENT WhatsApp Cards (old)
 
 
-        private static async Task SendWhatsAppMessageAsyncOLD(
-          string mediaUri,
-          visitor_details visitorDetails)
-        {
-            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f"); // b73856e9cd8e6bd6297a51e795d52ac4
-            // Auth Token : e9de6611667b639a480a22749e48328f
-            //AccountSid : AC14b36a565bc1c9863dea07a57161bdf2
+    private static async Task SendWhatsAppMessageAsyncOLD(string mediaUri,visitor_details visitorDetails)
+    {
+        TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f"); // b73856e9cd8e6bd6297a51e795d52ac4
+        // Auth Token : e9de6611667b639a480a22749e48328f
+        //AccountSid : AC14b36a565bc1c9863dea07a57161bdf2
 
-            await Task.WhenAll(new List<Task>()
-      {
-        Task.Run(() =>
+        await Task.WhenAll(new List<Task>()
         {
-          string str = JsonConvert.SerializeObject( new Dictionary<string, object>()
-          {
+            Task.Run(() =>
+        {
+            string str = JsonConvert.SerializeObject( new Dictionary<string, object>()
+            {
             {"1",visitorDetails.visitor_name},
             {"2",mediaUri},
             {"3", "3"},
             {"4", "4"},
             {"5", "5"}
-          }, Formatting.Indented);
-          PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
-          string contentVariables = str;
+            }, Formatting.Indented);
+            PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+            string contentVariables = str;
             var messageResponse  =  MessageResource.CreateAsync(new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no), from: from, messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068", contentSid: "HX560227120c59ce1bc3383b843c27ba06", contentVariables: contentVariables);
 
 
@@ -1895,13 +1804,13 @@ namespace FUNDING.Controllers
             System.Diagnostics.Debug.WriteLine($"Message AccountSid: {messageResponse.Result.AccountSid}");
 
         })
-      });
-        }
+        });
+
+    }
 
 
 
         #endregion
-
 
       private static async Task SendWhatsAppMessageAsyncDate(
       string mediaUri,
@@ -1917,7 +1826,7 @@ namespace FUNDING.Controllers
 
 
 
-            await Task.WhenAll(new List<Task>()
+        await Task.WhenAll(new List<Task>()
       {
         Task.Run(() =>
         {
@@ -1942,8 +1851,9 @@ namespace FUNDING.Controllers
 
         })
       });
-    }
 
+            
+        }
 
         #region Send WhatsApp Cards
         // save_the_date_notification_card - HXab4baf7f14058adc5da41de4b430187c
@@ -1971,8 +1881,8 @@ namespace FUNDING.Controllers
 
             PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-            try
-            {
+            /*try
+            {*/
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2016,7 +1926,7 @@ namespace FUNDING.Controllers
                 await context.SaveChangesAsync();
 
 
-            }
+            /*}
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}"); 
@@ -2031,7 +1941,7 @@ namespace FUNDING.Controllers
                 context.service_error_logs.Add(errorLog);
                 await context.SaveChangesAsync();
 
-            }
+            }*/
         }
         private static async Task SendWhatsAppCardENMessageAsync(string mediaUri, visitor_details visitorDetails)
         {
@@ -2040,77 +1950,84 @@ namespace FUNDING.Controllers
 
             TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
 
-            var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
-                {
-                    { "1", visitorDetails.visitor_name },
-                    { "2", mediaUri },
-                    {"3", "3"},
-                    {"4", "4"}
-                }, Formatting.Indented);
-
-            PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
-
-            try
+            await Task.WhenAll(new List<Task>()
             {
-                // Attempt to send the message
-                var messageResponse = await MessageResource.CreateAsync(
-                    to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                    from: from,
-                    messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
-                    contentSid: "HX4144fe950291d54cc2bc511fdab1b5d6",
-                    contentVariables: contentVariables
-                );
-
-                ECARDAPPEntities context = new ECARDAPPEntities();
-
-                var messageLog = new twilio_send_log
-                {
-                    event_det_sno = visitorDetails.event_det_sno.ToString(),
-                    accountsid = messageResponse.AccountSid,
-                    messaging_service_sid = messageResponse.MessagingServiceSid,
-                    status = messageResponse.Status.ToString(),
-                    //error_code = messageResponse.ErrorCode.ToString(),
-                    //error_messages = messageResponse.ErrorMessage.ToString(),
-                    //date_Sent = messageResponse.DateSent,
-                    date_created = messageResponse.DateCreated,
-                    posted_date = DateTime.Now,
-                    posted_by = "Twilio",
-                    uri = messageResponse.Uri,
-                    subrecource_uris = messageResponse.SubresourceUris.ToString(),
-                    sid = messageResponse.Sid,
-                    num_segment = messageResponse.NumSegments,
-                    num_media = messageResponse.NumMedia,
-                    apiversion = messageResponse.ApiVersion,
-                    body = messageResponse.Body,
-                    direction = messageResponse.Direction.ToString(),
-                    price = messageResponse.Price,
-                    price_unit = messageResponse.PriceUnit,
-                    whatsapp_from = messageResponse.From.ToString().Substring(10),
-                    whatsapp_to = messageResponse.To.ToString().Substring(10),
-                    date_updated = messageResponse.DateUpdated
-                };
-
-
-                context.twilio_send_log.Add(messageLog);
-                await context.SaveChangesAsync();
-
-
-            }
-            catch (Exception ex)
+            Task.Run(async () =>
             {
-                System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
+                var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
+                    {
+                        { "1", visitorDetails.visitor_name },
+                        { "2", mediaUri },
+                        {"3", "3"},
+                        {"4", "4"}
+                    }, Formatting.Indented);
 
-                ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new service_error_logs
+                PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+
+               /* try
+                {*/
+                    // Attempt to send the message
+                    var messageResponse = await MessageResource.CreateAsync(
+                        to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
+                        from: from,
+                        messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
+                        contentSid: "HX4144fe950291d54cc2bc511fdab1b5d6",
+                        contentVariables: contentVariables
+                    );
+
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+
+                    var messageLog = new twilio_send_log
+                    {
+                        event_det_sno = visitorDetails.event_det_sno.ToString(),
+                        accountsid = messageResponse.AccountSid,
+                        messaging_service_sid = messageResponse.MessagingServiceSid,
+                        status = messageResponse.Status.ToString(),
+                        //error_code = messageResponse.ErrorCode.ToString(),
+                        //error_messages = messageResponse.ErrorMessage.ToString(),
+                        //date_Sent = messageResponse.DateSent,
+                        date_created = messageResponse.DateCreated,
+                        posted_date = DateTime.Now,
+                        posted_by = "Twilio",
+                        uri = messageResponse.Uri,
+                        subrecource_uris = messageResponse.SubresourceUris.ToString(),
+                        sid = messageResponse.Sid,
+                        num_segment = messageResponse.NumSegments,
+                        num_media = messageResponse.NumMedia,
+                        apiversion = messageResponse.ApiVersion,
+                        body = messageResponse.Body,
+                        direction = messageResponse.Direction.ToString(),
+                        price = messageResponse.Price,
+                        price_unit = messageResponse.PriceUnit,
+                        whatsapp_from = messageResponse.From.ToString().Substring(10),
+                        whatsapp_to = messageResponse.To.ToString().Substring(10),
+                        date_updated = messageResponse.DateUpdated
+                    };
+
+                    context.twilio_send_log.Add(messageLog);
+                    await context.SaveChangesAsync();
+
+                /*}
+                catch (Exception ex)
                 {
-                    error = ex.ToString(),
-                    posted_date = DateTime.Now
-                };
-                context.service_error_logs.Add(errorLog);
-                await context.SaveChangesAsync();
+                    System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
+                    System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
-            }
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+                    var errorLog = new service_error_logs
+                    {
+                        error = ex.ToString(),
+                        posted_date = DateTime.Now
+                    };
+                    context.service_error_logs.Add(errorLog);
+                    await context.SaveChangesAsync();
+
+                }*/
+
+                }) });
+
+                
+
         }
 
         private static async Task SendWhatsAppCardSWMessageAsync(string mediaUri, visitor_details visitorDetails)
@@ -2118,148 +2035,162 @@ namespace FUNDING.Controllers
             // Swahili - Cards Event Updated : HXec038b9bb126da9dc0e2a0fd0e86ff7d
 
             // English - Cards Event Updated : HX4144fe950291d54cc2bc511fdab1b5d6
-
+            await Task.WhenAll(new List<Task>()
+            {
+                Task.Run(async () =>
+            {
 
             TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
             // e9de6611667b639a480a22749e48328f - b73856e9cd8e6bd6297a51e795d52ac4 => old auth
+        
+                var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
+                    {
+                        { "1", visitorDetails.visitor_name },
+                        { "2", mediaUri },
+                        {"3", "3"},
+                        {"4", "4"}
+                    }, Formatting.Indented);
 
-            var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
+                PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+
+                /*try
+                {*/
+                    // Attempt to send the message
+                    var messageResponse = await MessageResource.CreateAsync(
+                        to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
+                        from: from,
+                        messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
+                        contentSid: "HXec038b9bb126da9dc0e2a0fd0e86ff7d",
+                        contentVariables: contentVariables
+                    );
+
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+
+                    var messageLog = new twilio_send_log
+                    {
+                        event_det_sno = visitorDetails.event_det_sno.ToString(),
+                        accountsid = messageResponse.AccountSid,
+                        messaging_service_sid = messageResponse.MessagingServiceSid,
+                        status = messageResponse.Status.ToString(),
+                        //error_code = messageResponse.ErrorCode.ToString(),
+                        //error_messages = messageResponse.ErrorMessage.ToString(),
+                        //date_Sent = messageResponse.DateSent,
+                        date_created = messageResponse.DateCreated,
+                        posted_date = DateTime.Now,
+                        posted_by = "Twilio",
+                        uri = messageResponse.Uri,
+                        subrecource_uris = messageResponse.SubresourceUris.ToString(),
+                        sid = messageResponse.Sid,
+                        num_segment = messageResponse.NumSegments,
+                        num_media = messageResponse.NumMedia,
+                        apiversion = messageResponse.ApiVersion,
+                        body = messageResponse.Body,
+                        direction = messageResponse.Direction.ToString(),
+                        price = messageResponse.Price,
+                        price_unit = messageResponse.PriceUnit,
+                        whatsapp_from = messageResponse.From.ToString().Substring(10),
+                        whatsapp_to = messageResponse.To.ToString().Substring(10),
+                        date_updated = messageResponse.DateUpdated
+                    };
+
+
+                    context.twilio_send_log.Add(messageLog);
+                    await context.SaveChangesAsync();
+
+
+                /*}
+                catch (Exception ex)
                 {
-                    { "1", visitorDetails.visitor_name },
-                    { "2", mediaUri },
-                    {"3", "3"},
-                    {"4", "4"}
-                }, Formatting.Indented);
+                    System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
+                    System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
-            PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+                    var errorLog = new service_error_logs
+                    {
+                        error = ex.ToString(),
+                        posted_date = DateTime.Now
+                    };
+                    context.service_error_logs.Add(errorLog);
+                    await context.SaveChangesAsync();
 
-            try
-            {
-                // Attempt to send the message
-                var messageResponse = await MessageResource.CreateAsync(
-                    to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                    from: from,
-                    messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
-                    contentSid: "HXec038b9bb126da9dc0e2a0fd0e86ff7d",
-                    contentVariables: contentVariables
-                );
+                }*/
 
-                ECARDAPPEntities context = new ECARDAPPEntities();
+                })
+            });
 
-                var messageLog = new twilio_send_log
-                {
-                    event_det_sno = visitorDetails.event_det_sno.ToString(),
-                    accountsid = messageResponse.AccountSid,
-                    messaging_service_sid = messageResponse.MessagingServiceSid,
-                    status = messageResponse.Status.ToString(),
-                    //error_code = messageResponse.ErrorCode.ToString(),
-                    //error_messages = messageResponse.ErrorMessage.ToString(),
-                    //date_Sent = messageResponse.DateSent,
-                    date_created = messageResponse.DateCreated,
-                    posted_date = DateTime.Now,
-                    posted_by = "Twilio",
-                    uri = messageResponse.Uri,
-                    subrecource_uris = messageResponse.SubresourceUris.ToString(),
-                    sid = messageResponse.Sid,
-                    num_segment = messageResponse.NumSegments,
-                    num_media = messageResponse.NumMedia,
-                    apiversion = messageResponse.ApiVersion,
-                    body = messageResponse.Body,
-                    direction = messageResponse.Direction.ToString(),
-                    price = messageResponse.Price,
-                    price_unit = messageResponse.PriceUnit,
-                    whatsapp_from = messageResponse.From.ToString().Substring(10),
-                    whatsapp_to = messageResponse.To.ToString().Substring(10),
-                    date_updated = messageResponse.DateUpdated
-                };
-
-
-                context.twilio_send_log.Add(messageLog);
-                await context.SaveChangesAsync();
-
-
-            }
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
-
-                ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new service_error_logs
-                {
-                    error = ex.ToString(),
-                    posted_date = DateTime.Now
-                };
-                context.service_error_logs.Add(errorLog);
-                await context.SaveChangesAsync();
-
-            }
+                
         }
 
         private static async Task SendWhatsAppSaveTheDateMessageAsync(string mediaUri, visitor_details visitorDetails)
         {
+            /* CancellationTokenSource cts = new CancellationTokenSource();
+             CancellationToken token = cts.Token;*/
 
-            // Save the date : HX560227120c59ce1bc3383b843c27ba06
+            // Save the date : HX560227120c59ce1bc3383b843c27ba06//HXab4baf7f14058adc5da41de4b430187c
 
             TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
 
-            var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
-                {
-                    { "1", visitorDetails.visitor_name },
-                    { "2", mediaUri }
-                }, Formatting.Indented);
-
-            PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
-
-            try
+            await Task.WhenAll(new List<Task>()
             {
-                // Attempt to send the message
-                var messageResponse = await MessageResource.CreateAsync(
-                    to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                    from: from,
-                    messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
-                    contentSid: "HX560227120c59ce1bc3383b843c27ba06",
-                    contentVariables: contentVariables
-                );
-
-                ECARDAPPEntities context = new ECARDAPPEntities();
-
-                var messageLog = new twilio_send_log
-                {
-                    event_det_sno = visitorDetails.event_det_sno.ToString(),
-                    accountsid = messageResponse.AccountSid,
-                    messaging_service_sid = messageResponse.MessagingServiceSid,
-                    status = messageResponse.Status.ToString(),
-                    //error_code = messageResponse.ErrorCode.ToString(),
-                    //error_messages = messageResponse.ErrorMessage.ToString(),
-                    //date_Sent = messageResponse.DateSent,
-                    date_created = messageResponse.DateCreated,
-                    posted_date = DateTime.Now,
-                    posted_by = "Twilio",
-                    uri = messageResponse.Uri,
-                    subrecource_uris = messageResponse.SubresourceUris.ToString(),
-                    sid = messageResponse.Sid,
-                    num_segment = messageResponse.NumSegments,
-                    num_media = messageResponse.NumMedia,
-                    apiversion = messageResponse.ApiVersion,
-                    body = messageResponse.Body,
-                    direction = messageResponse.Direction.ToString(),
-                    price = messageResponse.Price,
-                    price_unit = messageResponse.PriceUnit,
-                    whatsapp_from = messageResponse.From.ToString().Substring(10),
-                    whatsapp_to = messageResponse.To.ToString().Substring(10),
-                    date_updated = messageResponse.DateUpdated
-                };
-
-
-                context.twilio_send_log.Add(messageLog);
-                await context.SaveChangesAsync();
-
-
-            }
-            catch (Exception ex)
+            Task.Run(async () =>
             {
-                System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
+                var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
+                    {
+                        { "1", visitorDetails.visitor_name },
+                        { "2", mediaUri }
+                    }, Formatting.Indented);
+
+                PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+
+               /* try
+                {*/
+                    // Attempt to send the message
+                    var messageResponse = await MessageResource.CreateAsync(
+                        to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
+                        from: from,
+                        messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
+                        contentSid: "HXab4baf7f14058adc5da41de4b430187c",
+                        contentVariables: contentVariables
+                    );
+
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+
+                    var messageLog = new twilio_send_log
+                    {
+                        event_det_sno = visitorDetails.event_det_sno.ToString(),
+                        accountsid = messageResponse.AccountSid,
+                        messaging_service_sid = messageResponse.MessagingServiceSid,
+                        status = messageResponse.Status.ToString(),
+                        //error_code = messageResponse.ErrorCode.ToString(),
+                        //error_messages = messageResponse.ErrorMessage.ToString(),
+                        //date_Sent = messageResponse.DateSent,
+                        date_created = messageResponse.DateCreated,
+                        posted_date = DateTime.Now,
+                        posted_by = "Twilio",
+                        uri = messageResponse.Uri,
+                        subrecource_uris = messageResponse.SubresourceUris.ToString(),
+                        sid = messageResponse.Sid,
+                        num_segment = messageResponse.NumSegments,
+                        num_media = messageResponse.NumMedia,
+                        apiversion = messageResponse.ApiVersion,
+                        body = messageResponse.Body,
+                        direction = messageResponse.Direction.ToString(),
+                        price = messageResponse.Price,
+                        price_unit = messageResponse.PriceUnit,
+                        whatsapp_from = messageResponse.From.ToString().Substring(10),
+                        whatsapp_to = messageResponse.To.ToString().Substring(10),
+                        date_updated = messageResponse.DateUpdated
+                    };
+
+
+                    context.twilio_send_log.Add(messageLog);
+                    await context.SaveChangesAsync();
+
+
+                /* }
+                 catch (Exception ex)
+                 {*/
+                /*System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
                 System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
                 ECARDAPPEntities context = new ECARDAPPEntities();
@@ -2271,7 +2202,12 @@ namespace FUNDING.Controllers
                 context.service_error_logs.Add(errorLog);
                 await context.SaveChangesAsync();
 
-            }
+            }*/
+             }) });
+            
+
+            
+
         }
 
         private static async Task SendWhatsAppThankYouMessageAsync(string mediaUri, visitor_details visitorDetails)
@@ -2281,6 +2217,10 @@ namespace FUNDING.Controllers
 
             TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
 
+            await Task.WhenAll(new List<Task>()
+            {
+            Task.Run(async () =>
+            {
             var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
                 {
                     { "1", visitorDetails.visitor_name },
@@ -2289,8 +2229,8 @@ namespace FUNDING.Controllers
 
             PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-            try
-            {
+            /*try
+            {*/
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2334,7 +2274,7 @@ namespace FUNDING.Controllers
                 await context.SaveChangesAsync();
 
 
-            }
+            /*}
             catch (Exception ex)
             {
                 System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
@@ -2349,10 +2289,12 @@ namespace FUNDING.Controllers
                 context.service_error_logs.Add(errorLog);
                 await context.SaveChangesAsync();
 
-            }
+            }*/
+
+                }) });
+            
+            
         }
-
-
 
         #endregion
 

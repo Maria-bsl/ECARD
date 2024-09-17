@@ -30,7 +30,7 @@ namespace FUNDING.Controllers
   {
     private readonly ECARDAPPEntities _dbContext = new ECARDAPPEntities();
     private readonly CustomerUsers _users = new CustomerUsers();
-    private List<FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates> _ListOfCardTemplatesVirtualPath;
+    private List<CardTemplates> _ListOfCardTemplatesVirtualPath;
     private CardEventDetailsViewModel _EventDetails;
     private List<FontFamily> _AllFonts;
 
@@ -45,12 +45,11 @@ namespace FUNDING.Controllers
             ViewBag.DefaultQRCode = DirectoryHelpers.GetDefaultQRCode();
             ViewBag.DefaultFont = DirectoryHelpers.GetDefaultFont();
 
-         //   object obj3 = CardDesignController.\u003C\u003Eo__5.\u003C\u003Ep__2.Target((CallSite) CardDesignController.\u003C\u003Eo__5.\u003C\u003Ep__2, this.ViewBag, DirectoryHelpers.GetDefaultFont());
       return (ActionResult) this.View((object) new CardDesignMasterViewModel()
       {
-        CardTemplatesList = (IEnumerable<FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates>) this._ListOfCardTemplatesVirtualPath,
-        EventDetails = this._EventDetails,
-        AllFontFamilies = (IEnumerable<FontFamily>) this._AllFonts
+        CardTemplatesList = _ListOfCardTemplatesVirtualPath,
+        EventDetails = _EventDetails,
+        AllFontFamilies = _AllFonts
       });
     }
 
@@ -74,7 +73,7 @@ namespace FUNDING.Controllers
 
     public ActionResult GenerateCards()
     {
-      foreach (var invitee in DataManagement.GetBDInvitees(2L))
+      foreach (var invitee in DataManagement.GetBDInvitees(2))
         CardGenerationService.DedicatedPdfGenerator(invitee);
       return (ActionResult) this.Json((object) "Cards generated.", JsonRequestBehavior.AllowGet);
     }
@@ -119,14 +118,14 @@ namespace FUNDING.Controllers
       };
     }
 
-    private List<FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates> GetAllCardTemplatesVirtualPath()
+    private List<CardTemplates> GetAllCardTemplatesVirtualPath()
     {
-      List<FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates> templatesVirtualPath = new List<FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates>();
+      List<CardTemplates> templatesVirtualPath = new List<CardTemplates>();
       string virtualDirectory = DirectoryHelpers.CardTemplatesVirtualDirectory;
       foreach (string file in Directory.GetFiles(HostingEnvironment.MapPath(virtualDirectory)))
       {
         string fileName = Path.GetFileName(file);
-        templatesVirtualPath.Add(new FUNDING.Models.CardGenerationModule.DataLayer.CardTemplates()
+        templatesVirtualPath.Add(new CardTemplates()
         {
           CardTemplateFilePath = Path.Combine(virtualDirectory, fileName)
         });
