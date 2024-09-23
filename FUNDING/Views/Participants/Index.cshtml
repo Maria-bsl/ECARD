@@ -521,14 +521,14 @@
         }
 
         function addpdf() {
-           @**@ $.ajax({
+           $.ajax({
                 url: "@Url.Action("IndexDataTable", "Participants")",
                 type: "POST",
                dataType: "json",
                 async: false,
                 success: function (data) {
 
-                   @**@jQuery("#ParticipantTable tbody").empty();
+                   jQuery("#ParticipantTable tbody").empty();
                     jQuery("#ParticipantTable tfoot").empty();
                     if (jQuery.fn.DataTable.isDataTable("#ParticipantTable")) {
                         jQuery('#ParticipantTable').DataTable().clear().destroy();

@@ -563,27 +563,44 @@
 
             $ajaxHelperCreateModal.modal('hide');
 
-             if (data.loginStatus == false) {
+            if (data.loginStatus == false) {
                 window.location.replace('@Url.Action("Login", "Login")');
             }
-            else if (data.createStatus) {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 3000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'success',
-                    title: data.response
-                })
-            }
+            else
+                if (data.createStatus) {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'success',
+                        title: data.response
+                    })
+                }
+                else {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-end',
+                        showConfirmButton: false,
+                        timer: 3000,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+                    Toast.fire({
+                        icon: 'error',
+                        title: data.response
+                    })
+                }
 
             //Reset form fields
             resetFormFieldsOnModalClose($ajaxHelperCreateModal, $ajaxHelperCreateForm);
@@ -1110,6 +1127,8 @@
             if (data.createStatus) {
                 alert(data.response);
             }
+            else
+                alert(data.response);
 
             //Reset form fields
             resetFormFieldsOnModalClose($ajaxHelperBulkUploadInviteeModal, $ajaxHelperBulkUploadInviteeForm);
@@ -1166,7 +1185,9 @@
             if (data.createStatus) {
                 alert(data.response);
             }
-
+            else {
+                alert(data.response)
+            }
             //Reset form fields
             resetFormFieldsOnModalClose($ajaxHelperBulkUploadModal, $ajaxHelperBulkUploadForm);
 

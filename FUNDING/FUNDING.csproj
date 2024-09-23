@@ -9219,6 +9219,7 @@
     <Content Include="lib\System.Web.WebPages.dll" />
     <Content Include="lib\Twilio.dll" />
     <Content Include="lib\zxing.dll" />
+    <Content Include="reports\logo.png" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />

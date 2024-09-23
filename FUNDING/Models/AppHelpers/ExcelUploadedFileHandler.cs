@@ -53,7 +53,7 @@ namespace FUNDING.Models.AppHelpers
             if (num > 0 && !IsReaderNull(reader))
               listOfVisitors.Add(new visitor_details()
               {
-                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()),
+                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()).Replace(".", "").Replace("/","").Replace("\\", ""),
                 no_of_persons = GetIntegerExcelValue(reader.GetValue(1)),
                 mobile_no = GetStringExcelValue(reader.GetValue(2)),
                 email_address = GetStringExcelValue(reader.GetValue(3)),
@@ -87,7 +87,7 @@ namespace FUNDING.Models.AppHelpers
             if (num > 0 && !IsReaderNull(reader))
               listOfVisitors.Add(new visitor_details()
               {
-                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()),
+                visitor_name = GetStringExcelValue(reader.GetValue(0).ToString().Trim()).Replace(".", "").Replace("/", "").Replace("\\", ""),
                 no_of_persons = GetIntegerExcelValue(reader.GetValue(1)),
                 qrcode = GetStringExcelValue((object) (reader.GetValue(2)?.ToString() + reader.GetValue(3)?.ToString())),
                 mobile_no = GetStringExcelValue(reader.GetValue(4)),

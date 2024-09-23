@@ -1598,14 +1598,10 @@ namespace FUNDING.Controllers
                     }
                     catch (Exception ex)
                     {
-                        /*ECARDAPPEntities context = new ECARDAPPEntities();
-                        var errorLog = new service_error_logs
-                        {
-                            error = ex.ToString(),
-                            posted_date = DateTime.Now
-                        };
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
                         context.service_error_logs.Add(errorLog);
-                        await context.SaveChangesAsync();*/
+                        context.SaveChanges();
                         continue;
                     }
                 }
@@ -1616,7 +1612,12 @@ namespace FUNDING.Controllers
                         await SendWhatsAppCardENMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {continue;
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                        context.service_error_logs.Add(errorLog);
+                        context.SaveChanges();
+                        continue;
                     }
                 }
                 if (whatsApp.Message.ToString().Equals("3"))// Save the date
@@ -1626,7 +1627,12 @@ namespace FUNDING.Controllers
                         await SendWhatsAppSaveTheDateMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {continue;
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                        context.service_error_logs.Add(errorLog);
+                        context.SaveChanges();
+                        continue;
                     }
                 }
                 if (whatsApp.Message.ToString().Equals("4")) // Thank You
@@ -1636,7 +1642,12 @@ namespace FUNDING.Controllers
                         await SendWhatsAppThankYouMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
                     }
                     catch (Exception ex)
-                    {continue;
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                        context.service_error_logs.Add(errorLog);
+                        context.SaveChanges();
+                        continue;
                     }
                 }
 
@@ -1646,7 +1657,7 @@ namespace FUNDING.Controllers
             return Json(new
       {
         sendStatus = true,
-        response = "WhatsApp Card has been successfully sent"
+        response = "WhatsApp Card has been successfully Initiated"
       });
     }
 
@@ -1676,8 +1687,12 @@ namespace FUNDING.Controllers
                             await SendWhatsAppCardSWMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }
                         catch (Exception ex)
-                        {
-                            continue;
+                        {       
+                                ECARDAPPEntities context = new ECARDAPPEntities();
+                                var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                                context.service_error_logs.Add(errorLog);
+                                context.SaveChanges();
+                                continue;
                         }
                     }
                     if (Message.ToString().Equals("2")) // Card Notification English
@@ -1687,7 +1702,16 @@ namespace FUNDING.Controllers
                             await SendWhatsAppCardENMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }
                         catch (Exception ex)
-                        {continue;
+                            {
+                                ECARDAPPEntities context = new ECARDAPPEntities();
+                                var errorLog = new service_error_logs
+                                {
+                                    error = ex.ToString(),
+                                    posted_date = DateTime.Now
+                                };
+                                context.service_error_logs.Add(errorLog);
+                                context.SaveChanges(); 
+                                continue;
                         }
                     }
                     if (Message.ToString().Equals("3"))  // Save the date
@@ -1697,7 +1721,17 @@ namespace FUNDING.Controllers
                             await SendWhatsAppSaveTheDateMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }
                         catch (Exception ex)
-                        {continue;
+                        {
+
+                                ECARDAPPEntities context = new ECARDAPPEntities();
+                                var errorLog = new service_error_logs
+                                {
+                                    error = ex.ToString(),
+                                    posted_date = DateTime.Now
+                                };
+                                context.service_error_logs.Add(errorLog);
+                                context.SaveChanges(); 
+                                continue;
                         }
                     }
                     if (Message.ToString().Equals("4")) // Thank You
@@ -1707,7 +1741,17 @@ namespace FUNDING.Controllers
                             await SendWhatsAppThankYouMessageAsync(GetMediaURIMulti(visitorDetails, visitor_id), visitorDetails);
                         }
                         catch (Exception ex)
-                        {continue;
+                        {
+
+                                ECARDAPPEntities context = new ECARDAPPEntities();
+                                var errorLog = new service_error_logs
+                                {
+                                    error = ex.ToString(),
+                                    posted_date = DateTime.Now
+                                };
+                                context.service_error_logs.Add(errorLog);
+                                context.SaveChanges();
+                                continue;
                         }
                     }
                 }
@@ -1744,7 +1788,7 @@ namespace FUNDING.Controllers
       return (ActionResult) this.Json((object) new
       {
         sendStatus = true,
-          response = "WhatsApp Card has been successfully sent"
+          response = "WhatsApp Card has been successfully Initiated"
       });
     }
 
@@ -1835,22 +1879,22 @@ namespace FUNDING.Controllers
             {"1",visitorDetails.visitor_name},
             {"2",mediaUri}
           }, Formatting.Indented);
-          PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
-          string contentVariables = str;
-            var messageResponse  =  MessageResource.CreateAsync(new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no), from: from, messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068", contentSid: "HX560227120c59ce1bc3383b843c27ba06", contentVariables: contentVariables);
+                  PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+                  string contentVariables = str;
+                    var messageResponse  =  MessageResource.CreateAsync(new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no), from: from, messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068", contentSid: "HX560227120c59ce1bc3383b843c27ba06", contentVariables: contentVariables);
 
 
-            // Extract and handle the response here
-            System.Diagnostics.Debug.WriteLine($"Message SID: {messageResponse.Result.Sid}");
-            System.Diagnostics.Debug.WriteLine($"Message Status: {messageResponse.Status}");
-            System.Diagnostics.Debug.WriteLine($"Error Code (if any): {messageResponse.Result.ErrorCode}");
-            System.Diagnostics.Debug.WriteLine($"Error Message (if any): {messageResponse.Result.ErrorMessage}");
-            System.Diagnostics.Debug.WriteLine($"Message Body: {messageResponse.Result.Body}");
-            System.Diagnostics.Debug.WriteLine($"Message Exception :{messageResponse.Exception}");
-            System.Diagnostics.Debug.WriteLine($"Message AccountSid: {messageResponse.Result.AccountSid}");
+                    // Extract and handle the response here
+                    System.Diagnostics.Debug.WriteLine($"Message SID: {messageResponse.Result.Sid}");
+                    System.Diagnostics.Debug.WriteLine($"Message Status: {messageResponse.Status}");
+                    System.Diagnostics.Debug.WriteLine($"Error Code (if any): {messageResponse.Result.ErrorCode}");
+                    System.Diagnostics.Debug.WriteLine($"Error Message (if any): {messageResponse.Result.ErrorMessage}");
+                    System.Diagnostics.Debug.WriteLine($"Message Body: {messageResponse.Result.Body}");
+                    System.Diagnostics.Debug.WriteLine($"Message Exception :{messageResponse.Exception}");
+                    System.Diagnostics.Debug.WriteLine($"Message AccountSid: {messageResponse.Result.AccountSid}");
 
-        })
-      });
+                })
+              });
 
             
         }
@@ -1881,8 +1925,8 @@ namespace FUNDING.Controllers
 
             PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-            /*try
-            {*/
+            try
+            {
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -1926,22 +1970,22 @@ namespace FUNDING.Controllers
                 await context.SaveChangesAsync();
 
 
-            /*}
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}"); 
-                System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
+                }
+                    catch (Exception ex)
+                    {
+                        System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}"); 
+                        System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
-                ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new service_error_logs
-                {
-                    error = ex.ToString(),
-                    posted_date = DateTime.Now
-                };
-                context.service_error_logs.Add(errorLog);
-                await context.SaveChangesAsync();
+                            ECARDAPPEntities context = new ECARDAPPEntities();
+                            var errorLog = new service_error_logs
+                            {
+                                error = ex.ToString(),
+                                posted_date = DateTime.Now
+                            };
+                            context.service_error_logs.Add(errorLog);
+                            context.SaveChanges();
 
-            }*/
+            }
         }
         private static async Task SendWhatsAppCardENMessageAsync(string mediaUri, visitor_details visitorDetails)
         {
@@ -1964,8 +2008,7 @@ namespace FUNDING.Controllers
 
                 PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-               /* try
-                {*/
+                
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2007,23 +2050,7 @@ namespace FUNDING.Controllers
                     context.twilio_send_log.Add(messageLog);
                     await context.SaveChangesAsync();
 
-                /*}
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                    System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
-
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-
-                }*/
-
+             
                 }) });
 
                 
@@ -2053,8 +2080,7 @@ namespace FUNDING.Controllers
 
                 PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-                /*try
-                {*/
+                
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2097,24 +2123,6 @@ namespace FUNDING.Controllers
                     context.twilio_send_log.Add(messageLog);
                     await context.SaveChangesAsync();
 
-
-                /*}
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                    System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
-
-                    ECARDAPPEntities context = new ECARDAPPEntities();
-                    var errorLog = new service_error_logs
-                    {
-                        error = ex.ToString(),
-                        posted_date = DateTime.Now
-                    };
-                    context.service_error_logs.Add(errorLog);
-                    await context.SaveChangesAsync();
-
-                }*/
-
                 })
             });
 
@@ -2142,8 +2150,7 @@ namespace FUNDING.Controllers
 
                 PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-               /* try
-                {*/
+               
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2187,27 +2194,10 @@ namespace FUNDING.Controllers
                     await context.SaveChangesAsync();
 
 
-                /* }
-                 catch (Exception ex)
-                 {*/
-                /*System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
-
-                ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new service_error_logs
-                {
-                    error = ex.ToString(),
-                    posted_date = DateTime.Now
-                };
-                context.service_error_logs.Add(errorLog);
-                await context.SaveChangesAsync();
-
-            }*/
-             }) });
+                
+             }) 
+            });
             
-
-            
-
         }
 
         private static async Task SendWhatsAppThankYouMessageAsync(string mediaUri, visitor_details visitorDetails)
@@ -2229,8 +2219,7 @@ namespace FUNDING.Controllers
 
             PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
 
-            /*try
-            {*/
+           
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
@@ -2269,29 +2258,11 @@ namespace FUNDING.Controllers
                     date_updated = messageResponse.DateUpdated
                 };
 
-
                 context.twilio_send_log.Add(messageLog);
                 await context.SaveChangesAsync();
 
-
-            /*}
-            catch (Exception ex)
-            {
-                System.Diagnostics.Debug.WriteLine($"Exception on DB: {ex}");
-                System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
-
-                ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new service_error_logs
-                {
-                    error = ex.ToString(),
-                    posted_date = DateTime.Now
-                };
-                context.service_error_logs.Add(errorLog);
-                await context.SaveChangesAsync();
-
-            }*/
-
-                }) });
+           
+            }) });
             
             
         }
