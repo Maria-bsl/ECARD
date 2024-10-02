@@ -709,13 +709,9 @@ namespace FUNDING.Controllers
             foreach (visitor_details visitorDetails in visitorEventDetails)
             {
                 visitor_details visitor_details = visitorDetails;
-                taskList1.Add(Task.Run(() => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number), cancellationTokenSource.Token));
+                taskList1.Add(Task.Run(() => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number)));
 
-                if (cancellationTokenSource.Token.IsCancellationRequested)
-                {
-                    Console.WriteLine("Task cancellation requested.");
-                    break; // Gracefully exit
-                }
+             
             }
       await Task.WhenAll((IEnumerable<Task>) taskList1);
 
@@ -741,13 +737,9 @@ namespace FUNDING.Controllers
           CardGenerationService.QrCodeElementValues = qrCodeElement;
           CardGenerationService.IsCardSizeDisplayed = displayCardSize;
           CardGenerationService.PdfGenerator(invitee);
-        }), cancellationTokenSource.Token));
+        })));
 
-                if (cancellationTokenSource.Token.IsCancellationRequested)
-                {
-                    Console.WriteLine("Task cancellation requested.");
-                    break; // Gracefully exit
-                }
+               
       }
       await Task.WhenAll((IEnumerable<Task>) taskList2);
       List<Task> taskList3 = new List<Task>();
@@ -755,13 +747,9 @@ namespace FUNDING.Controllers
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
-        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno, EscapeCharacterForFileName(visitor_details.visitor_name))))), cancellationTokenSource.Token));
+        taskList3.Add(Task.Run((Action) (() => CardGenerationService.ConvertPDF2png(Path.Combine(pdfAbsolutePath, string.Format("{0}_{1}.pdf", visitor_details.visitor_det_sno, EscapeCharacterForFileName(visitor_details.visitor_name)))))));
 
-            if (cancellationTokenSource.Token.IsCancellationRequested)
-            {
-                Console.WriteLine("Task cancellation requested.");
-                break; // Gracefully exit
-            }
+           
       }
       await Task.WhenAll((IEnumerable<Task>) taskList3);
 
@@ -1090,8 +1078,6 @@ namespace FUNDING.Controllers
         }
 
 
-
-
   #endregion
 
 
@@ -1262,7 +1248,7 @@ namespace FUNDING.Controllers
     {
        
 
-            CardDesignMasterController masterController = this;
+      CardDesignMasterController masterController = this;
       if (masterController.Session["admin1"] == null)
         return  masterController.Json( new
         {
@@ -1280,14 +1266,14 @@ namespace FUNDING.Controllers
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
-        taskList1.Add(Task.Run( (() => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number))));
+        taskList1.Add(Task.Run( () => QRCodeGenerator.GenerateActionWithTableNumber(visitor_details.visitor_det_sno, visitor_details.qrcode, visitor_details.visitor_name, visitor_details.no_of_persons.ToString(), visitor_details.event_details.venue, visitor_details.table_number)));
       }
       await Task.WhenAll( taskList1);
       List<Task> taskList2 = new List<Task>();
       foreach (visitor_details visitorDetails in visitorEventDetails)
       {
         visitor_details visitor_details = visitorDetails;
-        taskList2.Add(Task.Run( (() =>
+        taskList2.Add(Task.Run(() =>
         {
           Invitees invitee = new Invitees()
           {
@@ -1305,7 +1291,7 @@ namespace FUNDING.Controllers
           CardGenerationService.IsCardSizeDisplayed = displayCardSize;
           CardGenerationService.PdfGenerator(invitee);
 
-        })));
+        }));
       }
       await Task.WhenAll( taskList2);
       List<Task> taskList3 = new List<Task>();
@@ -1327,7 +1313,6 @@ namespace FUNDING.Controllers
         downloadStatus = true
       });
     }
-
 
     #region Multiple Cards Download
     [Route("Bulk-Card-Download-M")]
@@ -1367,6 +1352,58 @@ namespace FUNDING.Controllers
       });
     }
 
+
+    [Route("whatsapp-config")]
+    public ActionResult WhatsAppConfig()
+    {
+        if (this.Session["admin1"] == null)
+            return RedirectToAction("Login", "Login");
+        #region Event dropdownlist
+
+        //TODO: there must be a way to view only active events
+
+        ViewBag.EventDropDownList = _dbContext.event_details.Where(e => e.event_date >= DateTime.Today)
+            .Select(b => new SelectListItem
+            {
+                Value = b.event_det_sno.ToString(),
+                Text = b.event_name
+            });
+
+        List<SelectListItem> EventChoice = new List<SelectListItem>
+        { new SelectListItem()
+            {
+                Text = "Card Notification - Swahili",
+                Value = "1"
+            }, new SelectListItem()
+            {
+                Text = "Card Notification - English",
+                Value = "2"
+            },
+            new SelectListItem()
+            {
+                Text = "Save the Date",
+                Value = "3"
+            },
+            new SelectListItem()
+            {
+                Text = "Thank You",
+                Value = "4"
+            },
+            new SelectListItem()
+            {
+                Text = "Dynamic Variables - Swahili",
+                Value = "5"
+            }
+        };
+
+        ViewBag.EventNotificationList = EventChoice;
+
+        #endregion;
+        return View();
+    }
+
+
+
     [Route("whatsapp-notification")]
     public ActionResult WhatsAppNotification()
     {
@@ -1402,6 +1439,11 @@ namespace FUNDING.Controllers
                 {
                     Text = "Thank You",
                     Value = "4"
+                },
+                new SelectListItem()
+                {
+                    Text = "Dynamic Variables - Swahili",
+                    Value = "5"
                 }
             };
 
@@ -1447,6 +1489,11 @@ namespace FUNDING.Controllers
                 {
                     Text = "Thank You",
                     Value = "4"
+                },
+                new SelectListItem()
+                {
+                    Text = "Dynamic Variables - Swahili",
+                    Value = "5"
                 }
             };
 
@@ -1532,6 +1579,11 @@ namespace FUNDING.Controllers
             {
                 await SendWhatsAppThankYouMessageAsync(mediaUri, visitorDetails);
             }
+            if (whatsApp.Message.ToString().Equals("5")) // Latest 3 buttons 
+            {
+                await SendWhatsAppCardSWLatestMessageAsync(mediaUri, visitorDetails);
+            }
+            
             return Json(new
       {
         sendStatus = true,
@@ -1651,6 +1703,21 @@ namespace FUNDING.Controllers
                     }
                 }
 
+                if (whatsApp.Message.ToString().Equals("5")) // Latest 3 buttons 
+                {
+                    try { 
+                        await SendWhatsAppCardSWLatestMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
+                    }
+                    catch (Exception ex)
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                        context.service_error_logs.Add(errorLog);
+                        context.SaveChanges();
+                        continue;
+                    }
+                }
+
             }
 
             
@@ -1754,7 +1821,23 @@ namespace FUNDING.Controllers
                                 continue;
                         }
                     }
-                }
+                    if (Message.ToString().Equals("5")) // Latest 3 buttons 
+                    {
+                        try
+                        {
+                            await SendWhatsAppCardSWLatestMessageAsync(GetMediaURI(visitorDetails), visitorDetails);
+                        }
+                        catch (Exception ex)
+                        {
+                            ECARDAPPEntities context = new ECARDAPPEntities();
+                            var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                            context.service_error_logs.Add(errorLog);
+                            context.SaveChanges();
+                            continue;
+                        }
+                    }
+
+                    }
 
                 #region Previous SendWhatsAppMessageAsync await with Error Log
                 /* try
@@ -1900,7 +1983,99 @@ namespace FUNDING.Controllers
         }
 
         #region Send WhatsApp Cards
-        // save_the_date_notification_card - HXab4baf7f14058adc5da41de4b430187c
+        // Asterick ContentSid - HX41a07b93c9290e519652b29425ff95d1
+
+        // HX3116bcd9e108f43873dcf5f77c1da264
+        // Swahili - Cards Event Latest Request Joyce : HX3116bcd9e108f43873dcf5f77c1da264
+        private static async Task SendWhatsAppCardSWLatestMessageAsync(string mediaUri, visitor_details visitorDetails)
+        {
+            ECARDAPPEntities _dbContext = new ECARDAPPEntities();
+            var event_details = _dbContext.event_details.Where(ev => ev.event_det_sno == visitorDetails.event_det_sno).First();
+            var event_datetime = (event_details.event_date + ", at " + event_details.event_start_time);
+            DateTime edatetime = (DateTime)event_details.event_start_time;
+
+            bool is24HourFormat = false;  // Set this to true if you want a 24-hour format
+
+            string formattedDateTime;
+
+            if (is24HourFormat)
+            {
+                // Format for 24-hour clock
+                formattedDateTime = edatetime.ToString("dd MMMM yyyy, HH:mm");
+            }
+            else
+            {
+                // Format for 12-hour clock
+                formattedDateTime = edatetime.ToString("dd MMMM yyyy, hh:mm tt");
+            }
+
+            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
+
+            await Task.WhenAll(new List<Task>()
+            {
+            Task.Run(async () =>
+            {
+                var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
+
+                //'*'++'*''*'++'*''*'++'*''*'++'*'
+                    {
+                        {"1", visitorDetails.visitor_name.ToUpper() },
+                        {"2", event_details.event_name.ToUpper() },
+                        {"3", formattedDateTime.ToUpper()},
+                        {"4", event_details.venue.ToUpper() ?? ""},
+                        {"5", mediaUri },
+                        {"6", "6" },
+                        {"7", "7" },
+                        {"8", "8" }
+                    }, Formatting.Indented);
+
+                    PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+
+                
+                    // Attempt to send the message
+                    var messageResponse = await MessageResource.CreateAsync(
+                        to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
+                        from: from,
+                        messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
+                        contentSid: "HX41a07b93c9290e519652b29425ff95d1",
+                        contentVariables: contentVariables
+                    );
+
+                    ECARDAPPEntities context = new ECARDAPPEntities();
+
+                    var messageLog = new twilio_send_log
+                    {
+                        event_det_sno = visitorDetails.event_det_sno.ToString(),
+                        accountsid = messageResponse.AccountSid,
+                        messaging_service_sid = messageResponse.MessagingServiceSid,
+                        status = messageResponse.Status.ToString(),
+                        //error_code = messageResponse.ErrorCode.ToString(),
+                        //error_messages = messageResponse.ErrorMessage.ToString(),
+                        //date_Sent = messageResponse.DateSent,
+                        date_created = messageResponse.DateCreated,
+                        posted_date = DateTime.Now,
+                        posted_by = "Twilio",
+                        uri = messageResponse.Uri,
+                        subrecource_uris = messageResponse.SubresourceUris.ToString(),
+                        sid = messageResponse.Sid,
+                        num_segment = messageResponse.NumSegments,
+                        num_media = messageResponse.NumMedia,
+                        apiversion = messageResponse.ApiVersion,
+                        body = messageResponse.Body,
+                        direction = messageResponse.Direction.ToString(),
+                        price = messageResponse.Price,
+                        price_unit = messageResponse.PriceUnit,
+                        whatsapp_from = messageResponse.From.ToString().Substring(10),
+                        whatsapp_to = messageResponse.To.ToString().Substring(10),
+                        date_updated = messageResponse.DateUpdated
+                    };
+
+                    context.twilio_send_log.Add(messageLog);
+                    await context.SaveChangesAsync();
+
+                }) });
+
+        }
 
         private static async Task SendWhatsAppMessageAsync(string mediaUri, visitor_details visitorDetails)
         {
@@ -2345,7 +2520,7 @@ namespace FUNDING.Controllers
                   }
               }
       */
-        private static async Task SaveMessageResponseToDatabase(visitor_details visitorDetails, string messageSid, string status, string errorCode, string errorMessage)
+        private static Task SaveMessageResponseToDatabase(visitor_details visitorDetails, string messageSid, string status, string errorCode, string errorMessage)
         {
             // Assuming you have a DbContext called `AppDbContext` and a model called `MessageLog`
             using (ECARDAPPEntities context = new ECARDAPPEntities())
@@ -2364,11 +2539,13 @@ namespace FUNDING.Controllers
                 context.MessageLogs.Add(messageLog);
                 await context.SaveChangesAsync();*/
             }
+
+            return Task.CompletedTask;
         }
 
         #endregion
 
-    [ChildActionOnly]
+        [ChildActionOnly]
     public ActionResult EventDetails()
     {
       return PartialView("_FillForm", _EventDetails);

@@ -129,14 +129,19 @@ namespace FUNDING.Controllers
         return (ActionResult) this.PartialView("_AjaxHelperBulkUploadForm", (object) uploadedFile);
       string uploadedExcelFile = ExcelUploadedFileHandler.UploadedExcelSaveProcess(uploadedFile.VisitorsFileAttachment);
       List<visitor_details> visitorDetailsList = new List<visitor_details>();
-      try
-      {
-        long? customerAdminId = this.GetCustomerAdminID();
-        long? eventId = this.GetEventID();
-        string postedBy = this.GetPostedBy();
-        ExcelUploadedFileHandler.ReadExcelData(uploadedExcelFile, visitorDetailsList, customerAdminId, eventId, postedBy);
-        ExcelUploadedFileHandler.SaveRecordToDatabase(visitorDetailsList);
-        return (ActionResult) this.Json((object) visitorDetailsList);
+            try
+            {
+                long? customerAdminId = this.GetCustomerAdminID();
+                long? eventId = this.GetEventID();
+                string postedBy = this.GetPostedBy();
+                ExcelUploadedFileHandler.ReadExcelData(uploadedExcelFile, visitorDetailsList, customerAdminId, eventId, postedBy);
+                ExcelUploadedFileHandler.SaveRecordToDatabase(visitorDetailsList);
+                return (ActionResult)this.Json(new
+                {
+                    createStatus = false,
+                    response = "File successfully uploaded"
+                });
+            
       }
       catch (Exception ex)
       {
@@ -168,7 +173,11 @@ namespace FUNDING.Controllers
         string postedBy = this.GetPostedBy();
         ExcelUploadedFileHandler.ReadExcelDataWithQRcode(uploadedExcelFile, visitorDetailsList, customerAdminId, eventId, postedBy);
         ExcelUploadedFileHandler.SaveRecordToDatabaseWithQRcode(visitorDetailsList);
-        return (ActionResult) this.Json((object) visitorDetailsList);
+        return (ActionResult) this.Json( new
+        {
+            createStatus = false,
+            response = "File successfully uploaded"
+        });
       }
       catch (Exception ex)
       {
@@ -451,10 +460,9 @@ namespace FUNDING.Controllers
     }
 
 
-
-    [HttpPost]
-    [Route("reportinvitees/{id}")]
-    public ActionResult PdfResults(long? event_id)
+   
+    [Route("Reportinvitees")]
+    public ActionResult Reportinvitees(long event_id)
     {
 
             if(event_id.ToString() == null)
@@ -463,7 +471,7 @@ namespace FUNDING.Controllers
             }
 
             // Get Invoice and Invoice Items from Invoiceno here
-            var invitee = _dbContext.visitor_details.Where(v => v.event_det_sno == event_id).FirstOrDefault();
+            var invitee = _dbContext.visitor_details.Include(c => c.card_state_master).Where(v => v.event_det_sno == event_id).FirstOrDefault();
             var invitees = _dbContext.visitor_details.Where(iv => iv.event_det_sno == event_id).ToList();
 
 
@@ -473,7 +481,7 @@ namespace FUNDING.Controllers
             string filePath = Path.Combine(HostingEnvironment.ApplicationHost.GetPhysicalPath() + ConfigurationManager.AppSettings["reports"], $"Invitees_{invitee.event_details.event_name.ToString().Trim()}_Report.pdf");
             string filePath1 = Path.Combine(HostingEnvironment.ApplicationHost.GetPhysicalPath(), $"Invitees_{invitee.event_details}.pdf");
 
-            string filePath2 = ConfigurationManager.AppSettings["reports"] + $"Invoice_{invitee.event_details.event_name.ToString().Trim()}.pdf";
+            string filePath2 = ConfigurationManager.AppSettings["reports"] + $"Invitees_{invitee.event_details.event_name.ToString().Trim()}.pdf";
 
             // Create a new PDF document
             Document document = new Document(PageSize.A4, 25, 25, 10, 10);
@@ -487,7 +495,7 @@ namespace FUNDING.Controllers
             if (System.IO.File.Exists(logoPath))
             {
                 Image logo = Image.GetInstance(logoPath);
-                logo.ScalePercent(24f); // Resize the logo if needed
+                logo.ScalePercent(18f); // Resize the logo if needed
                 logo.Alignment = Element.ALIGN_CENTER;
                 document.Add(logo);
             }
@@ -508,13 +516,13 @@ namespace FUNDING.Controllers
             Chunk tab = new Chunk(new VerticalPositionMark()); // Acts as a spacer to the right  BaseColor.GRAY
 
             // Step 2: Add Invoice Header
-            Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, HeaderColor);
-            Font headerFontbelow = FontFactory.GetFont(FontFactory.HELVETICA, 12, textColor);
-            Paragraph header = new Paragraph("INVITEES REPORT", headerFont)
+            Font headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, HeaderColor);
+            Font headerFontbelow = FontFactory.GetFont(FontFactory.HELVETICA, 11, textColor);
+            Paragraph header = new Paragraph("Invitees Report", headerFont)
             {
                 Alignment = Element.ALIGN_CENTER
             };
-            Paragraph header2 = new Paragraph("Event Name: "+ invitee.event_details.event_name.ToString(), headerFont)
+            Paragraph header2 = new Paragraph("Event: "+ invitee.event_details.event_name.ToString(), headerFont)
             {
                 Alignment = Element.ALIGN_CENTER
             };
@@ -561,15 +569,15 @@ namespace FUNDING.Controllers
             document.Add(new Paragraph("\n"));
 
             // Step 3: Create Table for Invoice Details
-            PdfPTable table = new PdfPTable(4)
+            PdfPTable table = new PdfPTable(7)
             {
                 WidthPercentage = 100, // Table width as percentage of page width
                 SpacingBefore = 20f,
-                SpacingAfter = 30f
-            }; // 4 columns
+                SpacingAfter = 20f
+            }; // 7 columns
 
             // Set column widths
-            float[] columnWidths = { 1f, 3f, 1f, 1f, 1.2f, 2f,3f };
+            float[] columnWidths = { 1f, 3f, 1.5f, 1f, 1f, 2f,3f };
             table.SetWidths(columnWidths);
 
             // Add table headers
@@ -580,19 +588,20 @@ namespace FUNDING.Controllers
             AddTableHeader(table, "Table No");
             AddTableHeader(table, "Mobile No");
             AddTableHeader(table, "Email");
-            int o =+1;
+            int o =1;
             // Step 4: Add Invoice Items
             foreach (var item in invitees)
             {
-                AddTableCell(table, o.ToString());
-                AddTableCell(table, item.visitor_name);
-                AddTableCell(table, item.card_state_master.ToString());
-                AddTableCell(table, item.no_of_persons.ToString());
-                AddTableCell(table, item.table_number);
-                AddTableCell(table, item.mobile_no.ToString());
-                AddTableCell(table, item.email_address.ToString());
+                AddTableCell(table, o.ToString() ?? "");
+                AddTableCell(table, item.visitor_name ?? "");
+                AddTableCell(table, text: item.card_state_master.card_state);
+                AddTableCell(table, item.no_of_persons.ToString() ?? "");
+                AddTableCell(table, item.table_number ?? "");
+                AddTableCell(table, item.mobile_no.ToString() ?? "");
+                AddTableCell(table, item.email_address ?? "");
+                o++;
             }
-            o++;
+            
 
             // Step 5: Add Total Row
            /* PdfPCell totalCell = new PdfPCell(new Phrase("Total", new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)))
@@ -614,7 +623,7 @@ namespace FUNDING.Controllers
             // Add the table to the document
             document.Add(table);
 
-            // Step 6: How to Pay
+         /*   // Step 6: How to Pay
             Paragraph footer_how = new Paragraph("How to Pay:", FontFactory.GetFont(FontFactory.HELVETICA, 10, textColor))
             {
                 Alignment = Element.ALIGN_LEFT,
@@ -627,7 +636,7 @@ namespace FUNDING.Controllers
                 Alignment = Element.ALIGN_LEFT,
                 SpacingBefore = 12f
             };
-            document.Add(footer_pay);
+            document.Add(footer_pay);*/
 
             document.Add(new Paragraph("\n"));
 
@@ -640,7 +649,43 @@ namespace FUNDING.Controllers
             document.Add(footer);
             //return Json(new {response = "Success", message= "Successfully generated" }) ;
 
-            return System.IO.File.Exists(filePath) ? this.File(System.IO.File.ReadAllBytes(filePath), "application/octet-stream", filePath) : (ActionResult)Json(new
+            // Close the document
+            document.Close();
+
+
+            var directorypath = HostingEnvironment.MapPath(DirectoryHelpers.Pdf_Report_DirVirtualDirectory);
+            var cardPath = filePath;
+
+            var path = Path.Combine(directorypath, cardPath);
+
+            if (System.IO.File.Exists(path))
+            {
+                //Read the File data into Byte Array.
+                byte[] bytes = System.IO.File.ReadAllBytes(path);
+
+                string downloadedFileName = DirectoryHelpers.GetTimestampedFile(path);
+
+                //Send the File to Download.
+                return File(bytes, System.Net.Mime.MediaTypeNames.Application.Pdf, downloadedFileName);
+            }
+          /* if (System.IO.File.Exists(filePath))
+            {
+                //Read the File data into Byte Array.
+               byte[] bytes = System.IO.File.ReadAllBytes(filePath);
+
+                string downloadedFileName = DirectoryHelpers.GetTimestampedFile(filePath);
+
+                //Send the File to Download.
+               return File(bytes, "application/pdf", filePath);
+
+               *//* var filename = System.IO.Path.GetFileName(filePath);
+                var mimeType = "application/octet-stream";
+                var stream = System.IO.File.OpenRead(filePath);
+
+                return new FileStreamResult(stream, mimeType) { FileDownloadName = filename };*//*
+            }*/
+
+            return Json(new
             {
                 sendStatus = false,
                 mesage = "File does not exist"
@@ -654,28 +699,28 @@ namespace FUNDING.Controllers
 
             BaseColor LabelColor = new BaseColor(12, 98, 133, 255);
 
-            PdfPCell headerCell = new PdfPCell(new Phrase(headerText, new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD, BaseColor.WHITE)))
+            PdfPCell headerCell = new PdfPCell(new Phrase(headerText, new Font(Font.FontFamily.HELVETICA, 11, Font.BOLD, BaseColor.WHITE)))
             {
                 BackgroundColor = LabelColor,
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                Padding = 8f
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                Padding = 2f
             };
             table.AddCell(headerCell);
         }
 
         private static void AddTableCell(PdfPTable table, string text)
         {
-            PdfPCell cell = new PdfPCell(new Phrase(text, new Font(Font.FontFamily.HELVETICA, 12)))
+            PdfPCell cell = new PdfPCell(new Phrase(text, new Font(Font.FontFamily.HELVETICA, 10)))
             {
-                HorizontalAlignment = Element.ALIGN_CENTER,
-                Padding = 8f
+                HorizontalAlignment = Element.ALIGN_LEFT,
+                Padding = 2f
             };
             table.AddCell(cell);
         }
 
 
 
-        public ActionResult SendWelcomeSMS(
+    public ActionResult SendWelcomeSMS(
       string __RequestVerificationToken,
       long event_id = 4,
       long visitor_id = 660)

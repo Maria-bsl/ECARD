@@ -155,6 +155,23 @@
     <Property Name="posted_by" Type="varchar" MaxLength="20" />
     <Property Name="posted_date" Type="datetime" />
   </EntityType>
+  <EntityType Name="contents_template_master">
+    <Key>
+      <PropertyRef Name="cont_mas_sno" />
+    </Key>
+    <Property Name="cont_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="messaging_service_sid" Type="varchar" MaxLength="120" />
+    <Property Name="content_sid" Type="varchar" MaxLength="120" />
+    <Property Name="content_name" Type="varchar" MaxLength="100" />
+    <Property Name="content_code" Type="varchar" MaxLength="20" />
+    <Property Name="content_variables" Type="varchar" MaxLength="300" />
+    <Property Name="status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="effective_date" Type="varchar" MaxLength="20" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="100" />
+  </EntityType>
   <EntityType Name="contributor_details">
     <Key>
       <PropertyRef Name="contri_det_sno" />
@@ -330,6 +347,23 @@
     <Property Name="no_of_email" Type="int" />
     <Property Name="no_of_wup" Type="int" />
     <Property Name="pack_det_sno" Type="bigint" />
+  </EntityType>
+  <EntityType Name="exception_error_logs">
+    <Key>
+      <PropertyRef Name="exce_err_sno" />
+    </Key>
+    <Property Name="exce_err_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="triggered" Type="varchar" MaxLength="120" />
+    <Property Name="method" Type="varchar" MaxLength="120" />
+    <Property Name="exception" Type="varchar" MaxLength="200" />
+    <Property Name="trycatch" Type="varchar" MaxLength="120" />
+    <Property Name="class_name" Type="varchar" MaxLength="20" />
+    <Property Name="message" Type="varchar" MaxLength="120" />
+    <Property Name="status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="expenditure_details">
     <Key>
@@ -637,8 +671,11 @@
     <Property Name="sms_status" Type="varchar" MaxLength="200" />
     <Property Name="channel_install_sid" Type="varchar" MaxLength="100" />
     <Property Name="channel_to_address" Type="varchar" MaxLength="200" />
+    <Property Name="whatsapp_from" Type="varchar" MaxLength="100" />
+    <Property Name="whatsapp_to" Type="varchar" MaxLength="100" />
     <Property Name="messaging_service_sid" Type="varchar" MaxLength="200" />
     <Property Name="message_status" Type="varchar" MaxLength="200" />
+    <Property Name="messaging_sid" Type="varchar" MaxLength="200" />
     <Property Name="posted_date" Type="datetime" />
     <Property Name="posted_by" Type="varchar" MaxLength="20" />
     <Property Name="channel_prefix" Type="varchar" MaxLength="200" />
@@ -727,6 +764,25 @@
     <Property Name="misc_column1" Type="varchar" MaxLength="200" />
     <Property Name="misc_column2" Type="varchar" MaxLength="100" />
     <Property Name="misc_column3" Type="datetime" />
+  </EntityType>
+  <EntityType Name="whatsapp_master">
+    <Key>
+      <PropertyRef Name="whats_mas_sno" />
+    </Key>
+    <Property Name="whats_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="account_sid" Type="varchar" MaxLength="120" />
+    <Property Name="auth_token" Type="varchar" MaxLength="120" />
+    <Property Name="whatsapp_sender" Type="varchar" MaxLength="20" />
+    <Property Name="status" Type="varchar" MaxLength="20" />
+    <Property Name="posted_date" Type="datetime" />
+    <Property Name="posted_by" Type="varchar" MaxLength="20" />
+    <Property Name="callback_url" Type="varchar" MaxLength="200" />
+    <Property Name="webhook_incoming" Type="varchar" MaxLength="200" />
+    <Property Name="webhook_error_log" Type="varchar" MaxLength="200" />
+    <Property Name="effective_date" Type="varchar" MaxLength="20" />
+    <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+    <Property Name="misc_column2" Type="varchar" MaxLength="200" />
+    <Property Name="misc_column3" Type="varchar" MaxLength="100" />
   </EntityType>
   <EntityType Name="wup_event_text">
     <Key>
@@ -1156,6 +1212,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
     <EntitySet Name="card_state_master" EntityType="Self.card_state_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cash_collection" EntityType="Self.cash_collection" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="con_notificaiton_master" EntityType="Self.con_notificaiton_master" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="contents_template_master" EntityType="Self.contents_template_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="contributor_details" EntityType="Self.contributor_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="cust_users" EntityType="Self.cust_users" Schema="dbo" store:Type="Tables" />
@@ -1167,6 +1224,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
     <EntitySet Name="emp_detail" EntityType="Self.emp_detail" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="event_details" EntityType="Self.event_details" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="exception_error_logs" EntityType="Self.exception_error_logs" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="expenditure_details" EntityType="Self.expenditure_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="localization_master" EntityType="Self.localization_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="modules_master" EntityType="Self.modules_master" Schema="dbo" store:Type="Tables" />
@@ -1193,6 +1251,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
     <EntitySet Name="visitor_details" EntityType="Self.visitor_details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ward_master" EntityType="Self.ward_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="webhook_error_log" EntityType="Self.webhook_error_log" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="whatsapp_master" EntityType="Self.whatsapp_master" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="wup_event_text" EntityType="Self.wup_event_text" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="bud_mas_sno_even_rk" Association="Self.bud_mas_sno_even_rk">
       <End Role="event_details" EntitySet="event_details" />

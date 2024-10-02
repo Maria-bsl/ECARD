@@ -8,8 +8,6 @@ namespace FUNDING.Models
     public class Webhook_error_log
     {
 
-
-
         public long sno { get; set; }
         public string account_sid { get; set; }
         public string sid { get; set; }

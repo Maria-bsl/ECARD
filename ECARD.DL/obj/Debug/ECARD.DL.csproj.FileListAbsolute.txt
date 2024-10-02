@@ -32,3 +32,13 @@ D:\B-ENVIT\ECARD.DL\obj\Debug\ECARD.DL.csproj.CoreCompileInputs.cache
 D:\B-ENVIT\ECARD.DL\obj\Debug\ECARD.DL.csproj.CopyComplete
 D:\B-ENVIT\ECARD.DL\obj\Debug\ECARD.DL.dll
 D:\B-ENVIT\ECARD.DL\obj\Debug\ECARD.DL.pdb
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\bin\Debug\ECARD.DL.dll.config
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\bin\Debug\ECARD.DL.dll
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\bin\Debug\ECARD.DL.pdb
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\bin\Debug\EntityFramework.xml
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\bin\Debug\EntityFramework.SqlServer.xml
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\obj\Debug\ECARD.DL.csproj.AssemblyReference.cache
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\obj\Debug\ECARD.DL.csproj.CoreCompileInputs.cache
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\obj\Debug\ECARD.DL.csproj.CopyComplete
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\obj\Debug\ECARD.DL.dll
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\ECARD.DL\obj\Debug\ECARD.DL.pdb

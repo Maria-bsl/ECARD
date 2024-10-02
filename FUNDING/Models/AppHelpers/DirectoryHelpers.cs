@@ -67,6 +67,15 @@ namespace FUNDING.Models.AppHelpers
       }
     }
 
+    public static string Pdf_Report_DirVirtualDirectory
+    {
+        get
+        {
+            string directoryPath = "~/reports/";
+            MakeSureDirectoryExists(directoryPath);
+            return directoryPath;
+        }
+    }
     public static string FontFamilyVirtualDirectory
     {
       get

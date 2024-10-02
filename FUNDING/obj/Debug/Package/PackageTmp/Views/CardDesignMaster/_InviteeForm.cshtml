@@ -1,0 +1,11 @@
+﻿@model  List<FUNDING.Models.CardGererationMaster.InviteeItem>
+
+<form method="post" action="ProcessSelection">
+    <select multiple="multiple" name="selectedItems" id="invites" class="form-control ui selection dropdown fluid">
+        @foreach (var item in Model)
+        {
+            <option value="@item.v">@item.visitor_name</option>
+        }
+    </select>
+    <input type="submit" class="button btn-sm btn-outline-primary" value="Submit">
+</form>

@@ -160,6 +160,23 @@
           <Property Name="posted_by" Type="varchar" MaxLength="20" />
           <Property Name="posted_date" Type="datetime" />
         </EntityType>
+        <EntityType Name="contents_template_master">
+          <Key>
+            <PropertyRef Name="cont_mas_sno" />
+          </Key>
+          <Property Name="cont_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="messaging_service_sid" Type="varchar" MaxLength="120" />
+          <Property Name="content_sid" Type="varchar" MaxLength="120" />
+          <Property Name="content_name" Type="varchar" MaxLength="100" />
+          <Property Name="content_code" Type="varchar" MaxLength="20" />
+          <Property Name="content_variables" Type="varchar" MaxLength="300" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="posted_date" Type="datetime" />
+          <Property Name="posted_by" Type="varchar" MaxLength="20" />
+          <Property Name="effective_date" Type="varchar" MaxLength="20" />
+          <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+          <Property Name="misc_column2" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="contributor_details">
           <Key>
             <PropertyRef Name="contri_det_sno" />
@@ -335,6 +352,23 @@
           <Property Name="no_of_email" Type="int" />
           <Property Name="no_of_wup" Type="int" />
           <Property Name="pack_det_sno" Type="bigint" />
+        </EntityType>
+        <EntityType Name="exception_error_logs">
+          <Key>
+            <PropertyRef Name="exce_err_sno" />
+          </Key>
+          <Property Name="exce_err_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="triggered" Type="varchar" MaxLength="120" />
+          <Property Name="method" Type="varchar" MaxLength="120" />
+          <Property Name="exception" Type="varchar" MaxLength="200" />
+          <Property Name="trycatch" Type="varchar" MaxLength="120" />
+          <Property Name="class_name" Type="varchar" MaxLength="20" />
+          <Property Name="message" Type="varchar" MaxLength="120" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="posted_date" Type="datetime" />
+          <Property Name="posted_by" Type="varchar" MaxLength="20" />
+          <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+          <Property Name="misc_column2" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="expenditure_details">
           <Key>
@@ -642,8 +676,11 @@
           <Property Name="sms_status" Type="varchar" MaxLength="200" />
           <Property Name="channel_install_sid" Type="varchar" MaxLength="100" />
           <Property Name="channel_to_address" Type="varchar" MaxLength="200" />
+          <Property Name="whatsapp_from" Type="varchar" MaxLength="100" />
+          <Property Name="whatsapp_to" Type="varchar" MaxLength="100" />
           <Property Name="messaging_service_sid" Type="varchar" MaxLength="200" />
           <Property Name="message_status" Type="varchar" MaxLength="200" />
+          <Property Name="messaging_sid" Type="varchar" MaxLength="200" />
           <Property Name="posted_date" Type="datetime" />
           <Property Name="posted_by" Type="varchar" MaxLength="20" />
           <Property Name="channel_prefix" Type="varchar" MaxLength="200" />
@@ -732,6 +769,25 @@
           <Property Name="misc_column1" Type="varchar" MaxLength="200" />
           <Property Name="misc_column2" Type="varchar" MaxLength="100" />
           <Property Name="misc_column3" Type="datetime" />
+        </EntityType>
+        <EntityType Name="whatsapp_master">
+          <Key>
+            <PropertyRef Name="whats_mas_sno" />
+          </Key>
+          <Property Name="whats_mas_sno" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="account_sid" Type="varchar" MaxLength="120" />
+          <Property Name="auth_token" Type="varchar" MaxLength="120" />
+          <Property Name="whatsapp_sender" Type="varchar" MaxLength="20" />
+          <Property Name="status" Type="varchar" MaxLength="20" />
+          <Property Name="posted_date" Type="datetime" />
+          <Property Name="posted_by" Type="varchar" MaxLength="20" />
+          <Property Name="callback_url" Type="varchar" MaxLength="200" />
+          <Property Name="webhook_incoming" Type="varchar" MaxLength="200" />
+          <Property Name="webhook_error_log" Type="varchar" MaxLength="200" />
+          <Property Name="effective_date" Type="varchar" MaxLength="20" />
+          <Property Name="misc_column1" Type="varchar" MaxLength="100" />
+          <Property Name="misc_column2" Type="varchar" MaxLength="200" />
+          <Property Name="misc_column3" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="wup_event_text">
           <Key>
@@ -1161,6 +1217,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <EntitySet Name="card_state_master" EntityType="Self.card_state_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cash_collection" EntityType="Self.cash_collection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="con_notificaiton_master" EntityType="Self.con_notificaiton_master" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="contents_template_master" EntityType="Self.contents_template_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="contributor_details" EntityType="Self.contributor_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="countries" EntityType="Self.countries" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cust_users" EntityType="Self.cust_users" Schema="dbo" store:Type="Tables" />
@@ -1172,6 +1229,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <EntitySet Name="emp_detail" EntityType="Self.emp_detail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="event_details" EntityType="Self.event_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="exception_error_logs" EntityType="Self.exception_error_logs" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="expenditure_details" EntityType="Self.expenditure_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="localization_master" EntityType="Self.localization_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="modules_master" EntityType="Self.modules_master" Schema="dbo" store:Type="Tables" />
@@ -1198,6 +1256,7 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <EntitySet Name="visitor_details" EntityType="Self.visitor_details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ward_master" EntityType="Self.ward_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="webhook_error_log" EntityType="Self.webhook_error_log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="whatsapp_master" EntityType="Self.whatsapp_master" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="wup_event_text" EntityType="Self.wup_event_text" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="bud_mas_sno_even_rk" Association="Self.bud_mas_sno_even_rk">
             <End Role="event_details" EntitySet="event_details" />
@@ -2391,6 +2450,9 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <EntitySet Name="twilio_notification_log" EntityType="ECARD.DL.EDMX.twilio_notification_log" />
           <EntitySet Name="twilio_send_log" EntityType="ECARD.DL.EDMX.twilio_send_log" />
           <EntitySet Name="webhook_error_log" EntityType="ECARD.DL.EDMX.webhook_error_log" />
+          <EntitySet Name="exception_error_logs" EntityType="ECARD.DL.EDMX.exception_error_logs" />
+          <EntitySet Name="contents_template_master" EntityType="ECARD.DL.EDMX.contents_template_master" />
+          <EntitySet Name="whatsapp_master" EntityType="ECARD.DL.EDMX.whatsapp_master" />
         </EntityContainer>
         <EntityType Name="card_measurement">
           <Key>
@@ -2669,6 +2731,9 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <Property Name="misc_column1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="misc_column2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="misc_column3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="whatsapp_from" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="whatsapp_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="messaging_sid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="twilio_send_log">
           <Key>
@@ -2719,6 +2784,59 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <Property Name="misc_column1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="misc_column3" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="exception_error_logs">
+          <Key>
+            <PropertyRef Name="exce_err_sno" />
+          </Key>
+          <Property Name="exce_err_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="triggered" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="method" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="exception" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="trycatch" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="class_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="message" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="posted_date" Type="DateTime" Precision="3" />
+          <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="contents_template_master">
+          <Key>
+            <PropertyRef Name="cont_mas_sno" />
+          </Key>
+          <Property Name="cont_mas_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="messaging_service_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="content_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="content_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="content_variables" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="posted_date" Type="DateTime" Precision="3" />
+          <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="effective_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="whatsapp_master">
+          <Key>
+            <PropertyRef Name="whats_mas_sno" />
+          </Key>
+          <Property Name="whats_mas_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="account_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="auth_token" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="whatsapp_sender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="posted_date" Type="DateTime" Precision="3" />
+          <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="callback_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="webhook_incoming" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="webhook_error_log" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="effective_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="misc_column3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -3443,6 +3561,9 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
           <EntitySetMapping Name="twilio_notification_log">
             <EntityTypeMapping TypeName="ECARD.DL.EDMX.twilio_notification_log">
               <MappingFragment StoreEntitySet="twilio_notification_log">
+                <ScalarProperty Name="messaging_sid" ColumnName="messaging_sid" />
+                <ScalarProperty Name="whatsapp_to" ColumnName="whatsapp_to" />
+                <ScalarProperty Name="whatsapp_from" ColumnName="whatsapp_from" />
                 <ScalarProperty Name="misc_column3" ColumnName="misc_column3" />
                 <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
                 <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
@@ -3511,6 +3632,62 @@ warning 6035: The relationship 'role_sno_rk' has columns that are not part of th
                 <ScalarProperty Name="sid" ColumnName="sid" />
                 <ScalarProperty Name="account_sid" ColumnName="account_sid" />
                 <ScalarProperty Name="sno" ColumnName="sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="exception_error_logs">
+            <EntityTypeMapping TypeName="ECARD.DL.EDMX.exception_error_logs">
+              <MappingFragment StoreEntitySet="exception_error_logs">
+                <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+                <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+                <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+                <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="message" ColumnName="message" />
+                <ScalarProperty Name="class_name" ColumnName="class_name" />
+                <ScalarProperty Name="trycatch" ColumnName="trycatch" />
+                <ScalarProperty Name="exception" ColumnName="exception" />
+                <ScalarProperty Name="method" ColumnName="method" />
+                <ScalarProperty Name="triggered" ColumnName="triggered" />
+                <ScalarProperty Name="exce_err_sno" ColumnName="exce_err_sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="contents_template_master">
+            <EntityTypeMapping TypeName="ECARD.DL.EDMX.contents_template_master">
+              <MappingFragment StoreEntitySet="contents_template_master">
+                <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+                <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+                <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+                <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="content_variables" ColumnName="content_variables" />
+                <ScalarProperty Name="content_code" ColumnName="content_code" />
+                <ScalarProperty Name="content_name" ColumnName="content_name" />
+                <ScalarProperty Name="content_sid" ColumnName="content_sid" />
+                <ScalarProperty Name="messaging_service_sid" ColumnName="messaging_service_sid" />
+                <ScalarProperty Name="cont_mas_sno" ColumnName="cont_mas_sno" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="whatsapp_master">
+            <EntityTypeMapping TypeName="ECARD.DL.EDMX.whatsapp_master">
+              <MappingFragment StoreEntitySet="whatsapp_master">
+                <ScalarProperty Name="misc_column3" ColumnName="misc_column3" />
+                <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+                <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+                <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+                <ScalarProperty Name="webhook_error_log" ColumnName="webhook_error_log" />
+                <ScalarProperty Name="webhook_incoming" ColumnName="webhook_incoming" />
+                <ScalarProperty Name="callback_url" ColumnName="callback_url" />
+                <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+                <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="whatsapp_sender" ColumnName="whatsapp_sender" />
+                <ScalarProperty Name="auth_token" ColumnName="auth_token" />
+                <ScalarProperty Name="account_sid" ColumnName="account_sid" />
+                <ScalarProperty Name="whats_mas_sno" ColumnName="whats_mas_sno" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

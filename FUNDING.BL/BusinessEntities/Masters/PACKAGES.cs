@@ -151,7 +151,7 @@ namespace FUNDING.BL.BusinessEntities.Masters
         {
             using (ECARDAPPEntities ecardappEntities = new ECARDAPPEntities())
             {
-                package_details entity = ecardappEntities.package_details.Where<package_details>((Expression<Func<package_details, bool>>)(n => n.pack_det_sno == no)).FirstOrDefault<package_details>();
+                package_details entity = ecardappEntities.package_details.Where(n => n.pack_det_sno == no).FirstOrDefault();
                 if (entity == null)
                     return;
                 ecardappEntities.package_details.Remove(entity);

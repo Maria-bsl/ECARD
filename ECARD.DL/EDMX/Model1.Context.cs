@@ -71,5 +71,8 @@ namespace ECARD.DL.EDMX
         public virtual DbSet<twilio_notification_log> twilio_notification_log { get; set; }
         public virtual DbSet<twilio_send_log> twilio_send_log { get; set; }
         public virtual DbSet<webhook_error_log> webhook_error_log { get; set; }
+        public virtual DbSet<exception_error_logs> exception_error_logs { get; set; }
+        public virtual DbSet<contents_template_master> contents_template_master { get; set; }
+        public virtual DbSet<whatsapp_master> whatsapp_master { get; set; }
     }
 }

@@ -30,5 +30,8 @@ namespace ECARD.DL.EDMX
         public string misc_column1 { get; set; }
         public string misc_column2 { get; set; }
         public string misc_column3 { get; set; }
+        public string whatsapp_from { get; set; }
+        public string whatsapp_to { get; set; }
+        public string messaging_sid { get; set; }
     }
 }

@@ -405,6 +405,8 @@
     <Compile Include="Controllers\UpdatepwdController.cs" />
     <Compile Include="Controllers\VisitorsController.cs" />
     <Compile Include="Controllers\VisitorVerificationController.cs" />
+    <Compile Include="Controllers\WhatsAppConfigController.cs" />
+    <Compile Include="Controllers\WhatsAppMasterController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -472,6 +474,8 @@
     <Compile Include="Models\ViewModels\VisitorsBulkUpload.cs" />
     <Compile Include="Models\webhook_error_log.cs" />
     <Compile Include="Models\Webhook_payload.cs" />
+    <Compile Include="Models\WhatsApp\WhatsAppConfig.cs" />
+    <Compile Include="Models\WhatsApp\WhatsAppMaster.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -9848,6 +9852,12 @@
     <Content Include="Views\CardDesignMaster\WhatsAppNotificationCards.cshtml" />
     <Content Include="Views\CardDesignMaster\WhatsAppNotification_old.cshtml" />
     <Content Include="Views\CardDesignMaster\_InviteeForm.cshtml" />
+    <Content Include="Views\CardDesignMaster\WhatsAppNotificationCards - Copy.cshtml" />
+    <Content Include="Views\CardDesignMaster\WhatsAppNotification - Copy.cshtml" />
+    <Content Include="Views\WhatsAppConfig\WhatsAppConfig.cshtml" />
+    <Content Include="Views\WhatsAppMaster\WhatsAppMaster.cshtml" />
+    <Content Include="Views\WhatsAppMaster\Index.cshtml" />
+    <Content Include="Views\WhatsAppConfig\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

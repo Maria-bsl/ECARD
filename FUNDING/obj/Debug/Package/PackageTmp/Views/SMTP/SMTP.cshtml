@@ -1,0 +1,338 @@
+﻿@{
+    ViewBag.Title = "SMTP";
+    Layout = "~/Views/Shared/Funding.cshtml";
+}
+
+@section styles{
+    <style>
+        form label {
+            margin-bottom: .25rem;
+        }
+    </style>
+}
+
+@section scripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        bindSMTPDetails();
+        $("#btnSubmit").click(function () {
+            opType = jQuery("#hdnEmployee").val();
+            var message = validateEmployeesmtp();
+            if (message.length > 0 && opType != 'D') {
+                notifyMessage(message, 'danger');
+            }
+            else {
+                if (opType == 'C') {
+                    var x = confirm("Are you sure you want to save?");
+                    if (x) {
+                        addSMTP();
+                    }
+                } else {
+                    var x = confirm("Are you sure you want to Update?");
+                    if (x) {
+                        addSMTP();
+                    }
+                }
+            }
+        })
+        $("#btnDelete").click(function () {
+            delSMTP();
+        });
+    });
+    var glob;
+    function bindSMTPDetails() {
+       jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetSMTPDetails", "SMTP")',
+            data: '{}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                jQuery("#tbl-smtp tbody").empty();
+                if (jQuery.fn.DataTable.isDataTable("#tbl-smtp")) {
+                    jQuery('#tbl-smtp').DataTable().clear().destroy();
+                }
+                 if (data != 0) {
+                     var i = 1;
+                     jQuery.each(data, function (key, value) {
+                        var row = '<tr>' +
+                        '<td>' + i + '</td>' +
+                        '<td>' + value.From_Address + '</td>' +
+                        '<td>' + value.SSL_Enable + '</td>' +
+                        '<td>' + value.SMTP_Address + '</td>' +
+                        '<td>' + value.SMTP_Port + '</td>' +
+                         '<td>' + value.SMTP_UName + '</td>' +
+                         '<td ><button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#modal-smtp" id="btn' + value.SNO + '" data-sid="' + value.SNO + '" data-pwd="' + value.SMTP_Password + '"  value="Edit" onclick="showSMTPModal(this)"><i class="fas fa-pen" ></i ></button ></td>' +
+                        //'<td ><button class="btn btn-outline-secondary btn-sm" data-toggle="modal" data-target="#modal-smtp" id="btn' + value.SNO + '" data-sid="' + value.SNO + '" data-pwd="' + value.SMTP_Password + '"  value="Edit" onclick="showSMTPModal(this)"><i class="fas fa-pen" ></i ></button >&nbsp;&nbsp;&nbsp;<button class="btn btn-outline-dark btn-sm" data-sid="' + value.SNO + '" id="btnDelete" data-pwd="' + value.SMTP_Password + '" data-rec="0" onclick="delSMTP(this)"><i class="fas fa-trash" aria-hidden="true"></i></button></td>' +
+                        '</tr>';
+                         i++;
+                         jQuery("#tbl-smtp tbody").append(row);
+                     });
+                 }
+                applyDatatable('tbl-smtp');
+            }
+       })
+    }
+    function delSMTP(e) {
+        var x = confirm("Are you sure you want to delete?");
+        if (x) {
+            jQuery('#hdnEmployee').val('D');
+            cid = jQuery(e).data('sid');
+            deleteSMTP(cid);
+            return true;
+        }
+        else
+            return false;
+    }
+    @*function binddupliacteDetails(name) {
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Checkdupliacte", "SMTP")',
+            data: JSON.stringify({ 'name': name }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (data == true) {
+                    lblError12.innerHTML = "already exists User Name.";
+                     jQuery('#lblError12').css('color', 'Red');
+                }
+                 else {
+                     lblError12.innerHTML = "";
+                }
+            }
+        })
+    }*@
+    function showSMTPModal(e) {
+        var txtEmail = document.getElementById('txtEmail'),
+            txtAdd = document.getElementById('txtAdd'),
+            txtPort = document.getElementById('txtPort'),
+            txtUname = document.getElementById('txtUname'),
+            txtSID = document.getElementById('txtSID'),
+            rblGender = jQuery("input[name='gender']:checked"),
+            txtPass = document.getElementById('txtPass');
+        var tblemployee = document.getElementById('tbl-smtp'),
+            rows = tblemployee.rows,
+            hdnEmployee = document.getElementById('hdnEmployee');
+        if (e.value.indexOf('Edit') > -1) {
+            jQuery("#btnSubmit").html('@ViewData["BUpd"]');
+            for (var i = 0, row = null; i < rows.length; i++) {
+                row = rows[i];
+                if (row.cells[6].innerHTML.indexOf(e.id) > -1) {
+                    txtSID.value = jQuery(e).data('sid');
+                    txtEmail.value = row.cells[1].innerHTML;
+                    txtAdd.value = row.cells[3].innerHTML;
+                    txtPort.value = row.cells[4].innerHTML;
+                    txtUname.value = row.cells[5].innerHTML;
+                    txtPass.value = jQuery(e).data('pwd');
+                    var flag = row.cells[2].innerHTML;
+                    if (flag == 'True') {
+                        jQuery("#rbtrue").prop("checked", true);
+                        jQuery("#rbfalse").prop("checked", false);
+                    }
+                    else if (flag == 'False') {
+                        jQuery("#rbtrue").prop("checked", false);
+                        jQuery("#rbfalse").prop("checked", true);
+                    } else {
+                        jQuery("#rbtrue").prop("checked", false);
+                        jQuery("#rbfalse").prop("checked", false);
+                    }
+                    break;
+                }
+            }
+            hdnEmployee.value = 'U';
+        }
+        else if (e.value.indexOf('Add') > -1) {
+            resetSMTP();
+            jQuery("#btnSubmit").html('@ViewData["Bsav"]');
+            hdnEmployee.value = 'C';
+        }
+    }
+    function addSMTP() {
+        var message = validateEmployeesmtp(),
+            type = '',
+            opType = jQuery("#hdnEmployee").val();
+        if (message.length > 0 && opType != 'D') {
+            notifyMessage(message, 'danger');
+        }
+        else {
+            //alert(params);
+            var params = JSON.stringify(getSMTPValuessmtp());
+            jQuery.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddSMTP", "SMTP")',
+                data: params,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: function (data) {
+                    $('#modal-smtp').hide();
+                    if (opType == 'C' && data) {
+                        if (data == true) {
+                            message = jQuery("#txtEmail").val() + ' Already Exists.';
+                            type = 'danger';
+                        }
+                        else {
+                            message = jQuery("#txtEmail").val() + ' Successfully Created';
+                            type = 'success';
+                        }
+                    }
+                    else if (opType == 'U' && data) {
+                        message = jQuery("#txtEmail").val() + ' Successfully Updated';
+                        type = 'success';
+                    }
+                    else if (opType == 'D' && data) {
+                        message = jQuery("#txtEmail").val() + ' Details deleted successfully.';
+                        type = 'success';
+                    }
+                    $('.modal-backdrop').hide();
+                    jQuery("#loader").css("display", "none");
+                    notifyMessage(message, type, 5);
+                    bindSMTPDetails();
+                }
+            })
+        }
+    }
+    function deleteSMTP(cid) {
+        type = '',
+            opType = jQuery("#hdnEmployee").val();
+        var params = JSON.stringify(getSMTPID(cid));
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("DeleteSMTP", "SMTP")',
+            data: params,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                if (opType == 'D' && data) {
+                    if (data == true) {
+                        message = jQuery("#txtEmail").val() + ' Details is in Use,Cannot be Deleted.';
+                        type = 'danger';
+                    }
+                    else {
+                        message = jQuery("#txtEmail").val() + ' Successfully Deleted';
+                        type = 'success';
+                    }
+                }
+                notifyMessage(message, type);
+                bindSMTPDetails();
+            }
+        })
+    }
+    </script>
+}
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["smtp"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Setup", "Setup")">@ViewData["hom"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["smtp"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+        @* <h5 class="card-title" id="lblsm">SMTP</h5> *@
+        <div class="form-group text-end">
+            <button type="button" id="btnAdd" value="Add" data-sid="0" class="btn btn-primary btn-rounded" onclick="showSMTPModal(this);" data-toggle="modal" data-target="#modal-smtp">
+                <i class="fas fa-plus"></i>
+                @ViewData["Bct"]
+            </button>
+            <input type="hidden" id="hdnEmployee" />
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="tbl-smtp" class="table table-bordered zero-configuration dataTable rounded display">
+                <thead>
+                    <tr>
+                        <th class="th_sno">@ViewData["Bsno"]</th>
+                        <th>@ViewData["frmemid"]</th>
+                        <th class="th_actions">@ViewData["sslenb"]</th>
+                        <th>@ViewData["smtpaddr"]</th>
+                        <th class="th_actions">@ViewData["prtnum"]</th>
+                        <th class="th_actions">@ViewData["uname"]</th>
+                        <th class="th_actions">@ViewData["Bact"]</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<!-- [MODALS] -->
+<div class="modal fade" id="modal-smtp" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false" aria-labelledby="believerCreateLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered believerModal modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="lblsm1">@ViewData["smtp"]</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <form class="col-12 p-0 mx-auto" action="AddSMTP" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdFrom" class="f-label_align label-130">@ViewData["frmemid"]<span class="text-danger">*</span></label>
+                            <div class="d-flex flex-column w-100">
+                                <input type="text" class="form-control" id="txtEmail" maxlength="200" placeholder="Enter From Email ID" onkeyup="ValidateEmail(this)" />
+                                <input type="hidden" class="form-control hidden" id="txtSID">
+                                <label id="lblError"></label>
+                            </div>
+                        </div>
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtSSL" class="me-4">
+                                @ViewData["sslenb"]
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="radio" name="gender" id="rbtrue" value="True" checked> True
+                                </label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <label class="form-check-label ml-2">
+                                    <input class="form-check-input" type="radio" name="gender" id="rbfalse" value="False"> False
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdAddress" class="f-label_align label-130">@ViewData["smtpaddr"]<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="txtAdd" maxlength="200" placeholder="Enter Address" />
+                        </div>
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdPort" class="f-label_align label-130">@ViewData["prtnum"]<span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="txtPort" maxlength="10" placeholder="Enter Port Number">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdUser" class="f-label_align label-130">@ViewData["uname"]<span class="text-danger">*</span></label>
+                            <div class="d-flex flex-column w-100">
+                                <input type="text" class="form-control " id="txtUname" maxlength="200" @*onkeyup="checkduplicate(this)"*@ placeholder="Enter Username">
+                                <span id="lblError12"></span>
+                            </div>
+                        </div>
+                        <div class="form-group flex_form-group align-items-baseline col-md-10 col-lg-6">
+                            <label for="txtdPass" class="f-label_align label-130">@ViewData["pwd"]<span class="text-danger">*</span></label>
+                            <input type="password" class="form-control" id="txtPass" maxlength="200" placeholder="Enter Password">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">@ViewData["Bsav"]</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">@ViewData["Bclo"]</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

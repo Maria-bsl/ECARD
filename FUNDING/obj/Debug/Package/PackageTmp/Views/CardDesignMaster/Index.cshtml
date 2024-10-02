@@ -1,0 +1,1517 @@
+﻿@model FUNDING.Models.CardGenerationModule.DataLayer.CardDesignMasterViewModel
+
+@{ Layout = "~/Views/Shared/_CardDesignMaster.cshtml"; }
+
+@section Styles{
+    <link href="~/Content/CardDesignStyles.css" rel="stylesheet" />
+    <link href="~/Scripts/Coloris-main/coloris.min.css" rel="stylesheet" />
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+
+
+    <style>
+
+        #pills-fontFamilies li>a{
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .coloris{
+            width: 200px;
+        }
+
+       @* .card-main-template {
+            background-image: url("@Url.Content(ViewBag.DefaultCardTemplate)");
+        }
+*@
+        .card-item[data-content="event-invitee"] span,
+        .card-item[data-content="table_number_label"] span,
+        .card-item[data-content="card_size_label"] span,
+        .card-item[data-content="table_number_digit"] span {
+            font-family: acme;
+            line-height: 1.25;
+        }
+
+        .card-qr-code {
+            background: url( @Url.Content(ViewBag.DefaultQRCode) );
+        }
+
+        .card-design-wait{
+            pointer-events: none;
+        }
+        .card-design-wait>div{
+            display: inline-block !important;
+        }
+
+        .font-size-wrapper{
+            width: 120px;
+        }
+
+        #font-size-ui {
+            min-height: 32px;
+            max-height: 32px;
+            max-width: 55px;
+        }
+
+        #font-size-ui:focus {
+            box-shadow: 0 0 0 .05rem rgba(13,110,253,.25);
+        }
+
+        .font-size-wrapper > span {
+            cursor: pointer;
+        }
+
+        .font-size-wrapper > span:hover {
+            background-color: #E6EAEE;
+        }
+
+        .accordion-item,
+        .accordion-button {
+            background-color: #fff;
+        }
+
+        select.ui.dropdown {
+            height: 100px !important;
+        }
+
+
+        .select2.select2-container.select2-container--default,
+        .iti.iti--allow-dropdown.iti--separate-dial-code {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow,
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 38px;
+            width: 278px;
+        }
+
+        .button-text.on-submit {
+            visibility: hidden !important;
+        }
+
+        .typing-loader {
+            width: 6px;
+            height: 6px;
+            -webkit-animation: line 1s linear infinite alternate;
+            -moz-animation: line 1s linear infinite alternate;
+            animation: line 1s linear infinite alternate;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        @@-webkit-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@-moz-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+    </style>
+}
+
+
+<div class="card-stage-wrapper d-flex">
+    <div class="card-stage d-flex w-100">
+        <div class="d-flex align-items-start position-relative">
+            <div class="nav flex-column nav-pills py-1 px-1 h-100" id="v-pills-tab" role="tablist"
+                 aria-orientation="vertical">
+                <button class="nav-link active" id="pills-fillText-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-fillText" type="button" role="tab" aria-controls="pills-fillText"
+                        aria-selected="false">
+                    <i class="fas fa-pencil-alt"></i>
+                    <span>Fill Text</span>
+                </button>
+                <button class="nav-link" id="pills-templates-tab" data-bs-toggle="pill"
+                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
+                        aria-selected="true">
+                    <!-- <i class="far fa-file-image"></i> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentColor" fill-rule="evenodd"
+                              d="M19.5 10V5a.5.5 0 0 0-.5-.5h-4.5V10h5zm0 1.5h-5v8H19a.5.5 0 0 0 .5-.5v-7.5zm-6.5-7H5a.5.5 0 0 0-.5.5v14c0 .28.22.5.5.5h8v-15zM5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5c0-1.1.9-2 2-2z">
+                        </path>
+                    </svg>
+                    <span>Templates</span>
+                </button>
+                <button class="nav-link sr-only" id="pills-fonts-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-fontFamilies" type="button" role="tab" aria-controls="v-pills-messages"
+                        aria-selected="false">
+                </button>
+                <button class="nav-link sr-only" id="pills-colors-tab" data-bs-toggle="pill"
+                        data-bs-target="#pills-colors" type="button" role="tab" aria-controls="v-pills-messages"
+                        aria-selected="false">
+                </button>
+            </div>
+            <div class="tab-content position-absolute py-1 px-2 show" id="v-pills-tabContent">
+                <div class="tab-pane fade show active" id="pills-fillText" role="tabpanel" aria-labelledby="pills-fillText-tab">
+                    @Html.Partial("_FillForm", Model.EventDetails)
+                </div>
+                <div class="tab-pane fade" id="v-pills-home" role="tabpanel" aria-labelledby="pills-templates-tab">
+                    @Html.Partial("_CardTemplates", Model.CardTemplatesList)
+                </div>
+                <div class="tab-pane fade" id="pills-fontFamilies" role="tabpanel"
+                     aria-labelledby="pills-fonts-tab">
+                    @Html.Partial("_FontsPartialView", Model.AllFontFamilies)
+                </div>
+                <div class="tab-pane fade" id="pills-colors" role="tabpanel" aria-labelledby="pills-colors-tab">
+                    @Html.Partial("_ColorList")
+                </div>
+
+                @*<div class="tab-toggle-button d-flex justify-content-center align-items-center">
+            <i class="fas fa-angle-left"></i>
+        </div>*@
+            </div>
+        </div>
+        <div class="card-main-viewport d-flex flex-column c-vw-resized w-100">
+            <div class="top-controls d-flex align-items-center py-1 px-2">
+                <button class="btn btn-outline-secondary border-0 active me-1 tab-toggle-button">
+                    <i class="fas fa-outdent"></i>
+                </button>
+
+                <button id="font-tab" class="btn btn-outline-secondary border-0 active me-1 min-width-150px">
+                    <span class="small">Acme</span>
+                    <i class="fas fa-search"></i>
+                </button>
+
+                <div class="font-size-wrapper input-group px-1">
+                    <span class="input-group-text" id="decrease-font-size"> <i class="fas fa-minus"></i> </span>
+                    <input id="font-size-ui" type="text" class="form-control px-1 text-center" minlength="1" maxlength="3">
+                    <span class="input-group-text" id="increase-font-size"> <i class="fas fa-plus"></i> </span>
+                </div>
+
+                <button id="colors-tab" class="btn btn-outline-secondary border-0 active me-1">
+                    <span class="item-color"></span>
+                </button>
+
+                <button id="bold-button" class="btn btn-outline-secondary border-0 me-1">
+                    <i class="fas fa-bold"></i>
+                </button>
+
+                <button id="italic-button" class="btn btn-outline-secondary border-0 me-1">
+                    <i class="fas fa-italic"></i>
+                </button>
+
+                <button id="text-underline-button" class="btn btn-outline-secondary border-0 me-1">
+                    <i class="fas fa-underline"></i>
+                </button>
+
+                <div id="align-text-wrapper" class="btn-group">
+                    <button type="button" class="btn btn-outline-secondary border-0 me-1 dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fas fa-align-center"></i>
+                    </button>
+                    <ul id="text-align-list" class="dropdown-menu p-0">
+                        <li>
+                            <a data-text-align="left" class="dropdown-item py-2" href="javascript:void(0)">
+                                <span>
+                                    <i class="fas fa-align-left"></i>&nbsp&nbsp Left
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-text-align="right" class="dropdown-item py-2" href="javascript:void(0)">
+                                <span>
+                                    <i class="fas fa-align-right"></i>&nbsp&nbsp Right
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-text-align="center" class="dropdown-item py-2" href="javascript:void(0)">
+                                <span>
+                                    <i class="fas fa-align-center"></i>&nbsp&nbsp Center
+                                </span>
+                                <i class="fas fa-check"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a data-text-align="justify" class="dropdown-item py-2" href="javascript:void(0)">
+                                <span>
+                                    <i class="fas fa-align-justify"></i>&nbsp&nbsp Justify
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+            <div class="main-viewport py-2">
+                <div class="card-main-template">
+
+                    <div class="draggable card-item" data-content="event-invitee">
+                        <span id="invitee-name-temp">Invitee Name</span>
+                        <span id="card-size-temp" style="display:none;">(Single)</span>
+                    </div>
+
+                    <div class="draggable card-item" data-content="card_size_label">
+                        <span id="card-size_label">Card Size</span>
+                    </div>
+
+                    <div class="draggable card-item" data-content="table_number_label">
+                        <span id="invitee-table_number_label">Table No</span>
+                    </div>
+
+                    <div class="draggable card-item" data-content="table_number_digit">
+                        <span id="table_no_digit">24</span>
+                    </div>
+
+                    <div class="draggable card-item card-qr-code" data-content="invitee-qr-code">
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="bottom-controls justify-content-end align-items-center px-2" style="display: flex;">
+                <div class="btn-group">
+                    <a id="download-button" class="btn btn-success btn-rounded text-white">Download Card</a>
+                    <button id="previewButton" class="btn btn-success btn-rounded text-white">
+                        <div class="spinner-border spinner-border-sm" style="display: none"></div>
+                        <span>Preview</span>
+                    </button>
+                    <button id="bulkGenerateButton" class="btn btn-primary btn-rounded text-white">
+                        <div class="spinner-border spinner-border-sm" style="display: none"></div>
+                        <span>Bulk Generate</span>
+                    </button>
+                    <a id="bulk-download-button" class="btn btn-primary btn-rounded text-white" style="display: none;">Bulk Download</a>
+
+                    <button id="previewIviteeButton" class="btn btn-success btn-rounded text-white">
+                        <div class="spinner-border spinner-border-sm" style="display: none"></div>
+                        <span>Multi-Generate</span>
+                    </button>
+                    <a id="bulk-download-button-Multiple" class="btn btn-success btn-rounded text-white" style="display: none;">Download Multiple Cards</a>@**@
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/Scripts/jquery-ui-1.13.0.custom/jquery-ui.min.js"></script>
+    @* <script src="~/Scripts/vanilla-picker-master/vanilla-picker.min.js"></script> *@
+    <script src="~/Scripts/Coloris-main/coloris.min.js"></script>
+    <script src="~/Scripts/SweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="~/Scripts/CardDesignScripts.js"></script>
+    <script src="~/select2/js/select2.min.js"></script>
+
+    <script>
+        var draggableElementData;
+        //var draggableElementData.event_id;
+
+      @*  var draggableElementData = @Html.Raw(Json.Encode(@ViewBag.DraggableElements));
+        console.log(" on first :"+draggableElementData);*@
+        var VisitorList = [];
+        var visitorlistselection = [];
+        var BulkGenerateButton = document.querySelector('#bulbGenerateButton');
+        var previewButton = document.querySelector('#previewButton');
+        var saveButton = document.querySelector('#saveButton');
+        var downloadBulkButton = document.querySelector('#bulk-download-button');
+        var downloadButton = document.querySelector('#download-button');
+        var downloadSingleButton = document.querySelector('#download-list-button');
+
+        var accordionCard = document.querySelector('#accordionExample');
+
+        function indexdraggable() {
+            var $eventDropdownList = $('#Events');
+
+            @*
+            if ($eventDropdownList.val() === '') {
+                alert("Please select event first");
+                return false;
+            }
+          draggableElementData  = @Html.Raw(Json.Encode(@ViewBag.DraggableElements));*@
+
+            $eventDropdownList.on('change', function () {
+                draggableElementData = null;
+              var event_id = $eventDropdownList.val();
+
+                // Send Data to Controller to fetch measurements
+                 $.ajax({
+                    type: 'POST',
+                     url: '@Url.Action("Measurements")/' + event_id,
+
+                     success: function (data) {
+                         console.log(data.response);
+
+                         if (data.data == 1) {
+                             draggableElementData = data.DraggableElement;
+
+                                 var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                                 $cardMainTemplate.css('background-image', cardTemplateStyle);
+
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
+
+
+                             console.log(data.response);
+
+                             fontSizeHandler();
+
+                             qrCodeResizeHandler.Init();
+
+                             inviteeDropdownListHandler();
+
+                             eventDropdownListHandler();
+
+                             draggableElementFineTunePositionHandler.initilize().handlePositioning();
+
+                             colorPickerHandler().initilize().setColor();
+
+                             toggleCardGenerationNavigationMenu();
+
+                             cardElementActionsHandler();
+
+                             generateAndPreview(draggableElementData);
+
+                             generateAndPreviewCards(draggableElementData);
+
+                             bulkGenerateAndPreview(draggableElementData);
+
+                             saveCardsMeasurements(draggableElementData);
+
+                             cardDownloadHandler();
+
+                             cardListDownloadHandler();
+
+                             bulkCardDownloadHandler();
+                             bulkCardDownloadHandlerM();
+
+                              @* accordionCard.classList.add('d-none');
+                             saveButton.classList.add('d-none'); @Html.Raw(Json.Encode(@ViewBag.DraggableElements))*@
+                         }
+                         if (data.data == 0)
+                         {
+                             draggableElementData = data.response;
+                             draggableElementData.event_id = $eventDropdownList.val();
+                             //var event_id = $eventDropdownList.val();
+
+                             console.log(draggableElementData);
+
+                             var $cardMainTemplate = $('.card-main-template');
+                             var cardTemplateStyle = 'url(' + draggableElementData.cardTemplate + ')';
+                             $cardMainTemplate.css('background-image', cardTemplateStyle);
+
+                             draggableElementData.cardTemplate = draggableElementData.cardTemplate;
+                            
+
+                             fontSizeHandler();
+
+                             qrCodeResizeHandler.Init();
+
+                             inviteeDropdownListHandler();
+
+                             eventDropdownListHandler();
+
+                             draggableElementFineTunePositionHandler.initilize().handlePositioning();
+
+                             colorPickerHandler().initilize().setColor();
+
+                             toggleCardGenerationNavigationMenu();
+
+                             cardElementActionsHandler();
+
+                             generateAndPreview(draggableElementData);
+
+                             generateAndPreviewCards(draggableElementData);
+
+                             bulkGenerateAndPreview(draggableElementData);
+
+                             saveCardsMeasurements(draggableElementData);
+
+                             cardDownloadHandler();
+
+                             cardListDownloadHandler();
+
+                             bulkCardDownloadHandler();
+                             bulkCardDownloadHandlerM();
+
+                             @*
+                             console.log("index: " + draggableElementData);
+                             accordionCard.classList.add('d-block');
+                             saveButton.classList.add('d-block'); *@
+                         }
+
+                    }
+                });
+
+            });
+
+        }
+
+
+       // var downloadButton = document.querySelector('#download-button');
+        downloadButton.classList.add('d-none');
+
+        var draggableElementFineTunePositionHandler = (function () {
+            return {
+                initilize: function () {
+                    InviteeDraggableElement().initiliazePositioning();
+
+                    CardSizeLabelDraggableElement().initiliazePositioning();
+
+                    TableNumberLabelDraggableElement().initiliazePositioning();
+
+                    TableNumberDigitDraggableElement().initiliazePositioning();
+
+                    QrCodeDraggableElement().initiliazePositioning();
+
+                    return this;
+                },
+                handlePositioning: function () {
+                    InviteeDraggableElement().handlePositioning();
+
+                    CardSizeLabelDraggableElement().handlePositioning();
+
+                    TableNumberLabelDraggableElement().handlePositioning();
+
+                    TableNumberDigitDraggableElement().handlePositioning();
+
+                    QrCodeDraggableElement().handlePositioning();
+                },
+            };
+
+            function InviteeDraggableElement() {
+                return {
+                    positionInputElement: {
+                        top: $('#invitee-details-topPosition-ui'),
+                        left: $('#invitee-details-leftPosition-ui'),
+                    },
+                    inviteeCardElement: $('.card-item[data-content="event-invitee"]'),
+                    inviteePositionObject: draggableElementData.editableElement.Position,
+
+                    initiliazePositioning: function () {
+                        positionInitialization(this.positionInputElement, this.inviteePositionObject);
+                    },
+
+                    handlePositioning: function () {
+                        handleAllPositioningScenarios(this.positionInputElement, this.inviteePositionObject, this.inviteeCardElement);
+                    }
+
+                };
+            }
+
+            function CardSizeLabelDraggableElement() {
+                return {
+                    positionInputElement: {
+                        top: $('#card-size-label-topPosition-ui'),
+                        left: $('#card-size-label-leftPosition-ui'),
+                    },
+                    cardSizeLabelCardElement: $('.card-item[data-content="card_size_label"]'),
+                    cardSizeLabelPositionObject: draggableElementData.cardSizeLabel.Position,
+
+                    initiliazePositioning: function () {
+                        positionInitialization(this.positionInputElement, this.cardSizeLabelPositionObject);
+                    },
+
+                    handlePositioning: function () {
+                        handleAllPositioningScenarios(this.positionInputElement, this.cardSizeLabelPositionObject, this.cardSizeLabelCardElement);
+                    }
+
+                };
+            }
+
+            function TableNumberLabelDraggableElement() {
+                return {
+                    positionInputElement: {
+                        top: $('#tableNumberLabel-details-topPosition-ui'),
+                        left: $('#tableNumberLabel-details-leftPosition-ui'),
+                    },
+                    tableNumberLabelCardElement: $('.card-item[data-content="table_number_label"]'),
+                    tableLabelPositionObject: draggableElementData.tableNumberLabel.Position,
+
+                    initiliazePositioning: function () {
+                        positionInitialization(this.positionInputElement, this.tableLabelPositionObject);
+                    },
+
+                    handlePositioning: function () {
+                        handleAllPositioningScenarios(this.positionInputElement, this.tableLabelPositionObject, this.tableNumberLabelCardElement);
+                    }
+
+                };
+            }
+
+            function TableNumberDigitDraggableElement() {
+                return {
+                    positionInputElement: {
+                        top: $('#tableNumberDigit-details-topPosition-ui'),
+                        left: $('#tableNumberDigit-details-leftPosition-ui'),
+                    },
+                    inviteeCardElement: $('.card-item[data-content="table_number_digit"]'),
+                    tableDigitPositionObject: draggableElementData.tableNumberDigit.Position,
+
+                    initiliazePositioning: function () {
+                        positionInitialization(this.positionInputElement, this.tableDigitPositionObject);
+                    },
+
+                    handlePositioning: function () {
+                        handleAllPositioningScenarios(this.positionInputElement, this.tableDigitPositionObject, this.inviteeCardElement);
+                    }
+
+                };
+            }
+
+            function QrCodeDraggableElement() {
+                return {
+                    positionInputElement: {
+                        top: $('#qr-code-topPosition-ui'),
+                        left: $('#qr-code-leftPosition-ui'),
+                    },
+                    qrCodeCardElement: $('.card-item[data-content="invitee-qr-code"]'),
+                    qrCodePositonObject: draggableElementData.qrCodeElement.Position,
+
+                    initiliazePositioning: function () {
+                        positionInitialization(this.positionInputElement, this.qrCodePositonObject);
+                    },
+
+                    handlePositioning: function () {
+                        handleAllPositioningScenarios(this.positionInputElement, this.qrCodePositonObject, this.qrCodeCardElement);
+                    }
+
+                };
+            }
+
+            function positionInitialization(positionInputElementObject, positonObject) {
+                var $topPositionInput = positionInputElementObject.top;
+                var $leftPositonInput = positionInputElementObject.left;
+
+                $topPositionInput.val(positonObject.TopPosition);
+                $leftPositonInput.val(positonObject.LeftPosition);
+            }
+
+            function handleAllPositioningScenarios(positionInputElementObject, positionObject, $draggableCardElement) {
+
+                (function topPositioningHandler(positionInputElementObject, positionObject, $draggableCardElement) {
+                    var $topPositionInput = positionInputElementObject.top;
+
+                    $topPositionInput.on('change', function () {
+                        positionObject.TopPosition = parseInt($topPositionInput.val());
+                        //Set card element's top position
+                        $draggableCardElement.css('top', positionObject.TopPosition);
+                        showPreviewButtonHideDownloadButton();
+                    });
+
+                })(positionInputElementObject, positionObject, $draggableCardElement);
+
+                (function leftPositioningHandler(positionInputElementObject, positionObject, $draggableCardElement) {
+                    var $leftPositionInput = positionInputElementObject.left;
+
+                    $leftPositionInput.on('change', function () {
+                        positionObject.LeftPosition = parseInt($leftPositionInput.val());
+                        //Set card element's top position
+                        $draggableCardElement.css('left', positionObject.LeftPosition);
+                        showPreviewButtonHideDownloadButton();
+                    });
+                })(positionInputElementObject, positionObject, $draggableCardElement);
+
+                (function draggablePositionHandler(positionInputElementObject, positionObject, $draggableCardElement) {
+
+                    $draggableCardElement.on('drag', function () {
+                        var topPositionValue = parseFloat($draggableCardElement.css('top'));
+                        var leftPositionValue = parseFloat($draggableCardElement.css('left'));
+
+                        positionInputElementObject.top.val(topPositionValue);
+                        positionInputElementObject.left.val(leftPositionValue);
+
+                        positionObject = { topPositionValue, leftPositionValue };
+                        showPreviewButtonHideDownloadButton();
+                    });
+                })(positionInputElementObject, positionObject, $draggableCardElement);
+
+            }
+
+        })();
+
+        var qrCodeResizeHandler = (function () {
+            return {
+                Init: function () {
+                    qrCodeResizing().initilize().resizeHandler();
+                }
+            };
+
+            function qrCodeResizing() {
+                return {
+                qrCodeSizeProperty: draggableElementData.qrCodeElement.QrCodeSize,
+                    qrCodeCardElement: $('.card-item[data-content="invitee-qr-code"]'),
+                    qrCodeResizeInputElement: $('#qr-code-size-ui'),
+
+                    initilize: function () {
+                        this.qrCodeResizeInputElement.val(this.qrCodeSizeProperty);
+                        return this;
+                    },
+
+                    resizeHandler: function () {
+                        var self = this;
+                        var $qrCodeCardElement = this.qrCodeCardElement;
+                        var $qrCodeResizeInputElement = this.qrCodeResizeInputElement;
+
+                        $qrCodeResizeInputElement.on('change', function () {
+
+                            $qrCodeCardElement.css({
+                                'width': $qrCodeResizeInputElement.val(),
+                                'height': $qrCodeResizeInputElement.val()
+                            });
+
+                            draggableElementData.qrCodeElement.QrCodeSize = parseFloat($qrCodeResizeInputElement.val());
+                            showPreviewButtonHideDownloadButton();
+                            var PreviewInviteeBtn = $("#previewIviteeButton");
+                            PreviewInviteeBtn.show();
+                            hidePreviewCardButtonShowDownloadButton();
+                        });
+                    }
+                };
+            }
+        })();
+
+        function colorPickerHandler(value) {
+
+           return  {
+                initilize: function () {
+                    Coloris({
+                        theme: 'large',
+                        themeMode: 'light', // light, dark, auto
+                        swatches: [
+                            '#264653',
+                            '#2a9d8f',
+                            '#e9c46a',
+                            '#f4a261',
+                            '#e76f51',
+                            '#d62828',
+                            '#023e8a',
+                            '#0077b6',
+                            '#0096c7',
+                            '#00b4d8',
+                            '#48cae4',
+                        ],
+                        format: 'rgb',
+                        alpha: false,
+                        focusInput: true,
+                    });
+
+                   return this;
+                },
+                setColor: function () {
+                    var $textDraggableElement = $('.card-item[data-content="event-invitee"] span');
+                    var $cardSizeDraggableElement = $('.card-item[data-content="card_size_label"]');
+                    var $tableLabelDraggableElement = $('.card-item[data-content="table_number_label"]');
+                    var $tableDigitDraggableElement = $('.card-item[data-content="table_number_digit"]');
+                    var $colorisInputField = $('.coloris');
+
+
+                    $colorisInputField.on('change', function () {
+                        var colorValue = $colorisInputField.val();
+                        setActiveColorToColorButton(colorValue);
+
+                        console.log(colorValue);
+
+                        if ($textDraggableElement.parent().hasClass('focus'))
+                        {
+                            $textDraggableElement.css('color', colorValue);
+                            console.log($textDraggableElement.css('color'));
+                            draggableElementData.editableElement.FontDetails.Color = colorValue;
+                        }
+                        else if ($cardSizeDraggableElement.hasClass('focus')) {
+                            $cardSizeDraggableElement.css('color', colorValue);
+                            draggableElementData.cardSizeLabel.FontDetails.Color = colorValue;
+                        }
+                        else if ($tableLabelDraggableElement.hasClass('focus'))
+                        {
+                            $tableLabelDraggableElement.css('color', colorValue);
+                            draggableElementData.tableNumberLabel.FontDetails.Color = colorValue;
+                        }
+                        else if ($tableDigitDraggableElement.hasClass('focus'))
+                        {
+                            $tableDigitDraggableElement.css('color', colorValue);
+                            draggableElementData.tableNumberDigit.FontDetails.Color = colorValue;
+                        }
+
+                        showPreviewButtonHideDownloadButton();
+                    });
+                },
+
+            }
+
+        }
+
+        function fontSizeHandler() {
+            var $fontSizeInput = $('#font-size-ui');
+            var $increaseFontSize = $('#increase-font-size');
+            var $decreaseFontSize = $('#decrease-font-size');
+            var $textDraggableElement = $('.card-item[data-content="event-invitee"]');
+            var $cardSizeDraggableElement = $('.card-item[data-content="card_size_label"]');
+            var $tableLabelDraggableElement = $('.card-item[data-content="table_number_label"]');
+            var $tableDigitDraggableElement = $('.card-item[data-content="table_number_digit"]');
+            var fontSizeValue = draggableElementData.editableElement.FontDetails.FontSize;
+
+
+
+            $fontSizeInput.val(fontSizeValue);
+
+            $fontSizeInput.on('change', function (e) {
+                fontSizeValue = parseInt($fontSizeInput.val());
+
+                if ($textDraggableElement.hasClass('focus'))
+                {
+                    $textDraggableElement.find('span').css('font-size', fontSizeValue);
+                    draggableElementData.editableElement.FontDetails.FontSize = fontSizeValue;
+                }
+                else if ($cardSizeDraggableElement.hasClass('focus')) {
+                    $cardSizeDraggableElement.find('span').css('font-size', fontSizeValue);
+                    draggableElementData.cardSizeLabel.FontDetails.FontSize = fontSizeValue;
+                }
+                else if ($tableLabelDraggableElement.hasClass('focus'))
+                {
+                    $tableLabelDraggableElement.find('span').css('font-size', fontSizeValue);
+                    draggableElementData.tableNumberLabel.FontDetails.FontSize = fontSizeValue;
+                }
+                else if ($tableDigitDraggableElement.hasClass('focus'))
+                {
+                    $tableDigitDraggableElement.find('span').css('font-size', fontSizeValue);
+                    draggableElementData.tableNumberDigit.FontDetails.FontSize = fontSizeValue;
+                }
+            });
+
+            $decreaseFontSize.on('click', function (e) {
+                e.preventDefault();
+
+                if (fontSizeValue > 0) {
+                    $fontSizeInput.val(--fontSizeValue);
+                    //$textDraggableElement.find('span').css('font-size', fontSizeValue);
+                    //draggableElementData.editableElement.FontDetails.FontSize = fontSizeValue;
+
+                    if ($textDraggableElement.hasClass('focus')) {
+                        $textDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.editableElement.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($cardSizeDraggableElement.hasClass('focus')) {
+                        $cardSizeDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.cardSizeLabel.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($tableLabelDraggableElement.hasClass('focus')) {
+                        $tableLabelDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.tableNumberLabel.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($tableDigitDraggableElement.hasClass('focus')) {
+                        $tableDigitDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.tableNumberDigit.FontDetails.FontSize = fontSizeValue;
+                    }
+                }
+            });
+
+            $increaseFontSize.on('click', function (e) {
+                e.preventDefault();
+
+                if (fontSizeValue <= 999) {
+                    $fontSizeInput.val(++fontSizeValue);
+                    //$textDraggableElement.css('font-size', fontSizeValue);
+                    //draggableElementData.editableElement.FontDetails.FontSize = fontSizeValue;
+
+                    if ($textDraggableElement.hasClass('focus')) {
+                        $textDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.editableElement.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($cardSizeDraggableElement.hasClass('focus')) {
+                        $cardSizeDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.cardSizeLabel.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($tableLabelDraggableElement.hasClass('focus')) {
+                        $tableLabelDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.tableNumberLabel.FontDetails.FontSize = fontSizeValue;
+                    }
+                    else if ($tableDigitDraggableElement.hasClass('focus')) {
+                        $tableDigitDraggableElement.find('span').css('font-size', fontSizeValue);
+                        draggableElementData.tableNumberDigit.FontDetails.FontSize = fontSizeValue;
+                    }
+                }
+            })
+
+        }
+
+        function eventDropdownListHandler() {
+            var $eventDropdownList = $('#Events');
+
+           // $eventDropdownList.val('');
+
+            $eventDropdownList.on('change', function () {
+                //draggableElementData.event_id = parseInt($(this).val());
+                var eventId = $eventDropdownList.val();
+                showPreviewButtonHideDownloadButton();
+                hidePreviewCardButtonShowDownloadButton();
+
+                // Send Data to Controller On change Event Id
+                 $.ajax({
+                    type: 'POST',
+                     url: '@Url.Action("AllInvitee")/' + eventId,
+
+                     success: function (data) {
+                        // console.log(data);
+                         var s = '<option value="-1">Please Select Invitees</option>';
+                         for (var i = 0; i < data.visitorSelectionList.length; i++) {
+                             s += '<option value="' + data.visitorSelectionList[i].Value + '">' + data.visitorSelectionList[i].Text + '</option>';
+                         }
+                        // console.log(data.visitorSelectionList[0]);
+
+                         $("#invites").html(s);
+
+                    }
+                });
+
+            });
+
+        }
+
+        function inviteeDropdownListHandler() {
+            var $eventDropdownList = $('#invites');
+
+           // $eventDropdownList.val('');
+
+            var $previewButton = $("#previewButton");
+            var $bulbGenerateButton = $("#bulbGenerateButton");
+            var $downloadButton = $("#download-button");
+
+            //$previewButton.hide();
+            $bulbGenerateButton.hide();
+            $downloadButton.hide();
+
+            $eventDropdownList.on('change', function () {
+               // draggableElementData.event_id = parseInt($(this).val());
+
+              @*  console.log("Event id : "+draggableElementData.event_id);*@
+
+               @*  if ($eventDropDown.val() !== '') {
+                    location.href = "@Url.Action("All-Invitees", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                } else {
+                    alert("Please select event first");
+                }*@
+
+
+                @*showPreviewButtonHideDownloadButton();
+                showPreviewCardButtonHideDownloadButton();*@
+            });
+
+        }
+
+        $(document).ready(function () {
+
+            $('#Events').select2();
+            $('#invites').select2();
+
+            indexdraggable();
+
+            inviteeDropdownListHandler();
+
+            eventDropdownListHandler();
+
+           // fontSizeHandler();
+
+            @*qrCodeResizeHandler.Init();
+
+
+            draggableElementFineTunePositionHandler.initilize().handlePositioning();
+
+            colorPickerHandler().initilize().setColor();
+
+            toggleCardGenerationNavigationMenu();
+
+            cardElementActionsHandler();
+
+            generateAndPreview(draggableElementData);
+
+            generateAndPreviewCards(draggableElementData);
+
+            bulkGenerateAndPreview(draggableElementData);
+
+            saveCardsMeasurements(draggableElementData);
+
+            cardDownloadHandler();
+
+            cardListDownloadHandler();
+
+            bulkCardDownloadHandler();*@
+        });
+
+        function toggleCardGenerationNavigationMenu() {
+            var $cardGenerationNavToggeler = $('#card-generation-nav-toggler');
+            var $sidebarMenu = $('#sidebar-menu');
+
+            $cardGenerationNavToggeler.on('click', function (e) {
+                e.preventDefault();
+
+                $sidebarMenu.toggleClass('active');
+            });
+        }
+
+        function cardElementActionsHandler() {
+            $cardElements = $('.card-item');
+
+            $.each($cardElements, function (index, cardDraggableElement) {
+                var $cardDraggableElement = $(cardDraggableElement);
+
+                $cardDraggableElement.on('click drag', function () {
+
+                    if ($cardDraggableElement.hasClass('focus')) {
+                        if ($cardDraggableElement.attr('data-content') == 'invitee-qr-code') {
+                            setPositionOnDrag($cardDraggableElement, draggableElementData.qrCodeElement);
+
+                        } else if ($cardDraggableElement.attr('data-content') == 'event-invitee') {
+                            setPositionOnDrag($cardDraggableElement, draggableElementData.editableElement);
+
+                            fontFamilyHandler($(this));
+                        } else if ($cardDraggableElement.attr('data-content') == 'card_size_label') {
+                            setPositionOnDrag($cardDraggableElement, draggableElementData.cardSizeLabel);
+
+                            fontFamilyHandler($(this));
+                        } else if ($cardDraggableElement.attr('data-content') == 'table_number_label') {
+                            setPositionOnDrag($cardDraggableElement, draggableElementData.tableNumberLabel);
+
+                            fontFamilyHandler($(this));
+                        } else if ($cardDraggableElement.attr('data-content') == 'table_number_digit') {
+                            setPositionOnDrag($cardDraggableElement, draggableElementData.tableNumberDigit);
+
+                            fontFamilyHandler($(this));
+                        }
+
+                        showPreviewButtonHideDownloadButton();
+                    }
+                });
+            });
+        }
+
+        function fontFamilyHandler($editableCardElement) {
+            var $fontLinks = $('#pills-fontFamilies li>a');
+
+            var $fontButtonText = $('#font-tab>span');
+
+            $fontLinks.on('click', function (e) {
+                e.preventDefault();
+
+                if ($editableCardElement.hasClass('focus')) {
+
+                    var elementFontFamily = $(this).css('font-family').replaceAll("\"", "");
+                    $editableCardElement.find('span').css('font-family', elementFontFamily);
+
+                    if ($editableCardElement.attr('data-content') == 'event-invitee')
+                    {
+                        draggableElementData.editableElement.FontDetails.FontName = elementFontFamily;
+                    }
+                    else if ($editableCardElement.attr('data-content') == 'card_size_label') {
+                        draggableElementData.cardSizeLabel.FontDetails.FontName = elementFontFamily;
+                    }
+                    else if ($editableCardElement.attr('data-content') == 'table_number_label')
+                    {
+                        draggableElementData.tableNumberLabel.FontDetails.FontName = elementFontFamily;
+                    }
+                    else if ($editableCardElement.attr('data-content') == 'table_number_digit')
+                    {
+                        draggableElementData.tableNumberDigit.FontDetails.FontName = elementFontFamily;
+                    }
+
+                    $fontButtonText.text(elementFontFamily);
+
+                }
+
+                showPreviewButtonHideDownloadButton();
+            });
+        }
+
+        function setPositionOnDrag($cardElement, positionProperty) {
+            //Get element instant position
+            positionProperty.Position.LeftPosition = parseFloat($cardElement.css('left'));
+            positionProperty.Position.TopPosition = parseFloat($cardElement.css('top'));
+        }
+
+        function generateAndPreview(draggableElementData) {
+            var $previewButton =  $('#previewButton');
+
+            $previewButton.css({
+                'border-top-left-radius': '60px',
+                'border-bottom-left-radius': '60px',
+            });
+
+            $previewButton.on('click', function (e) {
+                e.preventDefault();
+
+                var $PreviewInviteeButton = $('#previewIviteeButton');
+                var $bulkGeneratorButton = $('#bulkGenerateButton');
+                var $DownloadPreviewButton = $('#download-button');
+                var $bulkDownloadButton = $("#bulk-download-button");
+
+                $bulkDownloadButton.hide();
+                $PreviewInviteeButton.show();
+                $bulkGeneratorButton.show();
+                $DownloadPreviewButton.hide();
+
+                var $eventDropDown = $('#Events');
+
+                if ($eventDropDown.val() === '') {
+                    alert("Please select event first");
+                    return false;
+                }
+
+                $previewButton = $(this);
+                $previewButton.addClass('card-design-wait');
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("GenerateAndPreview", "CardDesignMaster")',
+                    data: draggableElementData,
+                    success: function (data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                        if (data.loginStatus == false) {
+                            window.location.replace('@Url.Action("Login", "Login")');
+                        } else if (data.downloadStatus == true) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            })
+                            $DownloadPreviewButton.show();
+                            $previewButton.removeClass('card-design-wait');
+                            hidePreviewButtonShowDownloadButton();
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            })
+                            showPreviewButtonHideDownloadButton();
+                        }
+                    }
+                });
+            });
+        }
+
+        function bulkGenerateAndPreview(draggableElementData) {
+
+            var $bulkGeneratorButton = $('#bulkGenerateButton');
+            var $bulkDownloadButton = $("#bulk-download-button");
+
+            $bulkDownloadButton.hide();
+            $bulkGeneratorButton.show();
+
+            $bulkGeneratorButton.css({
+                'border-top-right-radius': '60px',
+                'border-bottom-right-radius': '60px',
+            });
+
+            $bulkGeneratorButton.on('click', function (e) {
+                e.preventDefault();
+
+                var $eventDropDown = $('#Events');
+
+                if ($eventDropDown.val() === '') {
+                    alert("Please select event first");
+                    return false;
+                }
+
+                showBulkGenerateButtonHideDownloadButton();
+
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("BulkGenerateAndPreview", "CardDesignMaster")',
+                    data: draggableElementData,
+                    success: function (data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        if (data.loginStatus == false) {
+                            window.location.replace('@Url.Action("Login", "Login")');
+                        } else {
+                            if (data.downloadStatus == true) {
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: data.message
+                                })
+                                hideBulkGenerateButtonShowDownloadButton();
+
+                                $bulkGeneratorButton.hide();
+                                $bulkDownloadButton.show();
+                            } else {
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: data.message
+                                })
+                                hideBulkGenerateButtonShowDownloadButton();
+                                $bulkDownloadButton.hide();
+                                $bulkGeneratorButton.show();
+                            }
+                        }
+                    }
+                });
+
+
+            });
+        }
+
+        function showPreviewButtonHideDownloadButton() {
+            $('#previewButton').removeClass('card-design-wait').show();
+            $(downloadButton).addClass('d-none');
+        }
+
+        function hidePreviewButtonShowDownloadButton() {
+            $('#previewButton').removeClass('card-design-wait').hide();
+            $(downloadButton).removeClass('d-none');
+        }
+
+        function showBulkGenerateButtonHideDownloadButton() {
+            $('#bulkGenerateButton').find('.spinner-border').show();
+           // $(downloadButton).addClass('d-none');
+        }
+
+        function hideBulkGenerateButtonShowDownloadButton() {
+            $('#bulkGenerateButton').find('.spinner-border').hide();
+            //$(downloadButton).removeClass('d-none');
+        }
+
+        function showPreviewCardButtonHideDownloadButton() {
+          // $('#previewIviteeButton').find('.spinner-border').show();
+            $(downloadBulkButton).addClass('d-none');
+            $(BulkGenerateButton).addClass('d-none');
+            $(previewButton).addClass('d-none');
+        }
+
+        function hidePreviewCardButtonShowDownloadButton() {
+            $('#bulkGenerateButton').find('.spinner-border').hide();
+           // $(previewButton).addClass('d-none');
+        }
+
+        /*
+         *  Add Download Handler for Multiselect invitees from the list,
+         *  Pass Event_id, Invitees_id, and draggableelements to respective Jquery Ajax post
+         *  controller in CardDesignMaster Route provided to handle/process the request
+         *
+         * */
+
+        function generateAndPreviewCards(draggableElementData) {
+            var $previewIviteeButton = $('#previewIviteeButton');
+
+            $previewIviteeButton.css({
+                'border-top-left-radius': '60px',
+                'border-bottom-left-radius': '60px',
+            });
+
+            $previewIviteeButton.on('click', function (e) {
+                e.preventDefault();
+                var $inviteeDropDown = $('#Invites');
+
+                if ($inviteeDropDown.val() === '') {
+                    alert("Please select Invitees first");
+                    return false;
+                }
+               @* var $bulkGeneratorButton = $('#bulkGenerateButton');*@
+                var $bulkDownloadMButton = $("#bulk-download-button-Multiple");
+                var $previewButton = $("#previewButton");
+                var $bulbGenerateButton = $("#bulbGenerateButton");
+                var $downloadButton = $("#download-button");
+
+                $bulbGenerateButton.hide();
+                $previewButton.show();
+                $downloadButton.hide();
+
+                $bulkDownloadMButton.css({
+                    'border-top-left-radius': '60px',
+                    'border-bottom-left-radius': '60px',
+                });
+
+                @* $bulkGeneratorButton.show();*@
+
+                var getInvitees = $('#invites').val();
+
+                console.log(getInvitees); //getInvitees
+
+                VisitorList.push(getInvitees);
+
+                // VisitorList.push(visitorlistselection);
+                console.log(VisitorList);
+
+                console.log(draggableElementData);
+
+                var $eventDropDown = $('#Events');
+
+                if ($eventDropDown.val() === '') {
+                    alert("Please select event first");
+                    return false;
+                }
+
+                $previewIviteeButton = $(this);
+                $previewIviteeButton.addClass('card-design-wait');
+
+                draggableElementData.Visitors = getInvitees;
+
+                @*  console.log(draggableElementData);
+                hidePreviewButtonShowDownloadButton();
+                hidePreviewButtonShowDownloadButton();*@
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("GenerateAndPreview2", "CardDesignMaster")',
+                    data: draggableElementData,
+                    success: function (data) {
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+                        if (data.loginStatus == false) {
+                            window.location.replace('@Url.Action("Login", "Login")');
+
+                        } else if (data.downloadStatus == true) {
+                            $previewIviteeButton.removeClass('card-design-wait');
+                            $bulkDownloadMButton.removeClass('d-none');
+                            $bulkDownloadMButton.show();
+                            $previewIviteeButton.hide();
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            })
+                            //hidePreviewCardButtonShowDownloadButton();
+
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.message
+                            })
+                            hideBulkGenerateButtonShowDownloadButton();
+                            // hidePreviewCardButtonShowDownloadButton();
+                            $previewIviteeButton.show();
+                        }
+                    }
+                });
+            });
+        }
+
+
+        function cardListDownloadHandler() {
+             var $eventDropDown = $('#Events');
+             var $eventDropdownList = $('#invites');
+
+             $(downloadSingleButton).on('click', function () {
+                 if ($eventDropdownList.val() !== '') {
+                     location.href = "@Url.Action("BulkDownloadGenerateAndPreviewM", "CardDesignMaster")?event_id=" + $eventDropDown.val() + "?visitors=" +VisitorList;
+                } else {
+                    alert("Please select Invitee(s) first");
+                }
+            })
+        }
+
+        /*
+         * End Modification for Single and Multiple card downloads
+         *
+         *  */
+
+        function saveCardsMeasurements(draggableElementData) {
+              var $saveButton = $('#saveButton');
+
+            $saveButton.on('click', function (e) {
+                e.preventDefault();
+
+               @* var $bulkGeneratorButton = $('#bulkGenerateButton');*@
+                @*  var $bulkDownloadButton = $("#bulk-download-button");
+                var $previewButton = $("#previewButton");
+                var $bulbGenerateButton = $("#bulbGenerateButton");
+                var $downloadButton = $("#download-button");
+
+                $bulbGenerateButton.hide();
+                $previewButton.show();
+                $downloadButton.hide();
+
+                $bulkDownloadButton.css({
+                    'border-top-left-radius': '60px',
+                    'border-bottom-left-radius': '60px',
+                });
+
+                 $bulkGeneratorButton.show();
+
+
+                console.log(getInvitees); //getInvitees
+
+                VisitorList.push(getInvitees);
+
+                // VisitorList.push(visitorlistselection);
+                console.log(VisitorList);*@
+
+                var getInvitees = $('#invites').val();
+                console.log(draggableElementData);
+
+                var $eventDropDown = $('#Events');
+
+                if ($eventDropDown.val() === '') {
+                    alert("Please select event first");
+                    return false;
+                }
+
+                $saveButton = $(this);
+                $saveButton.addClass('card-design-wait');
+
+                draggableElementData.Visitors = getInvitees;
+
+                @*  console.log(draggableElementData);
+               hidePreviewButtonShowDownloadButton();
+                hidePreviewButtonShowDownloadButton();*@
+
+                $.ajax({
+
+                    type: 'POST',
+                    url: '@Url.Action("MeasurementHandler", "CardDesignMaster")',
+                    data: draggableElementData,
+                    success: function (data) {
+                        $saveButton.removeClass('card-design-wait');
+                        const Toast = Swal.mixin({
+                            toast: true,
+                            position: 'top-end',
+                            showConfirmButton: false,
+                            timer: 3000,
+                            timerProgressBar: true,
+                            didOpen: (toast) => {
+                                toast.addEventListener('mouseenter', Swal.stopTimer)
+                                toast.addEventListener('mouseleave', Swal.resumeTimer)
+                            }
+                        })
+
+                       @* if (data.sendStatus) {
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.response
+                            })
+                        } else {
+                            Toast.fire({
+                                icon: 'error',
+                                title: data.response
+                            })
+                        }*@
+
+                        if (data.loginStatus == false) {
+                            window.location.replace('@Url.Action("Login", "Login")');
+
+                        } else if (data.data == 1) {
+                        @*    $bulkDownloadButton.show();
+                            $previewIviteeButton.hide();*@
+                            Toast.fire({
+                                icon: 'success',
+                                title: data.message
+                            })
+                            //hidePreviewCardButtonShowDownloadButton();
+
+                        } else {
+                           @* hideBulkGenerateButtonShowDownloadButton();
+                            // hidePreviewCardButtonShowDownloadButton();
+                            $previewIviteeButton.show();*@
+                            Toast.fire({
+                                icon: 'info',
+                                title: data.message
+                            })
+                        }
+                    }
+                });
+            });
+
+        }
+
+        function cardDownloadHandler() {
+            var $eventDropDown = $('#Events');
+            $(downloadButton).on('click', function () {
+                if ($eventDropDown.val() !== '') {
+                    location.href = "@Url.Action("DownloadGenerateAndPreview", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                } else {
+                    alert("Please select event first");
+                }
+            })
+        }
+
+        function bulkCardDownloadHandler() {
+            var $eventDropDown = $('#Events');
+            $('#bulk-download-button').on('click', function () {
+                if ($eventDropDown.val() !== '') {
+                    location.href = "@Url.Action("BulkDownloadGenerateAndPreview", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                } else {
+                    alert("Please select event first");
+                }
+            })
+        }
+
+
+        function bulkCardDownloadHandlerM() {
+            var $eventDropDown = $('#Events');
+            $('#bulk-download-button-Multiple').on('click', function () {
+                if ($eventDropDown.val() !== '') {
+                    location.href = "@Url.Action("BulkDownloadGenerateAndPreviewM", "CardDesignMaster")?event_id=" + $eventDropDown.val();
+                } else {
+                    alert("Please select event first");
+                }
+            })
+        }
+
+
+    </script>
+}

@@ -84,6 +84,9 @@
         <EntityTypeShape EntityType="ECARD.DL.EDMX.twilio_notification_log" Width="2.125" PointX="14.5" PointY="16.125" />
         <EntityTypeShape EntityType="ECARD.DL.EDMX.twilio_send_log" Width="2.125" PointX="11.5" PointY="16" />
         <EntityTypeShape EntityType="ECARD.DL.EDMX.webhook_error_log" Width="2.125" PointX="17.5" PointY="16.125" />
+        <EntityTypeShape EntityType="ECARD.DL.EDMX.exception_error_logs" Width="1.75" PointX="13.625" PointY="0.75" />
+        <EntityTypeShape EntityType="ECARD.DL.EDMX.contents_template_master" Width="2.125" PointX="15.625" PointY="4.875" />
+        <EntityTypeShape EntityType="ECARD.DL.EDMX.whatsapp_master" Width="2.5" PointX="15.875" PointY="0.625" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

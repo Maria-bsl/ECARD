@@ -381,3 +381,4 @@ D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING.BL\obj\Debug\FUNDING.BL.c
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING.BL\obj\Debug\FUNDING.BL.csproj.CopyComplete
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING.BL\obj\Debug\FUNDING.BL.dll
 D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING.BL\obj\Debug\FUNDING.BL.pdb
+D:\B-ENVIT\Ecard_main_26.08.2024_Version\ECARD\FUNDING.BL\bin\Debug\ECARD.DL.pdb

@@ -718,6 +718,9 @@
     <EntitySetMapping Name="twilio_notification_log">
       <EntityTypeMapping TypeName="ECARD.DL.EDMX.twilio_notification_log">
         <MappingFragment StoreEntitySet="twilio_notification_log">
+          <ScalarProperty Name="messaging_sid" ColumnName="messaging_sid" />
+          <ScalarProperty Name="whatsapp_to" ColumnName="whatsapp_to" />
+          <ScalarProperty Name="whatsapp_from" ColumnName="whatsapp_from" />
           <ScalarProperty Name="misc_column3" ColumnName="misc_column3" />
           <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
           <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
@@ -786,6 +789,62 @@
           <ScalarProperty Name="sid" ColumnName="sid" />
           <ScalarProperty Name="account_sid" ColumnName="account_sid" />
           <ScalarProperty Name="sno" ColumnName="sno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="exception_error_logs">
+      <EntityTypeMapping TypeName="ECARD.DL.EDMX.exception_error_logs">
+        <MappingFragment StoreEntitySet="exception_error_logs">
+          <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+          <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+          <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+          <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="class_name" ColumnName="class_name" />
+          <ScalarProperty Name="trycatch" ColumnName="trycatch" />
+          <ScalarProperty Name="exception" ColumnName="exception" />
+          <ScalarProperty Name="method" ColumnName="method" />
+          <ScalarProperty Name="triggered" ColumnName="triggered" />
+          <ScalarProperty Name="exce_err_sno" ColumnName="exce_err_sno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="contents_template_master">
+      <EntityTypeMapping TypeName="ECARD.DL.EDMX.contents_template_master">
+        <MappingFragment StoreEntitySet="contents_template_master">
+          <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+          <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+          <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+          <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+          <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="content_variables" ColumnName="content_variables" />
+          <ScalarProperty Name="content_code" ColumnName="content_code" />
+          <ScalarProperty Name="content_name" ColumnName="content_name" />
+          <ScalarProperty Name="content_sid" ColumnName="content_sid" />
+          <ScalarProperty Name="messaging_service_sid" ColumnName="messaging_service_sid" />
+          <ScalarProperty Name="cont_mas_sno" ColumnName="cont_mas_sno" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="whatsapp_master">
+      <EntityTypeMapping TypeName="ECARD.DL.EDMX.whatsapp_master">
+        <MappingFragment StoreEntitySet="whatsapp_master">
+          <ScalarProperty Name="misc_column3" ColumnName="misc_column3" />
+          <ScalarProperty Name="misc_column2" ColumnName="misc_column2" />
+          <ScalarProperty Name="misc_column1" ColumnName="misc_column1" />
+          <ScalarProperty Name="effective_date" ColumnName="effective_date" />
+          <ScalarProperty Name="webhook_error_log" ColumnName="webhook_error_log" />
+          <ScalarProperty Name="webhook_incoming" ColumnName="webhook_incoming" />
+          <ScalarProperty Name="callback_url" ColumnName="callback_url" />
+          <ScalarProperty Name="posted_by" ColumnName="posted_by" />
+          <ScalarProperty Name="posted_date" ColumnName="posted_date" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="whatsapp_sender" ColumnName="whatsapp_sender" />
+          <ScalarProperty Name="auth_token" ColumnName="auth_token" />
+          <ScalarProperty Name="account_sid" ColumnName="account_sid" />
+          <ScalarProperty Name="whats_mas_sno" ColumnName="whats_mas_sno" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

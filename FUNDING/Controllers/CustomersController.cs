@@ -140,7 +140,7 @@ namespace FUNDING.Controllers
             createStatus = false,
             response = "Failed! Item does not exist."
           });
-        DateTime formatedEventStartTime = CustomersController.GetFormatedEventStartTime(customerEventDetails);
+        DateTime formatedEventStartTime = GetFormatedEventStartTime(customerEventDetails);
         event_details eventDetails = this.SaveEventDetails(customerEventDetails, formatedEventStartTime);
         this.UpdateCustomerAndEventDetails(customerAdminDetails, eventDetails);
         return (ActionResult) this.Json((object) new
@@ -158,7 +158,7 @@ namespace FUNDING.Controllers
 
     private void UpdateCustomerAndEventDetails(cust_users customerAdmin, event_details eventDetails)
     {
-      string mappedToCustomer = CustomersController.GetEventsMappedToCustomer(customerAdmin.event_det_sno, Convert.ToString(eventDetails.event_det_sno));
+      string mappedToCustomer = GetEventsMappedToCustomer(customerAdmin.event_det_sno, Convert.ToString(eventDetails.event_det_sno));
       customerAdmin.event_det_sno = mappedToCustomer;
       this._dbContext.Entry<cust_users>(customerAdmin).State = EntityState.Modified;
       string[] strArray = new string[12]
@@ -219,7 +219,7 @@ namespace FUNDING.Controllers
 
     private cust_users GetCustomerAdminDetails(CustomerEventViewModel customerEventDetails)
     {
-      return this._dbContext.cust_users.Include("customer_registration").Where<cust_users>((Expression<Func<cust_users, bool>>) (c => c.cust_reg_sno == (long?) customerEventDetails.CustomerID)).FirstOrDefault<cust_users>();
+      return this._dbContext.cust_users.Include("customer_registration").Where(c => c.cust_reg_sno == (long?) customerEventDetails.CustomerID).FirstOrDefault();
     }
 
     [HttpPost]

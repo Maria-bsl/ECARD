@@ -1,0 +1,65 @@
+﻿@model FUNDING.Models.ViewModels.VisitorsBulkUpload
+
+@{
+    AjaxOptions bulkVisitorUploadAjaxOptions = new AjaxOptions();
+    bulkVisitorUploadAjaxOptions.HttpMethod = "POST";
+    //bulkVisitorUploadAjaxOptions.UpdateTargetId = "VisitorsCount";
+    bulkVisitorUploadAjaxOptions.OnBegin = "OnBeginRequestBulkUpload";
+    bulkVisitorUploadAjaxOptions.OnSuccess = "OnSuccessRequestBulkUpload";
+    //bulkVisitorUploadAjaxOptions.OnComplete = "OnCompleteRequestBulkUpload";
+    bulkVisitorUploadAjaxOptions.OnFailure = "OnFailureRequestBulkUpload";
+    bulkVisitorUploadAjaxOptions.Confirm = "Do you want to add invitee?";
+}
+
+@using (Ajax.BeginForm(actionName: "AjaxHelperBulkUploadForm", controllerName: "Visitors", routeValues: null,
+    ajaxOptions: bulkVisitorUploadAjaxOptions, htmlAttributes: new { id = "ajaxHelperBulkUploadForm", autocomplete = "off", enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <!-- Modal -->
+    <div class="modal fade" id="ajaxHelperBulkUploadModal" tabindex="-1" role="dialog" data-bs-backdrop="static" data-keyboard="false" aria-labelledby="ajaxHelperBulkUploadLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-xl">
+            <div id="divVisitors" class="modal-content position-relative">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Register Visitor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-horizontal">
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="form-group">
+                            <div class="btn-label-style">
+                                <div class="text-end">
+                                    <a class="btn btn-outline-success btn-rounded" href="@Url.Action("DownloadExcelTemplate", "Visitors")">
+                                        <i class="fas fa-file-download"></i>
+                                        Download Template
+                                    </a>
+                                </div>
+                                @Html.LabelFor(model => model.VisitorsFileAttachment, htmlAttributes: new { @class = "form-label col-form-label col-auto" })
+                            </div>
+                            <div class="col-lg-8 col-xl-6">
+                                @Html.TextBoxFor(model => model.VisitorsFileAttachment, new { @class = "form-control", type = "file" })
+                                @Html.ValidationMessageFor(model => model.VisitorsFileAttachment, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="submitVisitors_BulkUploa" type="submit" class="btn btn-outline-info btn-rounded">Save</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Close</button>
+                </div>
+                <div class="position-absolute w-100 h-100 modal_pre-loader">
+                    <div class='d-flex justify-content-center align-items-center h-100'>
+                        <div class='ripple-pre-loader'>
+                            <div></div>
+                            <div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}

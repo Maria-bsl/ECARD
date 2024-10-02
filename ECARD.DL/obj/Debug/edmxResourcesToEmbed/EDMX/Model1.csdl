@@ -1055,6 +1055,9 @@
     <EntitySet Name="twilio_notification_log" EntityType="ECARD.DL.EDMX.twilio_notification_log" />
     <EntitySet Name="twilio_send_log" EntityType="ECARD.DL.EDMX.twilio_send_log" />
     <EntitySet Name="webhook_error_log" EntityType="ECARD.DL.EDMX.webhook_error_log" />
+    <EntitySet Name="exception_error_logs" EntityType="ECARD.DL.EDMX.exception_error_logs" />
+    <EntitySet Name="contents_template_master" EntityType="ECARD.DL.EDMX.contents_template_master" />
+    <EntitySet Name="whatsapp_master" EntityType="ECARD.DL.EDMX.whatsapp_master" />
   </EntityContainer>
   <EntityType Name="card_measurement">
     <Key>
@@ -1333,6 +1336,9 @@
     <Property Name="misc_column1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="misc_column2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="misc_column3" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="whatsapp_from" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="whatsapp_to" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="messaging_sid" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="twilio_send_log">
     <Key>
@@ -1383,5 +1389,58 @@
     <Property Name="misc_column1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
     <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="misc_column3" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="exception_error_logs">
+    <Key>
+      <PropertyRef Name="exce_err_sno" />
+    </Key>
+    <Property Name="exce_err_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="triggered" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="method" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="exception" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="trycatch" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="class_name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="message" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="posted_date" Type="DateTime" Precision="3" />
+    <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="contents_template_master">
+    <Key>
+      <PropertyRef Name="cont_mas_sno" />
+    </Key>
+    <Property Name="cont_mas_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="messaging_service_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="content_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="content_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="content_code" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="content_variables" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="posted_date" Type="DateTime" Precision="3" />
+    <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="effective_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="whatsapp_master">
+    <Key>
+      <PropertyRef Name="whats_mas_sno" />
+    </Key>
+    <Property Name="whats_mas_sno" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="account_sid" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="auth_token" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+    <Property Name="whatsapp_sender" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="status" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="posted_date" Type="DateTime" Precision="3" />
+    <Property Name="posted_by" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="callback_url" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="webhook_incoming" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="webhook_error_log" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="effective_date" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="misc_column3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
   </EntityType>
 </Schema>

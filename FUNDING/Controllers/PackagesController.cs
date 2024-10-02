@@ -61,7 +61,7 @@ namespace FUNDING.Controllers
     {
       if (this.ModelState.IsValid)
       {
-        package_details packageDetails = this._dbContext.package_details.Where<package_details>((Expression<Func<package_details, bool>>) (v => v.pack_det_sno == sno)).FirstOrDefault<package_details>();
+        package_details packageDetails = this._dbContext.package_details.Where(v => v.pack_det_sno == sno).FirstOrDefault();
         this.cy.pack_name = package_name;
         this.cy.pack_description = package_description;
         this.cy.pack_price = new long?(package_price);
@@ -78,7 +78,7 @@ namespace FUNDING.Controllers
         else if (sno > 0L && packageDetails != null)
         {
           this.cy.UpdatePackageDetails(this.cy);
-          return (ActionResult) this.Json((object) sno, JsonRequestBehavior.AllowGet);
+          return this.Json((object)sno, JsonRequestBehavior.AllowGet);
         }
       }
       return (ActionResult) null;
@@ -101,14 +101,14 @@ namespace FUNDING.Controllers
 
     public ActionResult DeletePackageDetail(int Sno)
     {
-      if (this._dbContext.event_details.Where<event_details>((Expression<Func<event_details, bool>>) (ev => ev.pack_det_sno == (long?) (long) Sno)).FirstOrDefault<event_details>() == null)
+      if (_dbContext.event_details.Where(ev => ev.pack_det_sno == (long?) Sno).FirstOrDefault() == null)
       {
         try
         {
           if (Sno > 0)
           {
-            this.cy.DeletePackage((long) Sno);
-            return (ActionResult) this.Json((object) Sno, JsonRequestBehavior.AllowGet);
+            cy.DeletePackage(Sno);
+            return Json(Sno, JsonRequestBehavior.AllowGet);
           }
         }
         catch (Exception ex)
@@ -116,7 +116,7 @@ namespace FUNDING.Controllers
           ex.Message.ToString();
         }
       }
-      return (ActionResult) this.Json((object) 0, JsonRequestBehavior.AllowGet);
+      return Json( 0, JsonRequestBehavior.AllowGet);
     }
   }
 }
