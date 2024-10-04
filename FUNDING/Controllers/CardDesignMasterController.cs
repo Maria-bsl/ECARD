@@ -8,6 +8,7 @@ using FUNDING.Models.CardGenerationModule.QR_Code;
 using FUNDING.Models.CardGererationMaster;
 using FUNDING.Models.CardGererationMaster.DraggableElements;
 using FUNDING.Models.Notifications;
+using FUNDING.Models.WhatsApp;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -34,8 +35,11 @@ namespace FUNDING.Controllers
     private readonly List<CardTemplates> _ListOfCardTemplatesVirtualPath;
     private readonly List<FontFamily> _AllFonts;
     private readonly CardEventDetailsViewModel _EventDetails;
+    private readonly WhatsAppMaster whatsAppMaster;
+    private readonly WhatsAppConfig whatsAppConfig;
+    private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
-        CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
+        
 
     public List<string>[] Lists { get; private set; }
 
@@ -689,7 +693,9 @@ namespace FUNDING.Controllers
       QrCodeDraggableElement qrCodeElement,
       string[] Visitors)
     {
-      CardDesignMasterController masterController = this;
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            CardDesignMasterController masterController = this;
       if (masterController.Session["admin1"] == null)
         return masterController.Json(new
         {
@@ -880,7 +886,9 @@ namespace FUNDING.Controllers
       QrCodeDraggableElement qrCodeElement,
       string[] Visitors)
     {
-      CardDesignMasterController masterController = this;
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            CardDesignMasterController masterController = this;
       if (masterController.Session["admin1"] == null)
         return (ActionResult) masterController.Json((object) new
         {
@@ -1016,6 +1024,7 @@ namespace FUNDING.Controllers
         CardSize = data.card_size ?? 1,
         TableNumber = data.table_number ?? ""
       };
+
       CardGenerationService.CardTemplateFile = HostingEnvironment.MapPath(cardTemplate);
       CardGenerationService.EditableElementValues = editableElement;
       CardGenerationService.CardSizeLabelElementValues = cardSizeLabel;
@@ -1023,11 +1032,12 @@ namespace FUNDING.Controllers
       CardGenerationService.TableNumberDigitElementValues = tableNumberDigit;
       CardGenerationService.QrCodeElementValues = qrCodeElement;
       CardGenerationService.IsCardSizeDisplayed = displayCardSize;
+
       var pdfGeneratedFile = CardGenerationService.PdfGenerator(invitee);
       var path = CardGenerationService.ConvertPDF2png(pdfGeneratedFile);
 
 
-            return (ActionResult) this.Json((object) new
+      return (ActionResult) this.Json((object) new
       {
         message = "Card successfully generated",
         downloadStatus = true
@@ -1246,9 +1256,10 @@ namespace FUNDING.Controllers
       EditableDraggableElement tableNumberDigit,
       QrCodeDraggableElement qrCodeElement)
     {
-       
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
 
-      CardDesignMasterController masterController = this;
+            CardDesignMasterController masterController = this;
       if (masterController.Session["admin1"] == null)
         return  masterController.Json( new
         {
@@ -1291,9 +1302,12 @@ namespace FUNDING.Controllers
           CardGenerationService.IsCardSizeDisplayed = displayCardSize;
           CardGenerationService.PdfGenerator(invitee);
 
+            /*var pdfGeneratedFile = CardGenerationService.PdfGenerator(invitee);
+            var path = CardGenerationService.ConvertPDF2png(pdfGeneratedFile);*/
+
         }));
       }
-      await Task.WhenAll( taskList2);
+      await Task.WhenAll(taskList2);
       List<Task> taskList3 = new List<Task>();
       string pdfAbsolutePath = GetPDFFormatCardDirectoryAbsolutePath();
       foreach (visitor_details visitorDetails in visitorEventDetails)
@@ -1456,7 +1470,9 @@ namespace FUNDING.Controllers
     [Route("whatsapp-notification-cards")]
     public ActionResult WhatsAppNotificationCards()
     {
-      long event_id = Convert.ToInt64(Session["EventID"]);
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            long event_id = Convert.ToInt64(Session["EventID"]);
 
             #region Event dropdownlist
 
@@ -1508,7 +1524,11 @@ namespace FUNDING.Controllers
     [Route("InvitationCards")]
     public ActionResult InvitationCards()
     {
-      long event_id = Convert.ToInt64(this.Session["EventID"]);
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+
+
+            long event_id = Convert.ToInt64(this.Session["EventID"]);
             #region Event dropdownlist
 
             //TODO: there must be a way to view only active events
@@ -1527,7 +1547,9 @@ namespace FUNDING.Controllers
     [HttpPost]
     public ActionResult OnEventChangeAction(string Event_Id)
     {
-      long event_id = Convert.ToInt64(Event_Id);
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            long event_id = Convert.ToInt64(Event_Id);
       List<visitor_details> list = this._dbContext.visitor_details.Where(v => v.event_det_sno == event_id && v.event_details.event_date >= (DateTime?) DateTime.Today).ToList();
       return list.Count() > 0 ? Json(new
       {
@@ -1548,7 +1570,10 @@ namespace FUNDING.Controllers
     [Route("whatsapp-notification1")]
     public async Task<ActionResult> WhatsAppNotification1([Bind(Include = "Event_Id, Visitor_Id, WhatsAppNumber, Message")] WhatsAppNotification whatsApp)
     {
-      if (!this.ModelState.IsValid)
+
+       if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+        if (!this.ModelState.IsValid)
         return (ActionResult) this.Json((object) new
         {
           sendStatus = false,
@@ -1579,7 +1604,7 @@ namespace FUNDING.Controllers
             {
                 await SendWhatsAppThankYouMessageAsync(mediaUri, visitorDetails);
             }
-            if (whatsApp.Message.ToString().Equals("5")) // Latest 3 buttons 
+            if (whatsApp.Message.ToString().Equals("5")) // Latest 3 buttons SW
             {
                 await SendWhatsAppCardSWLatestMessageAsync(mediaUri, visitorDetails);
             }
@@ -1595,7 +1620,9 @@ namespace FUNDING.Controllers
     [Route("whatsapp-notification-all")]
     public async Task<ActionResult> WhatsAppNotificationAll([Bind(Include = "Event_Id, Message")] WhatsAppNotification whatsApp)
     {
-      List<visitor_details> list = _dbContext.visitor_details.Where(v => v.event_det_sno == whatsApp.Event_Id).ToList();
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            List<visitor_details> list = _dbContext.visitor_details.Where(v => v.event_det_sno == whatsApp.Event_Id).ToList();
       if (list == null)
         return Json(new
         {
@@ -1732,7 +1759,9 @@ namespace FUNDING.Controllers
     [Route("whatsapp-notification")]
     public async Task<ActionResult> WhatsAppNotificationAsync(string[] Visitors, long? Event_Id, string Message)
     {
-      List<visitor_details> list = _dbContext.visitor_details.Where(v => v.event_det_sno == Event_Id).ToList();
+            if (this.Session["admin1"] == null)
+                return RedirectToAction("Login", "Login");
+            List<visitor_details> list = _dbContext.visitor_details.Where(v => v.event_det_sno == Event_Id).ToList();
       if (list == null)
         return Json( new
         {
@@ -1895,7 +1924,7 @@ namespace FUNDING.Controllers
     }
 
 
-        #region Normal EVENT WhatsApp Cards (old)
+    #region Normal EVENT WhatsApp Cards (old)
 
 
     private static async Task SendWhatsAppMessageAsyncOLD(string mediaUri,visitor_details visitorDetails)
@@ -1939,48 +1968,48 @@ namespace FUNDING.Controllers
 
         #endregion
 
-      private static async Task SendWhatsAppMessageAsyncDate(
-      string mediaUri,
-      visitor_details visitorDetails)
+    private static async Task SendWhatsAppMessageAsyncDate(
+    string mediaUri,
+    visitor_details visitorDetails)
+{
+    TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f"); // b73856e9cd8e6bd6297a51e795d52ac4
+        // Auth Token : e9de6611667b639a480a22749e48328f
+        //AccountSid : AC14b36a565bc1c9863dea07a57161bdf2
+
+        // Thank You: HX5157e3b69183e4c9138004eaa783d0d6
+
+        // Save the date : HX560227120c59ce1bc3383b843c27ba06
+
+
+
+    await Task.WhenAll(new List<Task>()
     {
-      TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f"); // b73856e9cd8e6bd6297a51e795d52ac4
-            // Auth Token : e9de6611667b639a480a22749e48328f
-            //AccountSid : AC14b36a565bc1c9863dea07a57161bdf2
-
-            // Thank You: HX5157e3b69183e4c9138004eaa783d0d6
-
-            // Save the date : HX560227120c59ce1bc3383b843c27ba06
-
-
-
-        await Task.WhenAll(new List<Task>()
-      {
-        Task.Run(() =>
+    Task.Run(() =>
+    {
+        string str = JsonConvert.SerializeObject( new Dictionary<string, object>()
         {
-          string str = JsonConvert.SerializeObject( new Dictionary<string, object>()
-          {
-            {"1",visitorDetails.visitor_name},
-            {"2",mediaUri}
-          }, Formatting.Indented);
-                  PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
-                  string contentVariables = str;
-                    var messageResponse  =  MessageResource.CreateAsync(new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no), from: from, messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068", contentSid: "HX560227120c59ce1bc3383b843c27ba06", contentVariables: contentVariables);
+        {"1",visitorDetails.visitor_name},
+        {"2",mediaUri}
+        }, Formatting.Indented);
+                PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+                string contentVariables = str;
+                var messageResponse  =  MessageResource.CreateAsync(new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no), from: from, messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068", contentSid: "HX560227120c59ce1bc3383b843c27ba06", contentVariables: contentVariables);
 
 
-                    // Extract and handle the response here
-                    System.Diagnostics.Debug.WriteLine($"Message SID: {messageResponse.Result.Sid}");
-                    System.Diagnostics.Debug.WriteLine($"Message Status: {messageResponse.Status}");
-                    System.Diagnostics.Debug.WriteLine($"Error Code (if any): {messageResponse.Result.ErrorCode}");
-                    System.Diagnostics.Debug.WriteLine($"Error Message (if any): {messageResponse.Result.ErrorMessage}");
-                    System.Diagnostics.Debug.WriteLine($"Message Body: {messageResponse.Result.Body}");
-                    System.Diagnostics.Debug.WriteLine($"Message Exception :{messageResponse.Exception}");
-                    System.Diagnostics.Debug.WriteLine($"Message AccountSid: {messageResponse.Result.AccountSid}");
+                // Extract and handle the response here
+                System.Diagnostics.Debug.WriteLine($"Message SID: {messageResponse.Result.Sid}");
+                System.Diagnostics.Debug.WriteLine($"Message Status: {messageResponse.Status}");
+                System.Diagnostics.Debug.WriteLine($"Error Code (if any): {messageResponse.Result.ErrorCode}");
+                System.Diagnostics.Debug.WriteLine($"Error Message (if any): {messageResponse.Result.ErrorMessage}");
+                System.Diagnostics.Debug.WriteLine($"Message Body: {messageResponse.Result.Body}");
+                System.Diagnostics.Debug.WriteLine($"Message Exception :{messageResponse.Exception}");
+                System.Diagnostics.Debug.WriteLine($"Message AccountSid: {messageResponse.Result.AccountSid}");
 
-                })
-              });
+            })
+            });
 
             
-        }
+    }
 
         #region Send WhatsApp Cards
         // Asterick ContentSid - HX41a07b93c9290e519652b29425ff95d1
@@ -2019,14 +2048,14 @@ namespace FUNDING.Controllers
 
                 //'*'++'*''*'++'*''*'++'*''*'++'*'
                     {
-                        {"1", visitorDetails.visitor_name.ToUpper() },
-                        {"2", event_details.event_name.ToUpper() },
-                        {"3", formattedDateTime.ToUpper()},
-                        {"4", event_details.venue.ToUpper() ?? ""},
-                        {"5", mediaUri },
-                        {"6", "6" },
-                        {"7", "7" },
-                        {"8", "8" }
+                        {"1",visitorDetails.visitor_name.ToUpper()},
+                        {"2",event_details.event_name.ToUpper()},
+                        {"3",formattedDateTime.ToUpper()},
+                        {"4",event_details.venue.ToUpper() ?? ""},
+                        {"5",mediaUri},
+                        {"6","6"},
+                        {"7","7"},
+                        {"8","8"}
                     }, Formatting.Indented);
 
                     PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
@@ -2087,15 +2116,16 @@ namespace FUNDING.Controllers
 
             // Save the date : HX560227120c59ce1bc3383b843c27ba06
 
-            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
+
+            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2","e9de6611667b639a480a22749e48328f");
             // e9de6611667b639a480a22749e48328f - b73856e9cd8e6bd6297a51e795d52ac4 => old auth
 
             var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
                 {
-                    { "1", visitorDetails.visitor_name },
-                    { "2", mediaUri },
-                    {"3", "3"},
-                    {"4", "4"}
+                    {"1",visitorDetails.visitor_name},
+                    {"2",mediaUri},
+                    {"3","3"},
+                    {"4","4"}
                 }, Formatting.Indented);
 
             PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
@@ -2140,10 +2170,8 @@ namespace FUNDING.Controllers
                     date_updated = messageResponse.DateUpdated
                 };
 
-
                 context.twilio_send_log.Add(messageLog);
                 await context.SaveChangesAsync();
-
 
                 }
                     catch (Exception ex)
@@ -2175,10 +2203,10 @@ namespace FUNDING.Controllers
             {
                 var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
                     {
-                        { "1", visitorDetails.visitor_name },
-                        { "2", mediaUri },
-                        {"3", "3"},
-                        {"4", "4"}
+                        {"1",visitorDetails.visitor_name},
+                        {"2",mediaUri},
+                        {"3","3"},
+                        {"4","4"}
                     }, Formatting.Indented);
 
                 PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
@@ -2247,10 +2275,10 @@ namespace FUNDING.Controllers
         
                 var contentVariables = JsonConvert.SerializeObject(new Dictionary<string, object>()
                     {
-                        { "1", visitorDetails.visitor_name },
-                        { "2", mediaUri },
-                        {"3", "3"},
-                        {"4", "4"}
+                        {"1",visitorDetails.visitor_name},
+                        {"2",mediaUri},
+                        {"3","3"},
+                        {"4","4"}
                     }, Formatting.Indented);
 
                 PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
@@ -2545,7 +2573,7 @@ namespace FUNDING.Controllers
 
         #endregion
 
-        [ChildActionOnly]
+    [ChildActionOnly]
     public ActionResult EventDetails()
     {
       return PartialView("_FillForm", _EventDetails);

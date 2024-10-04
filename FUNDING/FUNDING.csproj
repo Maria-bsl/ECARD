@@ -366,6 +366,7 @@
     <Compile Include="Controllers\Api\InviteesController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
     <Compile Include="Controllers\Api\webhook\StatusHandlerWebHookController.cs" />
+    <Compile Include="Controllers\Api\webhook\TwilioWebhookController.cs" />
     <Compile Include="Controllers\Api\webhook\TwilioWebhookHandler.cs" />
     <Compile Include="Controllers\Api\webhook\WebHookController.cs" />
     <Compile Include="Controllers\Api_Old\CustomerApiController.cs" />
@@ -402,6 +403,7 @@
     <Compile Include="Controllers\SMSEventsController.cs" />
     <Compile Include="Controllers\SMSSETNGSController.cs" />
     <Compile Include="Controllers\SMTPController.cs" />
+    <Compile Include="Controllers\TwilioWebhookController.cs" />
     <Compile Include="Controllers\UpdatepwdController.cs" />
     <Compile Include="Controllers\VisitorsController.cs" />
     <Compile Include="Controllers\VisitorVerificationController.cs" />
@@ -9863,6 +9865,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="App_Themes\Theme1\" />
     <Folder Include="Views\Invitees\" />
+    <Folder Include="Views\TwilioWebhook\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

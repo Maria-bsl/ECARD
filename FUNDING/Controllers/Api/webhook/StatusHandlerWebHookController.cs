@@ -8,23 +8,32 @@ using ECARD.DL.EDMX;
 using FUNDING.Models;
 using System;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
+using Twilio.TwiML;
 
- 
+
 namespace FUNDING.Controllers.Api.webhook
 {
   public class StatusHandlerWebHookController : ApiBaseController
   {
+       /* var client = new HttpClient();
+        var url = "https://example.com/api/WhatsAppConfig";
+
+        var content = new StringContent(JsonConvert.SerializeObject(whatsAppConfig), Encoding.UTF8, "application/json");
+
+        var response = await client.PostAsync(url, content);*/
 
     [HttpPost]
-    public async Task<IHttpActionResult> HandleWebhookAsync([FromBody] Twilio_notify_post payload)
+    public IHttpActionResult HandleWebhook([FromBody] Twilio_notify_post payload)
     {
             if (payload == null)
             {
-                return BadRequest("Invalid payload.");
+                return BadRequest();
             }
             try
             {
+
                 using (ECARDAPPEntities _context = new ECARDAPPEntities())
                 {
 
@@ -46,10 +55,10 @@ namespace FUNDING.Controllers.Api.webhook
 
                     // Save the data to the database
                     _context.twilio_notification_log.Add(webhookData);
-                    await _context.SaveChangesAsync();
+                     _context.SaveChangesAsync();
 
 
-                    return Ok("Webhook data saved successfully.");
+                    return Ok();
                 }
             }
             catch(Exception ex)
@@ -58,13 +67,21 @@ namespace FUNDING.Controllers.Api.webhook
                 System.Diagnostics.Debug.WriteLine($"Message : {ex.Message}");
 
                 ECARDAPPEntities context = new ECARDAPPEntities();
-                /*var errorLogs = new service_error_logs
+                var errorLogs = new exception_error_logs
                 {
-                    error = ex.ToString(),
+                    exception = ex.InnerException.ToString(),
+                    class_name = "Status Handler Webhook",
+                    message = ex.Message,
+                    method = ex.TargetSite.ToString(),
+                    status = "Failed",
+                    triggered = "Twilio GET",
+                    trycatch = "Yes",
+                    posted_by = "Twilio",
+                    misc_column1 = ex.ToString(),
                     posted_date = DateTime.Now
                 };
-                context.service_error_logs.Add(errorLogs);
-                context.SaveChanges();*/
+                context.exception_error_logs.Add(errorLogs);
+                context.SaveChanges();
 
                 var errorLog = new ErrorLog
                 {
@@ -87,11 +104,16 @@ namespace FUNDING.Controllers.Api.webhook
 
             }
 
-        }
-
-    private void LogWebhookPayload(object payload)
-    {
-
     }
+
+  
+
+   
+
   }
 }
+
+
+
+
+

@@ -21,7 +21,7 @@ namespace FUNDING.Controllers.Api
         public static string ReceiverName { get; set; }
 
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IHttpActionResult> TwilioWebhookHandlerAsync([FromBody] Webhook_payload payload)
         {
             if (payload == null)
@@ -51,7 +51,7 @@ namespace FUNDING.Controllers.Api
                     await _context.SaveChangesAsync();
 
 
-                    return Ok("Webhook data received successfully.");
+                    return Ok();
                 }
             }
             catch (Exception ex)
@@ -61,23 +61,22 @@ namespace FUNDING.Controllers.Api
 
 
                 ECARDAPPEntities context = new ECARDAPPEntities();
-                var errorLog = new ErrorLog
+                var errorLogs = new exception_error_logs
                 {
-                    Message = ex.Message,
-                    Source = ex.Source,
-                    StackTrace = ex.StackTrace,
-                    TargetSite = ex.TargetSite.ToString(),
-                    InnerException = ex.InnerException.ToString(),
-                    AuditDate = DateTime.Now,
-                    RequestURL = "Webhook Error Db",
-                    BrowserType = "From Twilio"
-
-
+                    exception = ex.InnerException.ToString(),
+                    class_name = "Status Handler Webhook",
+                    message = ex.Message,
+                    method = ex.TargetSite.ToString(),
+                    status = "Failed",
+                    triggered = "Twilio GET",
+                    trycatch = "Yes",
+                    posted_by = "Twilio",
+                    misc_column1 = ex.ToString(),
+                    posted_date = DateTime.Now
                 };
-                context.ErrorLogs.Add(errorLog);
+                context.exception_error_logs.Add(errorLogs);
                 context.SaveChanges();
-                // ex.ToString();
-                return Ok(ex.ToString());
+                return Ok();
 
             }
 
