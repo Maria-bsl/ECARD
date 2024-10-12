@@ -176,7 +176,7 @@
                             <ul aria-expanded="false" class="collapse">
                                 <li><a href="@Url.Action("Index","CustomerUsers")">Users</a></li>
                                 <li><a href="@Url.Action("Index","Events")">Event Details</a></li>
-                                <li><a href="@Url.Action("Index","Visitors")">Invitees</a></li>
+                               @* <li><a href="@Url.Action("Index","Visitors")">Invitees</a></li>*@
                                 <li><a href="@Url.Action("Index","Contributions")">Contributions</a></li>
                                 <li><a href="@Url.Action("CashCollections","Contributions")">Cash Collection</a></li>
                                 <li><a href="@Url.Action("ContributionNotificationMaster","Contributions")">Contribution Notifications</a></li>
@@ -185,27 +185,47 @@
                                 <li><a href="@Url.Action("Expenditures","Budgeting")">Expenditures</a></li>
                             </ul>
                         </li>
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","Visitors")" aria-expanded="false">
+                                <i class="fas fa-user-friends"></i>
+                                <span class="hide-menu">Invitees</span>
+                            </a>
+                        </li>
                         @if (Session["Admin1"].ToString() == CustomerUsers.EventAdminUserType)
                         {
-                            <li>
-                                <a class="waves-effect waves-dark" href="@Url.Action("InvitationCards", "CardDesignMaster")" aria-expanded="false">
-                                    <i class="fas fa-cogs"></i>
-                                    <span class="hide-menu">Invitation Card</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a class="waves-effect waves-dark" href="@Url.Action("WhatsAppNotificationCards", "CardDesignMaster")" aria-expanded="false">
-                                    <i class="fa fa-share"></i>
-                                    <span class="hide-menu">Card Sending</span>
-                                </a>
-                            </li>
-                          }
-                            <li>
-                                <a class="waves-effect waves-dark" href="@Url.Action("Index","VisitorVerification")" aria-expanded="false">
-                                    <i class="icon-user-following"></i>
-                                    <span class="hide-menu">Invitees Check-in</span>
-                                </a>
-                            </li>
+                    <li>
+                        <a class="waves-effect waves-dark" href="@Url.Action("InvitationCards", "CardDesignMaster")" aria-expanded="false">
+                            <i class="fas fa-cogs"></i>
+                            <span class="hide-menu">Invitation Card</span>
+                        </a>
+                    </li>
+                                    <li>
+                                        <a class="waves-effect waves-dark" href="@Url.Action("WhatsAppNotificationCards", "CardDesignMaster")" aria-expanded="false">
+                                            <i class="fa fa-share"></i>
+                                            <span class="hide-menu">Card Sending</span>
+                                        </a>
+                                    </li>
+}
+                        <li>
+                            <a class="waves-effect waves-dark" href="@Url.Action("Index","VisitorVerification")" aria-expanded="false">
+                                <i class="icon-user-following"></i>
+                                <span class="hide-menu">Invitees Check-in</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                                <i class="fas fa-file-alt"></i>
+                                <span class="hide-menu">Reports</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse">
+                                <li><a href="@Url.Action("Index", "CustomerReport")">WhatsApp Status Reports</a></li>
+                                <li><a href="@Url.Action("", "")">Event Profile</a></li>
+                                @*<li><a href="@Url.Action("", "")">Card Generation</a></li>
+                <li><a href="@Url.Action("", "")">WhatsApp Cards</a></li>
+                <li><a href="@Url.Action("", "")">WhatsApp Status</a></li>*@
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
                 <!-- End Sidebar navigation -->

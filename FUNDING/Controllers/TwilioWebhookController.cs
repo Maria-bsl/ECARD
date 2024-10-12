@@ -34,10 +34,30 @@ namespace FUNDING.Controllers
                         channel_to_address = form["ChannelToAddress"]
                     };
 
-                    // Save the data to the database
-                    _context.twilio_notification_log.Add(webhookData);
-                    _context.SaveChangesAsync();
-
+                    try
+                    {
+                        // Save the data to the database
+                        _context.twilio_notification_log.Add(webhookData);
+                        _context.SaveChangesAsync();
+                    }catch(Exception ex)
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLogs = new exception_error_logs
+                        {
+                            exception = ex.InnerException.ToString(),
+                            class_name = "Status Handler Webhook DB ",
+                            message = ex.Message,
+                            method = ex.TargetSite.ToString(),
+                            status = "Failed",
+                            triggered = "Twilio POST",
+                            trycatch = "Yes",
+                            posted_by = "DB Exception",
+                            misc_column1 = ex.ToString(),
+                            posted_date = DateTime.Now
+                        };
+                        context.exception_error_logs.Add(errorLogs);
+                        context.SaveChanges();
+                    }
 
                     return  new HttpStatusCodeResult(200);
                 }
@@ -115,11 +135,30 @@ namespace FUNDING.Controllers
                         account_sid = form["AccountSid"],
                         channel_to_address = form["ChannelToAddress"]
                     };
-
+                    try { 
                     // Save the data to the database
                     _context.twilio_notification_log.Add(webhookData);
                     _context.SaveChangesAsync();
-
+                    }
+                    catch (Exception ex)
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLogs = new exception_error_logs
+                        {
+                            exception = ex.InnerException.ToString(),
+                            class_name = "Handler Notification DB ",
+                            message = ex.Message,
+                            method = ex.TargetSite.ToString(),
+                            status = "Failed",
+                            triggered = "Twilio POST",
+                            trycatch = "Yes",
+                            posted_by = "DB Exception",
+                            misc_column1 = ex.ToString(),
+                            posted_date = DateTime.Now
+                        };
+                        context.exception_error_logs.Add(errorLogs);
+                        context.SaveChanges();
+                    }
 
                     return new HttpStatusCodeResult(200);
                 }
@@ -199,11 +238,30 @@ namespace FUNDING.Controllers
                         posted_date = DateTime.Now,
                         account_sid = payload["AccountSid"],
                     };
-
+                    try { 
                     // Save the data to the database
                     _context.webhook_error_log.Add(webhookData);
                     _context.SaveChangesAsync();
-
+                    }
+                    catch (Exception ex)
+                    {
+                        ECARDAPPEntities context = new ECARDAPPEntities();
+                        var errorLogs = new exception_error_logs
+                        {
+                            exception = ex.InnerException.ToString(),
+                            class_name = "WebhookHandler DB ",
+                            message = ex.Message,
+                            method = ex.TargetSite.ToString(),
+                            status = "Failed",
+                            triggered = "Twilio POST",
+                            trycatch = "Yes",
+                            posted_by = "DB Exception",
+                            misc_column1 = ex.ToString(),
+                            posted_date = DateTime.Now
+                        };
+                        context.exception_error_logs.Add(errorLogs);
+                        context.SaveChanges();
+                    }
 
                     return new HttpStatusCodeResult(200);
                 }

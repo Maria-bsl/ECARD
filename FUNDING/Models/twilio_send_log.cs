@@ -5,7 +5,7 @@ using System.Web;
 
 namespace FUNDING.Models
 {
-    public class twilio_send_log
+    public class Twilio_send_log
     {
 
         public string misc_column1 { get; set; }
@@ -35,5 +35,11 @@ namespace FUNDING.Models
         public long sno { get; set; }
         public string misc_column2 { get; set; }
         public string misc_column3 { get; set; }
+        
+        public string invitee_name { get; set; }
+        public long visitor_det_sno { get; set; }
+        public long cardsize { get; set; }
+
+
     }
 }

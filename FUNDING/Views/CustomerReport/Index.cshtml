@@ -1,0 +1,612 @@
+﻿
+@model FUNDING.Models.Twilio_send_log
+@{
+        ViewBag.Title = "index";
+        Layout = "~/Views/Shared/_Customers.cshtml";
+   
+
+    ViewData["Title"] = "WhatsApp Card Status Report";
+    ViewData["Home"] = "Home";
+    ViewData["Bct"] = "Download Report";
+
+    //Table header labels
+
+    ViewData["Bclo"] = "Reset";
+
+    ViewData["Bsav"] = "View Report";
+    ViewData["Sno"] = "Sno";
+
+    ViewData["Actions"] = "Actions";
+}
+
+
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h4 class="text-themecolor">@ViewData["Title"]</h4>
+    </div>
+    <div class="col-md-7 align-self-center text-end">
+        <div class="d-flex justify-content-end align-items-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="@Url.Action("Setup", "Setup")">@ViewData["hom"]</a>
+                </li>
+                <li class="breadcrumb-item active">@ViewData["Title"]</li>
+            </ol>
+        </div>
+    </div>
+</div>
+
+<div class="card border-0">
+    <div class="card-body">
+            <!--<form class="col-12 p-0 mx-auto" action="" method="post">
+                <div class="modal-body">
+                    <div class="row">-->
+                        
+                        @*<div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+                            <label for="txtstatus" class="f-label_align label-145">
+                                Select Status <span class="text-danger">*</span>
+                            </label>
+                            <select id="txtselect" class="form-control input-sm">
+                                <option value="0">Select</option>
+                                <option value="Active">Active</option>
+                                <option value="InActive">InActive</option>
+                            </select>
+                        </div>*@
+
+                        <!--<div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+                            <label for="txtstatus" class="d-block mb-1 f-label_align label-145">Start Date <span class="text-danger">*</span></label>-->
+                            @* @Html.LabelFor(model => model.Effective_date, "Effective Date", htmlAttributes: new { @class = "d-block mb-1" })<span class="text-danger">*</span>*@
+                            <!--<div class="col-sm-8 col-lg-9 col-xl-10">
+                                <input type="text" id="start_date" name="EffectiveDate" class="form-control">-->
+                                @* @Html.ValidationMessageFor(model => model.effective_date, "", new { @class = "text-danger" })readonly="readonly" data-val="true" data-val-required="The Effective Date field is required."*@
+                            <!--</div>
+                        </div>
+                        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+                            <label for="txtstatus" class="d-block mb-1 f-label_align label-145">End Date <span class="text-danger">*</span></label>-->
+                            @* @Html.LabelFor(model => model.Effective_date, "Effective Date", htmlAttributes: new { @class = "d-block mb-1" })<span class="text-danger">*</span>*@
+                            <!--<div class="col-sm-8 col-lg-9 col-xl-10">
+                                <input type="text" id="end_date" name="EffectiveDate" class="form-control">-->
+                                @* @Html.ValidationMessageFor(model => model.effective_date, "", new { @class = "text-danger" })readonly="readonly" data-val="true" data-val-required="The Effective Date field is required."*@
+                            <!--</div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">View Report</button>
+                    <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">Reset</button>
+                </div>
+            </form>-->
+
+
+        <h5 class="card-title" id="lblem">@ViewData["smstxt"]</h5>
+        <div class="form-group text-end">
+            @*<button type="button" id="btnAdd" value="Add" data-sid="0" class="btn btn-outline-primary btn-rounded"
+                    onclick="showSMTPModal(this);" data-toggle="modal" data-target="#modal-smtp">
+                <i class="fas fa-plus"></i>
+                @ViewData["Bct"]
+            </button>*@
+
+            <button type="button" id="pdfreport" data-id="0" class="btn btn-outline-secondary btn-rounded">
+                <i class="fas fa-pdf"></i>
+                Export PDF
+            </button>
+            <input type="hidden" id="hdnEmployee" />
+        </div>
+        <hr />
+        <div class="table-responsive">
+            <table id="tbl-smtp" class="table table-bordered rounded email-table display">
+                <thead>
+                    <tr>
+                        <th class="sno-th">@ViewData["Sno"]</th>
+                        <th class="">Invitee Name </th>
+                        <th class="">Date Created </th>
+                        <th class="">Message Sid</th>
+                        <th class="">To</th>
+                        <th class="">Date Updated</th>
+                        <th class="">Status</th>
+                        <th class="">Error Code</th>
+                        <th class="sd">Posted date</th>
+                        @*<th class="setup_2_actions" data-sort-ignore="true">Actions</th>*@
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+@section styles{
+    <link href="~/Scripts/intl-tel-input/css/isValidNumber.css" rel="stylesheet" />
+    <link href="~/Scripts/intl-tel-input/css/intlTelInput.min.css" rel="stylesheet" />
+    <link href="~/select2/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/assets/datepicker/gijgo.min.css">
+
+    <style>
+        form label {
+            margin-bottom: .25rem;
+        }
+
+        .sd {
+            width: 60px !important;
+        }
+
+        .email-table td:nth-last-of-type(2),
+        .email-table td:nth-last-of-type(3) {
+            white-space: normal;
+            min-width: 75vw;
+        }
+
+        @@media(min-width:48em) {
+
+            .email-table td:nth-last-of-type(2),
+            .email-table td:nth-last-of-type(3) {
+                white-space: normal;
+                min-width: 500px;
+            }
+        }
+
+
+        .select2-dropdown {
+            z-index: 1078 !important;
+        }
+
+        .select2.select2-container.select2-container--default,
+        .iti.iti--allow-dropdown.iti--separate-dial-code {
+            width: 100% !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__arrow,
+        .select2-container .select2-selection--single {
+            height: 38px !important;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 38px;
+        }
+
+        .button-text.on-submit {
+            visibility: hidden !important;
+        }
+
+        .typing-loader {
+            width: 6px;
+            height: 6px;
+            -webkit-animation: line 1s linear infinite alternate;
+            -moz-animation: line 1s linear infinite alternate;
+            animation: line 1s linear infinite alternate;
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            display: none;
+        }
+
+        @@-webkit-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@-moz-keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+
+        @@keyframes line {
+            0% {
+                background-color: #03A9F3;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            25% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #57C5F7, 24px 0px 0px 0px #C7EBFC;
+            }
+
+            75% {
+                background-color: #57C5F7;
+                box-shadow: 12px 0px 0px 0px #C7EBFC, 24px 0px 0px 0px #57C5F7;
+            }
+        }
+    </style>
+
+}
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        jQuery(document).ready(function () {
+
+            bindMasterConfig();
+            $("#btnSubmit").click(function () {
+                addPackage();
+            })
+            $("#btnDelete").click(function () {
+                delPackage();
+            });
+
+            $('#start_date').datepicker({
+                format: 'dd/mm/yyyy',
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                modal: true,
+                header: true,
+                footer: true,
+            });
+            $('#end_date').datepicker({
+                format: 'dd/mm/yyyy',
+                uiLibrary: 'bootstrap4',
+                iconsLibrary: 'fontawesome',
+                modal: true,
+                header: true,
+                footer: true,
+            });
+        });
+
+
+    var glob;
+    function binddata(val) {
+        var name = '';
+        if (val == 1) {
+            name = "On Registration";
+        }
+        else if (val == 2) {
+            name = "On Approve";
+        }
+        else if (val == 3) {
+            name = "On Return";
+        }
+        else if (val == 5) {
+            name = "OTP Activation";
+        }
+    }
+
+    function bindMasterConfig() {
+
+       @* '<td class="px-2"><button class="btn btn-outline-secondary btn-sm" data-toggle="modal" id = "btn' + value.Whats_mas_sno + '"  data-sid="' + value.Whats_mas_sno + '" value = "Edit" data-target="#modal-smtp" onclick = "showSMTPModal(this)" ><i class="fas fa-pen"></i></button >&nbsp;&nbsp;<button id = "btn' + value.Whats_mas_sno + '"  data-sid="' + value.Whats_mas_sno + '" value = "Delete" onclick="showSMTPModal(this)" class="btn btn-outline-dark btn-sm distloc"><i class="fas fa-trash" aria-hidden="true"></i></button ></td > ' +
+            '</tr>'*@
+
+
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("GetDetails", "CustomerReport")',
+            data: '{}',
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                jQuery("#tbl-smtp tbody").empty();
+                if (jQuery.fn.DataTable.isDataTable("#tbl-smtp")) {
+                    jQuery('#tbl-smtp').DataTable().clear().destroy();
+                }
+                if (data != 0) {
+                    var count = 1;
+                    jQuery.each(data, function (key, value) {
+
+                        var row = '<tr>' +
+                            '<td>' + count + '</td>' +
+                            '<td>' + value.invitee_name + '</td>' +
+                            '<td>' + moment(value.date_created).format('dddd, DD-MMMM-yyyy') + '</td>' +
+                            '<td>' + value.sid + '</td>' +
+                            '<td>' + value.whatsapp_to + '</td>' +
+                            '<td>' + moment(value.date_updated).format('dddd, DD-MMMM-yyyy') + '</td>' +
+                            '<td>' + value.status + '</td>' +
+                            '<td>' + value.error_code + '</td>' +
+                            '<td>' + moment(value.posted_date).format('dddd, DD-MMMM-yyyy') + '</td>' +
+                            '</tr>';
+
+                        count++;
+                        jQuery("#tbl-smtp tbody").append(row);
+                    });
+                }
+                applyDatatable('tbl-smtp');
+            }
+        })
+    }
+
+    function addPackage() {
+    var message = validateEmployee(),
+        type = '',
+        opType = jQuery("#hdnEmployee").val();
+        if (message.length > 0 && opType != 'D') {
+            notifyMessage(message, 'danger');
+        }
+    else {
+        var params = JSON.stringify(getPackageValues());
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddMasterDetail", "WhatsAppMaster")',
+            data: params,
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+                $('#modal-smtp').hide();
+
+                var ddlflow = document.getElementById('account_sid');
+                var text = ddlflow.value;
+                if (opType == 'C' && data) {
+                    @* if (data == true) {
+                        message = text + ' Already Exist.';
+                        type = 'danger';
+                    }
+                    else {*@
+                        message = text + '  Successfully Created';
+                        type = 'success';
+                    //}
+                }
+                else if (opType == 'U' && data) {
+                    message = text + '  Successfully Updated';
+                    type = 'success';
+                }
+                    $('.modal-backdrop').hide();
+                    @*$('.modal-smtp').innerHTML("style='display:block'");*@
+
+                notifyMessage(message, type);
+                bindMasterConfig();
+            }
+        })
+    }
+    }
+
+    function deleteMaster(cid, st) {
+        type = '',
+            opType = jQuery("#hdnEmployee").val();
+
+        var ddlflow = document.getElementById('txtselect');
+        var params = JSON.stringify(getSMTPID(cid));
+        jQuery.ajax({
+            type: 'POST',
+            url: '@Url.Action("RemMasterDetail", "WhatsAppMaster")',
+            data: JSON.stringify({ 'Sno': txtSID.value }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json',
+            success: function (data) {
+
+                if (opType == 'D') {
+                    if (data == 0) {
+
+                        message = st + ' is in use Cannot be Deleted.';
+                        type = 'danger';
+
+                    } else {
+                        message = st + ' Successfully Deleted';
+                        type = 'success';
+                    }
+                }
+                notifyMessage(message, type);
+                bindMasterConfig();
+            }
+        })
+
+        }
+
+    var cid;
+    var check;
+    var jk = false;
+    function valid(e) {
+        jk = true;
+    }
+
+
+    function resetSMTPsms() {
+        var txtpname = document.getElementById('account_sid');
+        var txtpdesc = document.getElementById('Auth_Token');
+        var txtpdate = document.getElementById('effective_date');
+        var txtpprice = document.getElementById('whatsapp_sender');
+        var ddlflow = document.getElementById('txtselect');
+        var txturl = document.getElementById('callback_url');
+        var txtwebhook = document.getElementById('webhook_error');
+        var txtcallback = document.getElementById('webhook_incoming');
+
+            ddlflow.selectedIndex = 0;
+            txtpname.value = '';
+            txtpdesc.value = '';
+            txtpprice.value = '';
+            txtpdate.value = '';
+            txturl.value = '';
+            txtwebhook.value = '';
+            txtcallback.value = '';
+
+        }
+
+    function showSMTPModal(e) {
+        var txtpname = document.getElementById('account_sid');
+        var txtpdesc = document.getElementById('Auth_Token');
+        var txtpprice = document.getElementById('whatsapp_sender');
+        var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtSID = document.getElementById('txtSID');
+        //document.getElementById('callback_url')
+        var txturl = document.getElementById('callback_url');
+        var txtwebhook = document.getElementById('webhook_error');
+        var txtcallback = document.getElementById('webhook_incoming');
+
+        var tblemployee = document.getElementById('tbl-smtp'),
+            rows = tblemployee.rows,
+            hdnEmployee = document.getElementById('hdnEmployee');
+        if (e.value.indexOf('Edit') > -1) {
+            jQuery("#btnSubmit").html("Update");
+
+            for (var i = 0, row = null; i < rows.length; i++) {
+                row = rows[i];
+
+                if (row.cells[9].innerHTML.indexOf(e.id) > -1) {
+                    txtSID.value = jQuery(e).data('sid');
+                    ddlflow.value = row.cells[4].innerHTML;
+                    txtpname.value = row.cells[1].innerHTML;
+                    txtpdesc.value = row.cells[2].innerHTML;
+                    txtpprice.value = row.cells[3].innerHTML;
+                    txtedate.value = row.cells[8].innerHTML;
+                    txturl.value = row.cells[5].innerHTML;
+                    txtwebhook.value = row.cells[6].innerHTML;
+                    txtcallback.value = row.cells[7].innerHTML;
+
+                    break;
+                }
+            }
+            hdnEmployee.value = 'U';
+        }
+        else if (e.value.indexOf('Add') > -1) {
+            resetSMTPsms();
+            jQuery("#btnSubmit").html("Save");
+            hdnEmployee.value = 'C';
+        }
+        else if (e.value.indexOf('Delete') > -1) {
+            for (var i = 0, row = null; i < rows.length; i++) {
+                row = rows[i];
+                if (row.cells[9].innerHTML.indexOf(e.id) > -1) {
+                    txtSID.value = jQuery(e).data('sid');
+                    hdnEmployee.value = 'D';
+                    var result = confirm("Are you sure you want to delete?");
+                    if (result) {
+                        var st = row.cells[1].innerHTML;
+                        deleteMaster(txtSID.value, st);
+                    }
+                }
+            }
+        }
+    }
+
+    function getPackageValues() {
+        var txtpname = document.getElementById('account_sid');
+        var txtpdesc = document.getElementById('Auth_Token');
+        var txtpprice = document.getElementById('whatsapp_sender');
+        var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtSID = document.getElementById('txtSID');
+
+        var txturl = document.getElementById('callback_url');
+        var txtwebhook = document.getElementById('webhook_error');
+        var txtcallback = document.getElementById('webhook_incoming');
+            hdnEmployee = document.getElementById('hdnEmployee');
+        if (txtSID.value == '') {
+            txtSID.value = '0';
+        }
+
+        var table = jQuery('#tbl-smtp').DataTable(),
+            selectedRow = table.rows('.selected').data();
+        if (hdnEmployee.value == "C") {
+            txtSID.value = '0';
+            jk = false;
+            var data = {
+                Account_sid: txtpname.value.trim(),
+                Auth_token: txtpdesc.value.trim(),
+                whatsapp_sender: txtpprice.value.trim(),
+                Status: ddlflow.value,
+                Effective_date: txtedate.value,
+                Sno: txtSID.value,
+                Callback_url: txturl.value.trim(),
+                Webhook_error: txtwebhook.value.trim(),
+                Webhook_incoming: txtcallback.value.trim(),
+            }
+            return data;
+        }
+        else if (hdnEmployee.value == "U") {
+
+            var data = {
+                Account_sid: txtpname.value.trim(),
+                Auth_token: txtpdesc.value.trim(),
+                whatsapp_sender: txtpprice.value.trim(),
+                Status: ddlflow.value,
+                Effective_date: txtedate.value,
+                Sno: txtSID.value,
+                Callback_url: txturl.value.trim(),
+                Webhook_error: txtwebhook.value.trim(),
+                Webhook_incoming: txtcallback.value.trim(),
+            }
+            return data;
+        }
+    }
+    function getSMTPID(glob) {
+        var table = jQuery('#tbl-smtp').DataTable(),
+            selectedRow = table.rows('.selected').data();
+        if (hdnEmployee.value == "D") {
+            var data = {
+                sno: glob,
+            }
+            return data;
+        }
+    }
+    function validateEmployee() {
+
+        var ddlflow = document.getElementById('txtselect');
+        var txtpname = document.getElementById('account_sid');
+        var txtpdesc = document.getElementById('Auth_Token');
+        var txtpprice = document.getElementById('whatsapp_sender');
+        var ddlflow = document.getElementById('txtselect');
+        var txtedate = document.getElementById('effective_date');
+        var txtsub = document.getElementById('txtsub');
+
+        var txturl = document.getElementById('callback_url');
+        var txtwebhook = document.getElementById('webhook_error');
+        var txtcallback = document.getElementById('webhook_incoming');
+
+        result = '';
+        if (ddlflow.value == 0) {
+            result += 'Status is Required .<br/>';
+        }
+        if (txtpname.value.trim().length == 0) {
+            result += 'Account Sid is Required.<br/>';
+        }
+        if (txtpdesc.value.trim().length == 0) {
+            result += 'Auth Token is Required.<br/>';
+        }
+        if (txtpprice.value.trim().length == 0) {
+            result += 'WhatsApp Sender is Required.<br/>';
+        }
+        if (txtedate.value.trim().length == 0) {
+            result += 'Effective Date is Required.<br/>';
+        }
+        return result;
+    }
+    </script>
+
+
+    <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Script/moment.min.js"></script>
+    <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/assets/datepicker/gijgo.min.js"></script>
+    <script src="~/Scripts/intl-tel-input/js/intlTelInput-jquery.min.js"></script>
+    <script src="~/Scripts/intl-tel-input/js/intlTelInput.js"></script>
+    <script src="~/Scripts/SweetAlert2/sweetalert2.all.min.js"></script>
+    <script src="~/select2/js/select2.min.js"></script>
+
+
+}
+
+
+
+
+
+

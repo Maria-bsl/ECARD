@@ -1,14 +1,11 @@
 ﻿@model FUNDING.BL.BusinessEntities.Masters.Visitors_Verification
 
-@{
-    Layout = "~/Views/Shared/_Customers.cshtml";
+@{ Layout = "~/Views/Shared/_Customers.cshtml";
 
-    ViewBag.Title = "Visitor Verificaton";
+                ViewBag.Title = "Visitor Verificaton";
 
-    ViewData["Title"] = "Invitees Verification";
-    ViewData["Home"] = "Home";
-
-}
+                ViewData["Title"] = "Invitees Verification";
+                ViewData["Home"] = "Home"; }
 
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
@@ -29,9 +26,37 @@
             <div id="visitorSummaryBox" class="position-relative p-2 border border-success rounded">
                 <span class="h6 m-0">Total Verified Invitees: </span>
                 <span style="font-size: 0.75rem; font-weight: 600;" class="badge rounded-pill bg-info" id="VisitorsCount"></span>
+                <div class="btn-group align-self-end">
+                    <!-- Button trigger modal -->
+                    @* <button type="button" class="btn btn-outline-success btn-rounded" data-bs-toggle="modal" data-bs-target="#ajaxHelperBulkUploadModal">
+            <i class="fas fa-upload"></i>
+            @ViewData["Bulk_Upload"]
+            </button>
+            <button type="button" class="btn btn-outline-primary btn-rounded" data-bs-toggle="modal" data-bs-target="#ajaxHelperCreateModal">
+                <i class="fas fa-plus"></i>
+                @ViewData["Bct"]
+            </button>
+
+            <button type="button" class="btn btn-outline-secondary btn-rounded" id="sendsms">
+                <i class="fas fa-paper-plane"></i>
+                Send All SMS
+            </button>
+
+            <button type="button" class="btn btn-sm btn-outline-warning btn-rounded" data-bs-toggle="modal" data-bs-target="#ajaxHelperBulkUploadInviteeModal">
+                <i class="fas fa-upload"></i>
+                Invitee Code Upload
+            </button>
+                    *@
+
+                    <button type="button" class="btn btn-sm btn-outline-primary btn-rounded" data-id="@ViewBag.eventId" id="inviteepdf">
+                        <i class="fas fa-download"></i>
+                        Export PDF Report
+                    </button>
+                </div>
             </div>
         </div>
         <hr />
+
         <div class="table-responsive with-loader">
             <table id="VisitorsTable" class="table table-bordered display" style="width: 100%;">
                 <thead>
@@ -62,6 +87,7 @@
 @section Scripts {
     <script src="~/Script/jquery.unobtrusive-ajax.min.js"></script>
     <script src="~/Script/jquery.validate.min.js"></script>
+    <script src="~/Scripts/SweetAlert2/sweetalert2.all.min.js"></script>
     <script src="~/Script/moment.min.js"></script>
     <script src="~/Script/jquery.validate.unobtrusive.min.js"></script>
     <script src="~/Script/app.js"></script>
@@ -96,7 +122,7 @@
                     { title: 'Sno',data: 'id' },
                     { data: 'visitor_name', title:'Invitee Name'},
                     { data: 'no_of_persons', title:'Checked-in Invitees'},
-                    { data:'check_in_time', title:'Check-in Time'},
+                    { data: 'check_in_time', title:'Check-in Time'},
                     { data: 'scan_status', title: 'Status' },
                 ]
 
@@ -106,6 +132,21 @@
                 var ajaxJson = VisitorsDatatable.ajax.json();
                 $('#VisitorsCount').text(ajaxJson.TotalInvitees);
             });
-        });
+
+
+            $('#inviteepdf').click(function () {
+
+                var dataid = $(this).attr('data-id');
+                if (dataid !== '') {
+                    location.href = "@Url.Action("CheckinReportinvitees", "VisitorVerification")?event_id=" + dataid;
+                } else {
+                    Swal.fire(
+                        'Error',
+                        'invitee-Check-In Report not generated',
+                        'info'
+                    );
+                }
+                 });
+            });
     </script>
 }

@@ -11,6 +11,7 @@ using FUNDING.Models.CardGenerationModule.HtmlElements;
 using FUNDING.Models.CardGenerationModule.HtmlElementsComponents;
 using FUNDING.Models.CardGererationMaster;
 using FUNDING.Models.CardGererationMaster.DraggableElements;
+using GemBox.Pdf.Content.Colors;
 using iText.IO.Image;
 using iText.Kernel.Geom;
 using iText.Kernel.Pdf;
@@ -243,6 +244,9 @@ namespace FUNDING.Models.CardGenerationModule
                             {
                                 // In order to achieve the conversion of a loaded PDF file to image,
                                 // we just need to save a PdfDocument object to desired image format.
+
+                            
+
 
                                 var fileName = System.IO.Path.GetFileNameWithoutExtension(pdfFile);
 

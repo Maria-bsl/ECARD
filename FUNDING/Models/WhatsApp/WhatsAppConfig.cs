@@ -19,5 +19,6 @@ namespace FUNDING.Models.WhatsApp
         public string Misc_column1 { get; set; }
         public string Misc_column2 { get; set; }
         public long Sno { get; set; }
+        public string Effective_date { get; set; }
     }
 }

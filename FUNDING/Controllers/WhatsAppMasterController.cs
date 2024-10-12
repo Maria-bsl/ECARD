@@ -23,7 +23,6 @@ namespace FUNDING.Controllers
         }
 
 
-
         [HttpPost]
         public ActionResult GetDetails()
         {

@@ -382,6 +382,7 @@
     <Compile Include="Controllers\ContributionsController.cs" />
     <Compile Include="Controllers\ContributionsCompilerController.cs" />
     <Compile Include="Controllers\CustomerActivityController.cs" />
+    <Compile Include="Controllers\CustomerReportController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\CustomerUsersController.cs" />
     <Compile Include="Controllers\DesignationController.cs" />
@@ -409,6 +410,7 @@
     <Compile Include="Controllers\VisitorVerificationController.cs" />
     <Compile Include="Controllers\WhatsAppConfigController.cs" />
     <Compile Include="Controllers\WhatsAppMasterController.cs" />
+    <Compile Include="Controllers\WhatsAppServices\WhatsAppMasterDetails.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -472,7 +474,7 @@
     <Compile Include="Models\SMS.cs" />
     <Compile Include="Models\twilio_notification_log.cs" />
     <Compile Include="Models\Twilio_notify_post.cs" />
-    <Compile Include="Models\twilio_send_log.cs" />
+    <Compile Include="Models\Twilio_send_log.cs" />
     <Compile Include="Models\ViewModels\VisitorsBulkUpload.cs" />
     <Compile Include="Models\webhook_error_log.cs" />
     <Compile Include="Models\Webhook_payload.cs" />
@@ -9860,6 +9862,7 @@
     <Content Include="Views\WhatsAppMaster\WhatsAppMaster.cshtml" />
     <Content Include="Views\WhatsAppMaster\Index.cshtml" />
     <Content Include="Views\WhatsAppConfig\Index.cshtml" />
+    <Content Include="Views\CustomerReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

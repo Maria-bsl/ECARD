@@ -1,6 +1,7 @@
 ﻿
 using ECARD.DL.EDMX;
 using FUNDING.BL.BusinessEntities.Masters;
+using FUNDING.Controllers.WhatsAppServices;
 using FUNDING.Models.AppHelpers;
 using FUNDING.Models.CardGenerationModule;
 using FUNDING.Models.CardGenerationModule.DataLayer;
@@ -35,8 +36,7 @@ namespace FUNDING.Controllers
     private readonly List<CardTemplates> _ListOfCardTemplatesVirtualPath;
     private readonly List<FontFamily> _AllFonts;
     private readonly CardEventDetailsViewModel _EventDetails;
-    private readonly WhatsAppMaster whatsAppMaster;
-    private readonly WhatsAppConfig whatsAppConfig;
+    private readonly WhatsAppMasterDetails whatsAppMasterDetails = new WhatsAppMasterDetails();
     private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
 
         
@@ -1417,7 +1417,6 @@ namespace FUNDING.Controllers
     }
 
 
-
     [Route("whatsapp-notification")]
     public ActionResult WhatsAppNotification()
     {
@@ -1571,23 +1570,23 @@ namespace FUNDING.Controllers
     public async Task<ActionResult> WhatsAppNotification1([Bind(Include = "Event_Id, Visitor_Id, WhatsAppNumber, Message")] WhatsAppNotification whatsApp)
     {
 
-       if (this.Session["admin1"] == null)
-                return RedirectToAction("Login", "Login");
-        if (!this.ModelState.IsValid)
-        return (ActionResult) this.Json((object) new
-        {
-          sendStatus = false,
-          response = "Notification sending failed!"
-        });
-      visitor_details visitorDetails = _dbContext.visitor_details.Where(v => v.visitor_det_sno == whatsApp.Visitor_Id).FirstOrDefault();
-      if (visitorDetails == null)
-        return Json(new
-        {
-          sendStatus = false,
-          response = "Notification sending failed!"
-        });
-      string mediaUri = GetMediaURI(visitorDetails);
-      Url.Content(mediaUri);
+           if (this.Session["admin1"] == null)
+                    return RedirectToAction("Login", "Login");
+            if (!this.ModelState.IsValid)
+            return (ActionResult) this.Json((object) new
+            {
+              sendStatus = false,
+              response = "Notification sending failed!"
+            });
+          visitor_details visitorDetails = _dbContext.visitor_details.Where(v => v.visitor_det_sno == whatsApp.Visitor_Id).FirstOrDefault();
+          if (visitorDetails == null)
+            return Json(new
+            {
+              sendStatus = false,
+              response = "Notification sending failed!"
+            });
+          string mediaUri = GetMediaURI(visitorDetails);
+          Url.Content(mediaUri);
             if (whatsApp.Message.ToString().Equals("1")) // Card Notification Swahili
             { 
                 await SendWhatsAppCardSWMessageAsync(mediaUri, visitorDetails); 
@@ -1693,7 +1692,7 @@ namespace FUNDING.Controllers
                     catch (Exception ex)
                     {
                         ECARDAPPEntities context = new ECARDAPPEntities();
-                        var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                        service_error_logs errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
                         context.service_error_logs.Add(errorLog);
                         context.SaveChanges();
                         continue;
@@ -1971,7 +1970,7 @@ namespace FUNDING.Controllers
     private static async Task SendWhatsAppMessageAsyncDate(
     string mediaUri,
     visitor_details visitorDetails)
-{
+    {
     TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f"); // b73856e9cd8e6bd6297a51e795d52ac4
         // Auth Token : e9de6611667b639a480a22749e48328f
         //AccountSid : AC14b36a565bc1c9863dea07a57161bdf2
@@ -2059,12 +2058,12 @@ namespace FUNDING.Controllers
                     }, Formatting.Indented);
 
                     PhoneNumber from = new PhoneNumber("whatsapp:+255745011604");
+                        //from: from,
 
                 
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                        from: from,
                         messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                         contentSid: "HX41a07b93c9290e519652b29425ff95d1",
                         contentVariables: contentVariables
@@ -2096,6 +2095,7 @@ namespace FUNDING.Controllers
                         price_unit = messageResponse.PriceUnit,
                         whatsapp_from = messageResponse.From.ToString().Substring(10),
                         whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                         date_updated = messageResponse.DateUpdated
                     };
 
@@ -2135,7 +2135,7 @@ namespace FUNDING.Controllers
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                    from: from,
+                    //from: from,
                     messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                     contentSid: "HXec038b9bb126da9dc0e2a0fd0e86ff7d",
                     contentVariables: contentVariables
@@ -2167,6 +2167,7 @@ namespace FUNDING.Controllers
                     price_unit = messageResponse.PriceUnit,
                     whatsapp_from = messageResponse.From.ToString().Substring(10),
                     whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                     date_updated = messageResponse.DateUpdated
                 };
 
@@ -2215,7 +2216,7 @@ namespace FUNDING.Controllers
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                        from: from,
+                        //from: from,
                         messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                         contentSid: "HX4144fe950291d54cc2bc511fdab1b5d6",
                         contentVariables: contentVariables
@@ -2247,6 +2248,7 @@ namespace FUNDING.Controllers
                         price_unit = messageResponse.PriceUnit,
                         whatsapp_from = messageResponse.From.ToString().Substring(10),
                         whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                         date_updated = messageResponse.DateUpdated
                     };
 
@@ -2287,7 +2289,7 @@ namespace FUNDING.Controllers
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                        from: from,
+                        //from: from,
                         messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                         contentSid: "HXec038b9bb126da9dc0e2a0fd0e86ff7d",
                         contentVariables: contentVariables
@@ -2319,6 +2321,7 @@ namespace FUNDING.Controllers
                         price_unit = messageResponse.PriceUnit,
                         whatsapp_from = messageResponse.From.ToString().Substring(10),
                         whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                         date_updated = messageResponse.DateUpdated
                     };
 
@@ -2357,7 +2360,7 @@ namespace FUNDING.Controllers
                     // Attempt to send the message
                     var messageResponse = await MessageResource.CreateAsync(
                         to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                        from: from,
+                        //from: from,
                         messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                         contentSid: "HXab4baf7f14058adc5da41de4b430187c",
                         contentVariables: contentVariables
@@ -2389,6 +2392,7 @@ namespace FUNDING.Controllers
                         price_unit = messageResponse.PriceUnit,
                         whatsapp_from = messageResponse.From.ToString().Substring(10),
                         whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                         date_updated = messageResponse.DateUpdated
                     };
 
@@ -2426,7 +2430,7 @@ namespace FUNDING.Controllers
                 // Attempt to send the message
                 var messageResponse = await MessageResource.CreateAsync(
                     to: new PhoneNumber("whatsapp:+" + visitorDetails.mobile_no),
-                    from: from,
+                    //from: from,
                     messagingServiceSid: "MGf56bae8229d878500257da4dcbfbe068",
                     contentSid: "HX5157e3b69183e4c9138004eaa783d0d6",
                     contentVariables: contentVariables
@@ -2458,6 +2462,7 @@ namespace FUNDING.Controllers
                     price_unit = messageResponse.PriceUnit,
                     whatsapp_from = messageResponse.From.ToString().Substring(10),
                     whatsapp_to = messageResponse.To.ToString().Substring(10),
+                    misc_column3 = visitorDetails.visitor_det_sno.ToString(),
                     date_updated = messageResponse.DateUpdated
                 };
 
@@ -2472,6 +2477,40 @@ namespace FUNDING.Controllers
 
         #endregion
 
+        private static async Task FetchMessageStatus(string messageSid, long? eventId)
+        {
+            string accountSid = Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID");
+            string authToken = Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN");
+
+            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
+
+            var message = await MessageResource.FetchAsync(pathSid: messageSid);
+
+                ECARDAPPEntities context = new ECARDAPPEntities();
+                var messageCheck = context.twilio_send_log.Where(t => t.event_det_sno == eventId.ToString() && t.sid == messageSid).FirstOrDefault();
+
+                //if (messageCheck.status.ToString().ToLower().Equals("accepted")){}
+
+                messageCheck.status = message.Status.ToString();
+                messageCheck.error_code = message.ErrorCode.ToString();
+                messageCheck.error_messages = message.ErrorMessage.ToString();
+                messageCheck.price = message.Price.ToString();
+                messageCheck.price_unit = message.PriceUnit;
+                messageCheck.date_updated = message.DateUpdated;
+                messageCheck.misc_column2 = "StatusChecked";
+            try
+            {
+                await context.SaveChangesAsync();
+            }catch(Exception ex)
+            {
+                var errorLog = new service_error_logs { error = ex.ToString(), posted_date = DateTime.Now };
+                context.service_error_logs.Add(errorLog);
+                context.SaveChanges();
+                
+            }
+
+
+        }
 
         #region SendWhatsAppMessageAsyncdb and Save Error & Response to Db (Normal Envents Cards)
         /*      private static async Task SendWhatsAppMessageAsyncdb1(string mediaUri, visitor_details visitorDetails){
