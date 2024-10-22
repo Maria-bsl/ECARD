@@ -362,6 +362,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccessRightsController.cs" />
     <Compile Include="Controllers\ActivityController.cs" />
+    <Compile Include="Controllers\AdminReportController.cs" />
     <Compile Include="Controllers\Api\ApiBaseController.cs" />
     <Compile Include="Controllers\Api\InviteesController.cs" />
     <Compile Include="Controllers\Api\LoginController.cs" />
@@ -9863,6 +9864,7 @@
     <Content Include="Views\WhatsAppMaster\Index.cshtml" />
     <Content Include="Views\WhatsAppConfig\Index.cshtml" />
     <Content Include="Views\CustomerReport\Index.cshtml" />
+    <Content Include="Views\AdminReport\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,8 +1,7 @@
-﻿
-@model FUNDING.Models.Twilio_send_log
+﻿@model FUNDING.Models.Twilio_send_log
 @{
-    ViewBag.Title = "index";
-    Layout = "~/Views/Shared/_Customers.cshtml";
+    ViewBag.Title = "Status Card Report";
+    Layout = "~/Views/Shared/Funding.cshtml";
 
 
     ViewData["Title"] = "WhatsApp Card Status Report";
@@ -38,53 +37,109 @@
 
 <div class="card border-0">
     <div class="card-body">
+
+        <div class="form-horizontal">
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.AntiForgeryToken()
+
+            <div class="row">
+                <div class="form-group col-sm-9 col-md-6 col-lg-4 mb-3">
+                    @Html.LabelFor(model => model.event_det_sno, htmlAttributes: new { @class = "d-block mb-1" })
+                    @Html.DropDownListFor(model => model.event_det_sno, ViewBag.EventDropDownList as IEnumerable<SelectListItem>, "Select event", new { @class = "form-control mw-100" })
+                    @Html.ValidationMessageFor(model => model.event_det_sno, "", new { @class = "text-danger" })
+                </div>
+               
+                <div class="text-end col-lg-4">
+                    <button id="submitCreateCustomersAll" type="submit" class="btn btn-outline-warning btn-rounded position-relative">
+                        <span class="button-text">View Report</span>
+                        <div class="typing-loader"></div>
+                    </button>
+                </div>
+            </div>
+            <hr class="mt-0" />
+            <div class="row">
+                @* <div class="form-group col-sm-9 col-md-6 col-lg-4 mb-3">
+             @Html.LabelFor(model => model.Visitor_Id, htmlAttributes: new { @class = "d-block mb-1" })
+             @Html.DropDownList("Visitor_Id", ViewBag.EmptyIenumerable as IEnumerable<SelectListItem>, "Select invitee", new { @multiple = "multiple", @class = "form-control mw-100" })
+             @Html.ValidationMessageFor(model => model.Visitor_Id, "", new { @class = "text-danger" })
+         </div>
+
+        <div class="form-group col-sm-9 col-md-6 col-lg-4 mb-3">
+             @Html.LabelFor(model => model.WhatsAppNumber, htmlAttributes: new { @class = "d-block mb-1" })
+             @Html.TextBox("mobileNumber", null, new { @class = "form-control mw-100" })
+             <span class="text-danger field-validation-error">
+                 <span id="intl-input-error"></span>
+             </span>
+             @Html.HiddenFor(model => model.WhatsAppNumber)
+         </div>*@
+
+                @*{visitor_name} you welcomed to {event_name} which will be held at {venue} on {event_date} starting at {event_start_time}. Your Id is {qr_code}*@
+
+                @* <div class="form-group col-md-12 col-lg-8 mb-3">
+            @Html.LabelFor(model => model.Message, htmlAttributes: new { @class = "d-block mb-1" })
+            @Html.TextAreaFor(model => model.Message, new { type = "text", @class = "form-control mw-100" })
+            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "text-danger" })
+        </div>
+              
+                <div class="text-end col-lg-8">
+                    <button id="submitCreateCustomers" type="submit" class="btn btn-outline-info btn-rounded position-relative">
+                        <span class="button-text">Send Individual</span>
+                        <div class="typing-loader"></div>
+                    </button>
+                    <button type="reset" class="btn btn-outline-danger btn-rounded" data-bs-dismiss="modal">Clear</button>
+                </div>*@
+            </div>
+        </div>
+        @* }*@
+
+
         <!--<form class="col-12 p-0 mx-auto" action="" method="post">
-            <div class="modal-body">
-                <div class="row">-->
+        <div class="modal-body">
+            <div class="row">-->
         @*<div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
-                <label for="txtstatus" class="f-label_align label-145">
-                    Select Status <span class="text-danger">*</span>
-                </label>
-                <select id="txtselect" class="form-control input-sm">
-                    <option value="0">Select</option>
-                    <option value="Active">Active</option>
-                    <option value="InActive">InActive</option>
-                </select>
-            </div>*@
+            <label for="txtstatus" class="f-label_align label-145">
+                Select Status <span class="text-danger">*</span>
+            </label>
+            <select id="txtselect" class="form-control input-sm">
+                <option value="0">Select</option>
+                <option value="Active">Active</option>
+                <option value="InActive">InActive</option>
+            </select>
+        </div>*@
 
         <!--<div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
-            <label for="txtstatus" class="d-block mb-1 f-label_align label-145">Start Date <span class="text-danger">*</span></label>-->
+        <label for="txtstatus" class="d-block mb-1 f-label_align label-145">Start Date <span class="text-danger">*</span></label>-->
         @* @Html.LabelFor(model => model.Effective_date, "Effective Date", htmlAttributes: new { @class = "d-block mb-1" })<span class="text-danger">*</span>*@
         <!--<div class="col-sm-8 col-lg-9 col-xl-10">
-            <input type="text" id="start_date" name="EffectiveDate" class="form-control">-->
+        <input type="text" id="start_date" name="EffectiveDate" class="form-control">-->
         @* @Html.ValidationMessageFor(model => model.effective_date, "", new { @class = "text-danger" })readonly="readonly" data-val="true" data-val-required="The Effective Date field is required."*@
         <!--</div>
-        </div>
-        <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
-            <label for="txtstatus" class="d-block mb-1 f-label_align label-145">End Date <span class="text-danger">*</span></label>-->
+    </div>
+    <div class="form-group col-sm-12 col-md-10 col-lg-6 mb-3">
+        <label for="txtstatus" class="d-block mb-1 f-label_align label-145">End Date <span class="text-danger">*</span></label>-->
         @* @Html.LabelFor(model => model.Effective_date, "Effective Date", htmlAttributes: new { @class = "d-block mb-1" })<span class="text-danger">*</span>*@
         <!--<div class="col-sm-8 col-lg-9 col-xl-10">
-            <input type="text" id="end_date" name="EffectiveDate" class="form-control">-->
+        <input type="text" id="end_date" name="EffectiveDate" class="form-control">-->
         @* @Html.ValidationMessageFor(model => model.effective_date, "", new { @class = "text-danger" })readonly="readonly" data-val="true" data-val-required="The Effective Date field is required."*@
         <!--</div>
-                    </div>
                 </div>
+            </div>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">View Report</button>
-                <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">Reset</button>
-            </div>
-        </form>-->
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-outline-info btn-rounded" id="btnSubmit">View Report</button>
+            <button type="button" class="btn btn-outline-danger btn-rounded" data-dismiss="modal">Reset</button>
+        </div>
+    </form>-->
 
 
         <h5 class="card-title" id="lblem">@ViewData["smstxt"]</h5>
         <div class="form-group text-end">
             @*<button type="button" id="btnAdd" value="Add" data-sid="0" class="btn btn-outline-primary btn-rounded"
-                        onclick="showSMTPModal(this);" data-toggle="modal" data-target="#modal-smtp">
-                    <i class="fas fa-plus"></i>
-                    @ViewData["Bct"]
-                </button>*@
+                    onclick="showSMTPModal(this);" data-toggle="modal" data-target="#modal-smtp">
+                <i class="fas fa-plus"></i>
+                @ViewData["Bct"]
+            </button>*@
 
             <button type="button" data-id="@ViewBag.eventId" id="inviteepdf" class="btn btn-outline-secondary btn-rounded">
                 <i class="fas fa-pdf"></i>
@@ -100,9 +155,12 @@
                         <th class="sno-th">@ViewData["Sno"]</th>
                         <th class="">Invitee Name </th>
                         <th class="">Date Created </th>
+                        <th class="">Message Sid</th>
                         <th class="">To</th>
                         <th class="">Date Updated</th>
                         <th class="sd">Status</th>
+                        <th class="sd">Error Code</th>
+                        <th class="sd">Posted date</th>
                         @*<th class="setup_2_actions" data-sort-ignore="true">Actions</th>*@
                     </tr>
                 </thead>
@@ -134,7 +192,7 @@
 
         .email-table td:nth-last-of-type(2),
         .email-table td:nth-last-of-type(3) {
-           /* white-space: normal;
+            /* white-space: normal;
             min-width: 75vw;*/
         }
 
@@ -142,7 +200,7 @@
 
             .email-table td:nth-last-of-type(2),
             .email-table td:nth-last-of-type(3) {
-               /* white-space: normal;
+                /* white-space: normal;
                 min-width: 500px;*/
             }
         }
@@ -271,8 +329,6 @@
 
 
 
-
-
                   $('#inviteepdf').click(function () {
 
                 var dataid = $(this).attr('data-id');
@@ -286,6 +342,7 @@
                     );
                 }
                  });
+
 
 
 
@@ -334,9 +391,12 @@
                             '<td>' + count + '</td>' +
                             '<td>' + value.invitee_name + '</td>' +
                             '<td>' + moment(value.date_created).format('dddd, DD-MMMM-yyyy') + '</td>' +
+                            '<td>' + value.sid + '</td>' +
                             '<td>' + value.whatsapp_to + '</td>' +
                             '<td>' + moment(value.date_updated).format('dddd, DD-MMMM-yyyy') + '</td>' +
                             '<td>' + value.status + '</td>' +
+                            '<td>' + value.error_code + '</td>' +
+                            '<td>' + moment(value.posted_date).format('dddd, DD-MMMM-yyyy') + '</td>' +
                             '</tr>';
 
                         count++;
@@ -617,6 +677,8 @@
 
 
 }
+
+
 
 
 

@@ -2037,7 +2037,17 @@ namespace FUNDING.Controllers
                 formattedDateTime = edatetime.ToString("dd MMMM yyyy, hh:mm tt");
             }
 
-            TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
+            var auth = _dbContext.whatsapp_master.Where(w => w.status.ToLower().Equals("active")).OrderByDescending(r => r.effective_date).FirstOrDefault();
+
+            if (auth != null)
+            {
+                TwilioClient.Init(auth.account_sid, auth.auth_token);
+            }
+            else
+                TwilioClient.Init("AC14b36a565bc1c9863dea07a57161bdf2", "e9de6611667b639a480a22749e48328f");
+
+
+
 
             await Task.WhenAll(new List<Task>()
             {
